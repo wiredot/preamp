@@ -2,7 +2,7 @@
 
 namespace Preamp\Fields;
 
-class Base {
+class Base_Field {
 
 	protected $name;
 	protected $value;
