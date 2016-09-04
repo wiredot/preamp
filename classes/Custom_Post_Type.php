@@ -2,7 +2,7 @@
 
 namespace Preamp;
 
-class CPT {
+class Custom_Post_Type {
 
 	private $post_type;
 	private $args;
