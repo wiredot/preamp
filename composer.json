@@ -3,7 +3,7 @@
     "description": "Class library for use in WordPress plugins",
     "version": "1.0.0",
     "type": "library",
-    "require": {
+      "require": {
         "twig/twig": "^1.24",
         "james-heinrich/phpthumb": "^1.7"
     },
@@ -11,7 +11,7 @@
         "psr-4": {
             "Preamp\\": "classes/"
         }
-    }
+    },
     "license": "GPL",
     "authors": [
         {
