@@ -30,7 +30,11 @@ class Preamp {
 		$Config = new Config;
 		$this->config = $Config->get_config();
 
+		// register all custom post types
 		new Custom_Post_Type_Factory($this->config['custom_post_type']);
+
+		// register all meta boxes
+		new Meta_Box_Factory($this->config['meta_box']);
 
 		// $this->config = Config::load_config($this->config_directories);
 		// print_r($this->config_directories);

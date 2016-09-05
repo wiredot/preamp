@@ -2,9 +2,11 @@
 
 namespace Preamp\Meta_Boxes;
 
-class Post_Meta_Box extends Base_Meta_Box {
+class Post_Meta_Box extends Meta_Box {
 	
-	function __construct() {
-		
+	private $meta_box;
+
+	function __construct($type = '') {
+		print_r($type);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Preamp\Meta_Boxes;
 
-class Base_Meta_Box extends User_Meta_Box {
+class Base_Meta_Box extends Meta_Box {
 	
 	function __construct() {
 		
