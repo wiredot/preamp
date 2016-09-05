@@ -1,7 +1,7 @@
 {
     "name": "wiredot/preamp",
     "description": "Class library for use in WordPress plugins",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
       "require": {
         "twig/twig": "^1.24",
