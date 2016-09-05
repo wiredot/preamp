@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp\Custom_Post_Types;
+namespace Wiredot\Preamp\Custom_Post_Types;
 
 class Custom_Post_Type {
 

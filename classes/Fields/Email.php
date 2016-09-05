@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp\Fields;
+namespace Wiredot\Preamp\Fields;
 
 class Email extends Input {
 

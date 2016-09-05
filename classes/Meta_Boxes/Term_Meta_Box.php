@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp\Meta_Boxes;
+namespace Wiredot\Preamp\Meta_Boxes;
 
 class Term_Meta_Box extends Meta_Box {
 	

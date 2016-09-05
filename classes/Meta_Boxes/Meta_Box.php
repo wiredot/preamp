@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp\Meta_Boxes;
+namespace Wiredot\Preamp\Meta_Boxes;
 
 class Meta_Box {
 	

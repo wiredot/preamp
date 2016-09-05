@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp;
+namespace Wiredot\Preamp;
 
 class Config {
 

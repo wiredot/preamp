@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp\Languages;
+namespace Wiredot\Preamp\Languages;
 
 class Language {
 

@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Preamp\\": "classes/"
+            "Wiredot\\": "classes/"
         }
     },
     "license": "GPL",
