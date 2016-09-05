@@ -4,26 +4,20 @@ namespace Preamp;
 
 class Custom_Post_Type_Factory {
 
-	private $post_type;
-	private $args;
+	private $custom_post_types;
 	
-	function __construct($post_type = '') {
-		//$Preamp = Preamp::get_instance();
-		// //$Preamp = Preamp::run();
-		// print_r(Preamp::get_config());
-		// print_r($Preamp);
-		//print_r($Preamp->get_config());
-		//print_r($Preamp);
-		//exit;
-		echo 'asd';
+	function __construct($custom_post_types) {
+		$this->custom_post_types = $custom_post_types;
+		print_r($custom_post_types);
+
+		$this->register_post_types();
 	}
 
-	public function register_post_type() {
-		echo 'asd';
-		$Preamp = Preamp::run();
-		print_r($Preamp->get_config());
-		exit;
-		//echo $this->post_type;
-		//exit;
+	public function register_post_types() {
+		if (is_array($this->custom_post_types)) {
+			foreach ($this->custom_post_types as $post_type => $custom_post_type) {
+				new Custom_Post_Type($post_type);
+			}
+		}
 	}
 }

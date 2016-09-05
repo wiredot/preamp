@@ -71,4 +71,8 @@ class Config {
 
 		return null;
 	}
+
+	public function get_config() {
+		return $this->config;
+	}
 }

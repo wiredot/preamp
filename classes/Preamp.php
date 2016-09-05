@@ -27,7 +27,10 @@ class Preamp {
 	}
 
 	public function setup() {
-		new Config;
+		$Config = new Config;
+		$this->config = $Config->get_config();
+
+		new Custom_Post_Type_Factory($this->config['custom_post_type']);
 
 		// $this->config = Config::load_config($this->config_directories);
 		// print_r($this->config_directories);
