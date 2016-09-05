@@ -12,7 +12,7 @@ class Twig {
 	private $directories = array();
 
 	public function __construct() {
-		$directories = Preamp::get_template_directories();
+		$directories = Core::get_template_directories();
 		$loader = new Twig_Loader_Filesystem($directories);
 		$this->twig = new Twig_Environment($loader);
 		

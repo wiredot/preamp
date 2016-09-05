@@ -2,8 +2,8 @@
 
 namespace Wiredot\Preamp;
 
-use WireDot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
-use WireDot\Preamp\Meta_Boxes\Meta_Box_Factory;
+use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
+use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
 
 class Core {
 
@@ -19,7 +19,6 @@ class Core {
 	private static $instance = null;
 
 	private function __construct() {
-		require_once dirname(__DIR__).'/vendor/autoload.php';
 		$this->set_directories();
 		$this->setup();
 	}
