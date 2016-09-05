@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp;
+namespace Preamp\Languages;
 
 class Language {
 

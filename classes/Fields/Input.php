@@ -2,7 +2,7 @@
 
 namespace Preamp\Fields;
 
-class Input extends Base_Field {
+class Input extends Field {
 
 	protected $type = 'text';
 

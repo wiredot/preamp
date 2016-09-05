@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp;
+namespace Preamp\Custom_Post_Types;
 
 class Custom_Post_Type {
 
@@ -15,7 +15,7 @@ class Custom_Post_Type {
 
 	public function register_post_type() {
 		//echo $this->post_type;
-		echo $this->post_type;
+		// echo $this->post_type;
 		//exit;
 	}
 }

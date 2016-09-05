@@ -1,6 +1,6 @@
 <?php
 
-namespace Preamp;
+namespace Preamp\Custom_Post_Types;
 
 class Custom_Post_Type_Factory {
 
@@ -8,7 +8,7 @@ class Custom_Post_Type_Factory {
 	
 	function __construct($custom_post_types) {
 		$this->custom_post_types = $custom_post_types;
-		print_r($custom_post_types);
+		// print_r($custom_post_types);
 
 		$this->register_post_types();
 	}

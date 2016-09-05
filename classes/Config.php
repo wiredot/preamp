@@ -15,7 +15,7 @@ class Config {
 
 	public function get_directories() {
 		$active_plugins = get_option('active_plugins');
-		print_r($active_plugins);
+		// print_r($active_plugins);
 		if ($active_plugins) {
 			foreach ($active_plugins AS $plugin) {
 				$this->directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
@@ -26,7 +26,7 @@ class Config {
 	}
 
 	public function load_directories() {
-		print_r($this->directories);
+		// print_r($this->directories);
 		foreach ($this->directories as $config_directory) {
 			$config_part = self::load_config_directory($config_directory);
 			if ( is_array($config_part) ) {
@@ -34,7 +34,7 @@ class Config {
 			}
 		}
 
-		print_r($this->config);
+		// print_r($this->config);
 	}
 
 	private static function load_config_directory($directory) {

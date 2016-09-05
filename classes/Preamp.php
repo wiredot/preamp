@@ -2,6 +2,9 @@
 
 namespace Preamp;
 
+use Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
+use Preamp\Meta_Boxes\Meta_Box_Factory;
+
 class Preamp {
 
 	private $languages;

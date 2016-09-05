@@ -1,8 +1,8 @@
 <?php
 
-namespace Preamp;
+namespace Preamp\Languages;
 
-class Languages {
+class Languages_Factory {
 
 	private $languages = array();
 
