@@ -2,6 +2,9 @@
 
 namespace Wiredot\Preamp\Fields;
 
+use Wiredot\Preamp\Fields\Text;
+use Wiredot\Preamp\Fields\Email;
+
 class Field_Factory {
 
 	protected $type;
@@ -9,9 +12,10 @@ class Field_Factory {
 	protected $value;
 	protected $attributes;
 
-	public function __construct($id, $type, $value = '', $attributes = array()) {
-		$this->id = $id;
+	public function __construct($type, $name, $id, $value = '', $attributes = array()) {
 		$this->type = $type;
+		$this->name = $name;
+		$this->id = $id;
 		$this->value = $value;
 		$this->attributes = $attributes;
 	}
@@ -19,7 +23,11 @@ class Field_Factory {
 	public function getField() {
 		switch ($this->type) {
 			case 'text':
-				$field = new Wiredot\Preamp\Fields\Input;
+				$field = new Text($this->name, $this->id, $this->value, $this->attributes);
+				break;
+
+			case 'email':
+				$field = new Email($this->name, $this->id, $this->value, $this->attributes);
 				break;
 			
 			default:

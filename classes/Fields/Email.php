@@ -2,7 +2,7 @@
 
 namespace Wiredot\Preamp\Fields;
 
-class Email extends Input {
+class Email extends Field {
 
 	protected $type = 'email';
 	

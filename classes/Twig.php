@@ -15,7 +15,5 @@ class Twig {
 		$directories = Core::get_template_directories();
 		$loader = new Twig_Loader_Filesystem($directories);
 		$this->twig = new Twig_Environment($loader);
-		
-		//echo $this->twig->render('test.html', array('name' => 'Fabien'));		
 	}
 }

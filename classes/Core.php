@@ -42,8 +42,9 @@ class Core {
 	}
 
 	public function set_directories() {
+		self::$template_directories[] = dirname(dirname(__FILE__)).'/templates/';
+
 		$active_plugins = get_option('active_plugins');
-		// print_r($active_plugins);
 		if ($active_plugins) {
 			foreach ($active_plugins AS $plugin) {
 				self::$config_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
