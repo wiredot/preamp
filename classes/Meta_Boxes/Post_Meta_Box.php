@@ -2,6 +2,8 @@
 
 namespace Wiredot\Preamp\Meta_Boxes;
 
+use Wiredot\Preamp\Fields\Field_Factory;
+
 class Post_Meta_Box extends Meta_Box {
 	
 	private $meta_box;
@@ -27,6 +29,11 @@ class Post_Meta_Box extends Meta_Box {
 	}
 
 	public function add_meta_box_content() {
-		
+		if (is_array($this->meta_box['fields'])) {
+			foreach ($this->meta_box['fields'] as $key => $field) {
+				$field = new Field_Factory($key, $field['type'], 'asd');
+				$field->showField();
+			}
+		}
 	}
 }

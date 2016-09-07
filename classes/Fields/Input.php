@@ -11,7 +11,12 @@ class Input extends Field {
 	function html() {
 		$Twig = new Twig;
 		echo 'asd';
-		echo $Twig->twig->render('test.html', array('name' => 'Fabien'));	
+		echo $Twig->twig->render('test.html', array('name' => 'Fabien'));
 		//return '<input type="'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'">';
+	}
+
+	public function getField() {
+		$Twig = new Twig;
+		return $Twig->twig->render('fields/input.html');
 	}
 }
