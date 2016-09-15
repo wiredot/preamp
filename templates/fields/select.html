@@ -1,0 +1,6 @@
+<select name="{{ name }}" id="{{ id }}"
+	{% if attributes.multiple %} multiple {% endif %}>
+	{% for key, option in options %}
+	<option value="{{ key }}">{{ option }}</option>
+	{% endfor %}
+</select>

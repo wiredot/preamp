@@ -30,8 +30,16 @@ class Post_Meta_Box extends Meta_Box {
 
 	public function add_meta_box_content() {
 		if (is_array($this->meta_box['fields'])) {
-			foreach ($this->meta_box['fields'] as $key => $field) {
-				$field = new Field_Factory($field['type'], $key, $key, 'asd');
+			foreach ($this->meta_box['fields'] as $key => $meta_box_field) {
+				if ( ! isset($meta_box_field['attributes']) ) {
+					$meta_box_field['attributes'] = array();
+				}
+
+				if ( ! isset($meta_box_field['options']) ) {
+					$meta_box_field['options'] = array();
+				}
+
+				$field = new Field_Factory($meta_box_field['type'], $key, $key, 'asd', $meta_box_field);
 				$field->showField();
 			}
 		}
