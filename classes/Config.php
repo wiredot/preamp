@@ -15,7 +15,7 @@ class Config {
 
 	public function get_directories() {
 		$active_plugins = get_option('active_plugins');
-		// print_r($active_plugins);
+
 		if ($active_plugins) {
 			foreach ($active_plugins AS $plugin) {
 				$this->directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
@@ -45,12 +45,20 @@ class Config {
 
 			// for each file with .config.php extension
 			while (false !== ($filename = readdir($handle))) {
+				if ($filename == "." || $filename == "..") {
+					continue;
+				}
 				
-				if (preg_match('/.config.php$/', $filename)) {
+				$config_part = array();
+
+				if (is_dir($directory.$filename)) {
+					$config_part = self::load_config_directory($directory.$filename.'/');
+				} else if (preg_match('/.config.php$/', $filename)) {
 					$config_part = self::load_config_file($directory.$filename);
-					if ( is_array($config_part) ) {
-						$config = array_replace_recursive( $config, $config_part );
-					}
+				}
+				
+				if ( count($config_part) ) {
+					$config = array_replace_recursive( $config, $config_part );
 				}
 			}
 			closedir($handle);
@@ -72,7 +80,15 @@ class Config {
 		return null;
 	}
 
-	public function get_config() {
+	public function get_config($array = null) {
+		if ($array) {
+			if (isset($this->config[$array])) {
+				return $this->config[$array];
+			} else {
+				return null;
+			}
+		}
+		
 		return $this->config;
 	}
 }
