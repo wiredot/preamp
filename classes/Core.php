@@ -14,7 +14,7 @@ class Core {
 	private static $template_directories = array();
 	private static $config_directories = array();
 	
-	public $config;
+	private static $config;
 
 	private static $instance = null;
 
@@ -32,33 +32,67 @@ class Core {
 
 	public function setup() {
 		$Config = new Config;
-		$this->config = $Config->get_config();
+		self::$config = $Config->get_config();
 
 		// register all custom post types
-		new Custom_Post_Type_Factory($this->config['custom_post_type']);
+		if (isset(self::$config['custom_post_type'])) {
+			new Custom_Post_Type_Factory(self::$config['custom_post_type']);
+		}
 
 		// register all meta boxes
-		new Meta_Box_Factory($this->config['meta_box']);
+		if (isset(self::$config['meta_box'])) {
+			new Meta_Box_Factory(self::$config['meta_box']);
+		}
+
+		if (isset(self::$config['css'])) {
+			new Css(self::$config['css']);
+		}
+
+		if (isset(self::$config['js'])) {
+			new Js(self::$config['js']);
+		}
 	}
 
 	public function set_directories() {
-		self::$template_directories[] = dirname(dirname(__FILE__)).'/templates/';
+		if (is_dir(dirname(dirname(__FILE__)).'/templates/')) {
+			self::$template_directories[] = dirname(dirname(__FILE__)).'/templates/';
+		}
 
 		$active_plugins = get_option('active_plugins');
 
 		if ($active_plugins) {
 			foreach ($active_plugins AS $plugin) {
-				self::$config_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
-				self::$template_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'templates/';
+				if (is_dir(WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/')) {
+					self::$config_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
+				}
+
+				if (is_dir(WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'templates/')) {
+					self::$template_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'templates/';
+				}
 			}
 		}
 		
-		self::$config_directories[] = get_template_directory().'/config/';
-		self::$template_directories[] = get_template_directory().'/templates/';
-
+		if (is_dir(get_template_directory().'/config/')) {
+			self::$config_directories[] = get_template_directory().'/config/';
+		}
+		if (is_dir(get_template_directory().'/templates/')) {
+			self::$template_directories[] = get_template_directory().'/templates/';
+		}
 	}
 
 	public static function get_template_directories() {
 		return self::$template_directories;
+	}
+
+	public static function get_config($key) {
+		if ($key) {
+			if (isset(self::$config[$key])) {
+				return self::$config[$key];
+			} else {
+				return null;
+			}
+		}
+		
+		return self::$config;
 	}
 }

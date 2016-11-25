@@ -11,6 +11,8 @@ class Config {
 	public function __construct() {
 		$this->get_directories();
 		$this->load_directories();
+
+		// print_r($this->config);
 	}
 
 	public function get_directories() {
@@ -80,15 +82,7 @@ class Config {
 		return null;
 	}
 
-	public function get_config($array = null) {
-		if ($array) {
-			if (isset($this->config[$array])) {
-				return $this->config[$array];
-			} else {
-				return null;
-			}
-		}
-		
+	public function get_config() {
 		return $this->config;
 	}
 }
