@@ -3,6 +3,7 @@
 namespace Wiredot\Preamp\Meta_Boxes;
 
 use Wiredot\Preamp\Fields\Field_Factory;
+use Wiredot\Preamp\Twig;
 
 class Post_Meta_Box extends Meta_Box {
 	
@@ -34,6 +35,9 @@ class Post_Meta_Box extends Meta_Box {
 
 	public function add_meta_box_content($post, $meta_box) {
 		if (is_array($this->meta_box['fields'])) {
+
+			$fields = wp_nonce_field( 'preamp_mb_'.$this->meta_box_id.'_nonce', 'preamp_mb_'.$this->meta_box_id.'_nonce', false, false );
+			
 			foreach ($this->meta_box['fields'] as $key => $meta_box_field) {
 				if ( ! isset($meta_box_field['attributes']) ) {
 					$meta_box_field['attributes'] = array();
@@ -46,8 +50,15 @@ class Post_Meta_Box extends Meta_Box {
 				$value = get_post_meta( $post->ID, $key, true );
 
 				$field = new Field_Factory($meta_box_field['type'], $key, $key, $value, $meta_box_field);
-				$field->showField();
+				$fields.= $field->getField();
 			}
+
+			$Twig = new Twig;
+			echo $Twig->twig->render('meta_box.html',
+				array(
+					'fields' => $fields
+				)
+			);
 		}
 	}
 
@@ -56,10 +67,9 @@ class Post_Meta_Box extends Meta_Box {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){
 			return;
 		}
-
-		// if ( ! isset( $_POST['preamp_mb_'.$this->meta_box_id.'_nonce'] ) || ! wp_verify_nonce( $_POST['preamp_mb_'.$this->meta_box_id.'_nonce'], 'wp_verify_nonce' ) ){
-		// 	return;
-		// }
+		if ( ! isset( $_POST['preamp_mb_'.$this->meta_box_id.'_nonce'] ) || ! wp_verify_nonce( $_POST['preamp_mb_'.$this->meta_box_id.'_nonce'], 'preamp_mb_'.$this->meta_box_id.'_nonce' ) ) {
+			return;
+		}
 
 		foreach ($this->meta_box['fields'] as $key => $field) {
 			switch ($field['type']) {

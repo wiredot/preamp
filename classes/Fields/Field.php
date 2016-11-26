@@ -30,6 +30,7 @@ class Field {
 				'value' => $this->value,
 				'attributes' => $this->attributes,
 				'options' => $this->options,
-			));
+			)
+		);
 	}
 }
