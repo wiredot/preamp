@@ -4,6 +4,8 @@ namespace Wiredot\Preamp\Meta_Boxes;
 
 use Wiredot\Preamp\Fields\Field_Factory;
 use Wiredot\Preamp\Twig;
+use Wiredot\Preamp\Form\Row;
+use Wiredot\Preamp\Form\Label;
 
 class Post_Meta_Box extends Meta_Box {
 	
@@ -49,8 +51,14 @@ class Post_Meta_Box extends Meta_Box {
 
 				$value = get_post_meta( $post->ID, $key, true );
 
-				$field = new Field_Factory($meta_box_field['type'], $key, $key, $value, $meta_box_field);
-				$fields.= $field->getField();
+				$row = new Row($key, $key, $value, $meta_box_field['type'], $meta_box_field['label'], $meta_box_field['attributes'], $meta_box_field['options'] );
+				$fields.= $row->getRow();
+
+				// $label = new Label($key, $key);
+				// $fields.= $label->getLabel();
+
+				// $field = new Field_Factory($meta_box_field['type'], $key, $key, $value, $meta_box_field);
+				// $fields.= $field->getField();
 			}
 
 			$Twig = new Twig;
