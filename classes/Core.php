@@ -4,12 +4,17 @@ namespace Wiredot\Preamp;
 
 use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
+use Wiredot\Preamp\Css\Css;
+use Wiredot\Preamp\Css\Css_Factory;
 
 class Core {
 
 	private $languages;
 	private $custom_post_types;
 	private $meta_boxes;
+
+	private $path;
+	private $url;
 
 	private static $template_directories = array();
 	private static $config_directories = array();
@@ -18,22 +23,28 @@ class Core {
 
 	private static $instance = null;
 
-	private function __construct() {
+	private function __construct($path, $url) {
+		$this->path = $path;
+		$this->url = $url;
 		$this->set_directories();
 		$this->setup();
 	}
 
-	public static function run() {
+	public static function run($path, $url) {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
-			self::$instance = new Core();
+			self::$instance = new Core($path, $url);
 		}
+
 		return self::$instance;
 	}
 
 	public function setup() {
 		$Config = new Config;
 		self::$config = $Config->get_config();
-
+		
+		$preamp_css = new Css('preamp', $this->url.'vendor/wiredot/preamp/assets/css/preamp.css', 'admin');
+		$preamp_css->register_css_files();
+		
 		// register all custom post types
 		if (isset(self::$config['custom_post_type'])) {
 			new Custom_Post_Type_Factory(self::$config['custom_post_type']);
@@ -45,7 +56,8 @@ class Core {
 		}
 
 		if (isset(self::$config['css'])) {
-			new Css(self::$config['css']);
+			$css = new Css_Factory(self::$config['css']);
+			$css->register_css_files();
 		}
 
 		if (isset(self::$config['js'])) {

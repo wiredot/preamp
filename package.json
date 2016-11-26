@@ -1,0 +1,26 @@
+{
+  "name": "Preamp",
+  "version": "1.0.0",
+  "description": "Preamp",
+  "main": "class/Core.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "WireDot",
+  "license": "GPL",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-svgmin": "^1.2.3",
+    "gulp-svgstore": "^6.1.0",
+    "remove-svg-properties": "^0.3.2",
+    "gulp-tinypng": "^1.0.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-notify": "^2.2.0",
+    "del": "^2.2.2",
+    "path": "^0.12.7"
+  }
+}
