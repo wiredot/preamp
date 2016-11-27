@@ -30,15 +30,22 @@ class Field_Factory {
 	public function getField() {
 		switch ($this->type) {
 			case 'text':
-				$field = new Text($this->label, $this->name, $this->id, $this->value, $this->attributes);
-				break;
-
+			case 'password':
 			case 'email':
-				$field = new Email($this->label, $this->name, $this->id, $this->value, $this->attributes);
+			case 'number':
+			case 'range':
+			case 'color':
+			case 'url':
+			case 'date':
+				$field = new Input($this->type, $this->label, $this->name, $this->id, $this->value, $this->attributes);
 				break;
 
 			case 'textarea':
 				$field = new Textarea($this->label, $this->name, $this->id, $this->value, $this->attributes);
+				break;
+			
+			case 'editor':
+				$field = new Editor($this->label, $this->name, $this->id, $this->value, $this->attributes);
 				break;
 			
 			case 'select':

@@ -22,7 +22,7 @@
   .preamp_mb .options {
     width: 74%;
     float: left; }
-    .preamp_mb .options div {
+    .preamp_mb .options > div {
       margin-bottom: 4px; }
     .preamp_mb .options label {
       float: none;
