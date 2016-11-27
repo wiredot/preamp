@@ -6,15 +6,17 @@ use Wiredot\Preamp\Twig;
 
 class Field {
 
+	protected $label;
 	protected $name;
 	protected $id;
 	protected $value;
 	protected $attributes;
 	protected $options;
 
-	public function __construct($name, $id, $value, $attributes, $options = array()) {
-		$this->id = $id;
+	public function __construct($label, $name, $id, $value, $attributes, $options = array()) {
+		$this->label = $label;
 		$this->name = $name;
+		$this->id = $id;
 		$this->value = $value;
 		$this->attributes = $attributes;
 		$this->options = $options;
@@ -25,6 +27,7 @@ class Field {
 
 		return $Twig->twig->render('fields/'.$this->type.'.html',
 			array(
+				'label' => $this->label,
 				'name' => $this->name,
 				'id' => $this->id,
 				'value' => $this->value,

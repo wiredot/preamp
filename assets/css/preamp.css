@@ -2,7 +2,11 @@
   box-sizing: border-box; }
   .preamp_mb .preamp_mb_row {
     margin-bottom: 14px; }
-  .preamp_mb label {
+    .preamp_mb .preamp_mb_row::after {
+      clear: both;
+      content: "";
+      display: table; }
+  .preamp_mb label, .preamp_mb .label {
     width: 25%;
     min-width: 150px;
     display: block;
@@ -15,5 +19,14 @@
     margin: 0; }
   .preamp_mb textarea {
     height: 100px; }
+  .preamp_mb .options {
+    width: 74%;
+    float: left; }
+    .preamp_mb .options div {
+      margin-bottom: 4px; }
+    .preamp_mb .options label {
+      float: none;
+      display: inline;
+      margin: 0 0 0 5px; }
 
 /*# sourceMappingURL=preamp.css.map */

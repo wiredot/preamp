@@ -1,1 +1,1 @@
-<input type="email" name="{{ name }}" value="{{ value }}" id="{{ id }}">
+{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}<input type="email" name="{{ name }}" value="{{ value }}" id="{{ id }}">

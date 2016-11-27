@@ -94,7 +94,11 @@ class Post_Meta_Box extends Meta_Box {
 
 			switch ($field_type) {
 				default:
-					$sanitized_value = sanitize_text_field($value);
+					if (is_array($value)) {
+						$sanitized_value = array_map('sanitize_text_field', $value);
+					} else {
+						$sanitized_value = sanitize_text_field($value);
+					}
 					break;
 			}
 

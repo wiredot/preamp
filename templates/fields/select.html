@@ -1,4 +1,4 @@
-<select name="{{ name }}" id="{{ id }}"
+{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}<select name="{{ name }}" id="{{ id }}"
 	{% if attributes.multiple %} multiple {% endif %}>
 	{% for key, option in options %}
 	<option value="{{ key }}"{% if key == value %} selected="selected"{% endif %}>{{ option }}</option>

@@ -3,9 +3,11 @@
 
 	.preamp_mb_row {
 		margin-bottom: 14px;
+
+		@include clearfix;
 	}
 
-	label {
+	label, .label {
 		width: 25%;
 		min-width: 150px;
 		display: block;
@@ -22,5 +24,20 @@
 
 	textarea {
 		height: 100px;
+	}
+
+	.options {
+		width: 74%;
+		float: left;
+
+		div {
+			margin-bottom: 4px;
+		}
+
+		label {
+			float: none;
+			display: inline;
+			margin: 0 0 0 5px;
+		}
 	}
 }

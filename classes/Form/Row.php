@@ -26,14 +26,12 @@ class Row {
 	}
 
 	public function getRow() {
-		$label = new Label($this->label, $this->id);
 
-		$field = new Field_Factory($this->type, $this->name, $this->id, $this->value, $this->attributes, $this->options);
+		$field = new Field_Factory($this->type, $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options);
 
 		$Twig = new Twig;
 		return $Twig->twig->render('forms/row.html',
 			array(
-				'label' => $label->getLabel(),
 				'field' => $field->getField()
 			)
 		);
