@@ -43,6 +43,10 @@ class Field_Factory {
 				$field = new Select($this->name, $this->id, $this->value, $this->attributes, $this->options);
 				break;
 			
+			case 'checkbox':
+				$field = new Checkbox($this->name, $this->id, $this->value, $this->attributes, $this->options);
+				break;
+			
 			default:
 				# code...
 				break;

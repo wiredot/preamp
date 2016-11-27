@@ -1,11 +1,19 @@
-.preamp_mb .preamp_mb_row {
-  margin-bottom: 14px; }
-
-.preamp_mb label {
-  width: 20%;
-  display: block;
-  float: left;
-  vertical-align: bottom;
-  padding-top: 4px; }
+.preamp_mb {
+  box-sizing: border-box; }
+  .preamp_mb .preamp_mb_row {
+    margin-bottom: 14px; }
+  .preamp_mb label {
+    width: 25%;
+    min-width: 150px;
+    display: block;
+    vertical-align: bottom;
+    padding-top: 4px;
+    float: left;
+    margin: 0 1% 2px 0; }
+  .preamp_mb input[type=text], .preamp_mb input[type=email], .preamp_mb textarea, .preamp_mb select {
+    width: 74%;
+    margin: 0; }
+  .preamp_mb textarea {
+    height: 100px; }
 
 /*# sourceMappingURL=preamp.css.map */
