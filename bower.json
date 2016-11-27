@@ -1,0 +1,6 @@
+{
+	"name":  "test",
+	"devDependencies": {
+		"bourbon": "4.x"
+	}
+}
