@@ -60,11 +60,6 @@ class Post_Meta_Box extends Meta_Box {
 
 				$row = new Row($field->get_field());
 				$fields.= $row->get_row();
-
-				// $label = new Label($key, $key);
-				// $fields.= $label->getLabel();
-
-				// $fields.= $field->get_field();
 			}
 
 			$Twig = new Twig;
