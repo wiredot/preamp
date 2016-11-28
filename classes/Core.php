@@ -6,6 +6,8 @@ use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
 use Wiredot\Preamp\Css\Css;
 use Wiredot\Preamp\Css\Css_Factory;
+use Wiredot\Preamp\Js\Js;
+use Wiredot\Preamp\Js\Js_Factory;
 
 class Core {
 
@@ -44,6 +46,9 @@ class Core {
 		
 		$preamp_css = new Css('preamp', $this->url.'vendor/wiredot/preamp/assets/css/preamp.css', 'admin');
 		$preamp_css->register_css_files();
+
+		$preamp_js = new Js('admin', 'preamp', $this->url.'vendor/wiredot/preamp/assets/js/preamp.js', 'admin');
+		$preamp_js->register_js_files();
 		
 		// register all custom post types
 		if (isset(self::$config['custom_post_type'])) {
@@ -61,7 +66,8 @@ class Core {
 		}
 
 		if (isset(self::$config['js'])) {
-			new Js(self::$config['js']);
+			$js = new Js_Factory(self::$config['js']);
+			$js->register_js_files();
 		}
 	}
 
