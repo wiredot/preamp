@@ -24,7 +24,7 @@ class Input {
 		$this->options = $options;
 	}
 
-	public function getField() {
+	public function get_field() {
 		$Twig = new Twig;
 
 		return $Twig->twig->render('fields/input.html',

@@ -49,16 +49,22 @@ class Post_Meta_Box extends Meta_Box {
 					$meta_box_field['options'] = array();
 				}
 
+				if ( ! isset($meta_box_field['labels']) ) {
+					$meta_box_field['labels'] = array();
+				}
+
 				$value = get_post_meta( $post->ID, $key, true );
 
-				$row = new Row($key, $key, $value, $meta_box_field['type'], $meta_box_field['label'], $meta_box_field['attributes'], $meta_box_field['options'] );
-				$fields.= $row->getRow();
+				$field = new Field_Factory($meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels']);
+
+
+				$row = new Row($field->get_field());
+				$fields.= $row->get_row();
 
 				// $label = new Label($key, $key);
 				// $fields.= $label->getLabel();
 
-				// $field = new Field_Factory($meta_box_field['type'], $key, $key, $value, $meta_box_field);
-				// $fields.= $field->getField();
+				// $fields.= $field->get_field();
 			}
 
 			$Twig = new Twig;

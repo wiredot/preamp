@@ -16,8 +16,9 @@ class Field_Factory {
 	protected $value;
 	protected $attributes;
 	protected $options;
+	protected $labels;
 
-	public function __construct($type, $label, $name, $id, $value, $attributes = array(), $options = array()) {
+	public function __construct($type, $label, $name, $id, $value, $attributes = array(), $options = array(), $labels = array()) {
 		$this->type = $type;
 		$this->label = $label;
 		$this->name = $name;
@@ -25,9 +26,10 @@ class Field_Factory {
 		$this->value = $value;
 		$this->attributes = $attributes;
 		$this->options = $options;
+		$this->labels = $labels;
 	}
 
-	public function getField() {
+	public function get_field() {
 		switch ($this->type) {
 			case 'text':
 			case 'password':
@@ -60,16 +62,20 @@ class Field_Factory {
 				$field = new Radio($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options);
 				break;
 			
+			case 'upload':
+				$field = new Upload($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels);
+				break;
+			
 			default:
-				# code...
+				return;
 				break;
 		}
 
-		return $field->getField();
+		return $field->get_field();
 	}
 
 	public function showField() {
-		echo $this->getField();
+		echo $this->get_field();
 	}
 	
 }

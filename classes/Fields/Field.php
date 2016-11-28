@@ -12,6 +12,7 @@ class Field {
 	protected $value;
 	protected $attributes;
 	protected $options;
+	protected $labels;
 
 	public function __construct($label, $name, $id, $value, $attributes, $options = array()) {
 		$this->label = $label;
@@ -22,7 +23,7 @@ class Field {
 		$this->options = $options;
 	}
 
-	public function getField() {
+	public function get_field() {
 		$Twig = new Twig;
 
 		return $Twig->twig->render('fields/'.$this->type.'.html',
