@@ -4,7 +4,7 @@
 	{% for file in value %}
 	<li>
 		<div class="wp_pg_thumbnail">
-	 		<img src="" alt="">
+	 		{{ image(file, {'w': 150})|raw }}
 	 	</div>
 	 	<div class="wp_pg_details">
 			<div class="preamp_mb_row">
