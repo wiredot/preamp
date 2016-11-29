@@ -20,10 +20,21 @@ class Twig {
     		'debug' => true
 		));
 		$this->twig->addExtension(new Twig_Extension_Debug());
-		$function = new Twig_SimpleFunction('image', function ($image_id, $params = array(), $attributes = array()) {
+		
+		$image = new Twig_SimpleFunction('image', function ($image_id, $params = array(), $attributes = array()) {
     		$Image = new Image($image_id, $params, $attributes);
     		return $Image->get_image();
 		});
-		$this->twig->addFunction($function);
+		$this->twig->addFunction($image);
+
+		$alt = new Twig_SimpleFunction('alt', function ($post_id = null) {
+    		return get_post_meta( $post_id, '_wp_attachment_image_alt', true );
+		});
+		$this->twig->addFunction($alt);
+		
+		$caption = new Twig_SimpleFunction('caption', function ($post_id = null) {
+    		return get_the_excerpt( $post_id );
+		});
+		$this->twig->addFunction($caption);
 	}
 }

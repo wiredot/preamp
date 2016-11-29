@@ -13,11 +13,11 @@
 			</div>
 			<div class="preamp_mb_row">
 				<label for="{{ name }}_caption_{{ file }}">Caption</label>
-				<input type="text" id="{{ name }}_caption_{{ file }}" name="{{ name }}_caption[]" value="+caption+">
+				<input type="text" id="{{ name }}_caption_{{ file }}" name="{{ name }}_caption[]" value="{{ caption(file) }}">
 			</div>
 			<div class="preamp_mb_row">
 				<label for="{{ name }}_alt_{{ file }}">Alt Text</label>
-				<input type="text" id="{{ name }}_alt_{{ file }}" name="{{ name }}_alt[]" value="+alt+">
+				<input type="text" id="{{ name }}_alt_{{ file }}" name="{{ name }}_alt[]" value="{{ alt(file) }}">
 			</div>
 		</div>
 		<input type="hidden" name="{{ name }}[]" value="{{ file }}">
