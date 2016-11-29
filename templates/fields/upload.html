@@ -1,5 +1,31 @@
 {% if label %}<div class="label">{{ label }}</div>{% endif %}<div class="options">
-	<ul class="wp_pg_upload_container"></ul>
+	<ul class="wp_pg_upload_container">
+	{% if value %}
+	{% for file in value %}
+	<li>
+		<div class="wp_pg_thumbnail">
+	 		<img src="" alt="">
+	 	</div>
+	 	<div class="wp_pg_details">
+			<div class="preamp_mb_row">
+				<label for="{{ name }}_title_{{ file }}">Title</label>
+				<input type="text" id="{{ name }}_title_{{ file }}" name="{{ name }}_title[]" value="+title+">
+			</div>
+			<div class="preamp_mb_row">
+				<label for="{{ name }}_caption_{{ file }}">Caption</label>
+				<input type="text" id="{{ name }}_caption_{{ file }}" name="{{ name }}_caption[]" value="+caption+">
+			</div>
+			<div class="preamp_mb_row">
+				<label for="{{ name }}_alt_{{ file }}">Alt Text</label>
+				<input type="text" id="{{ name }}_alt_{{ file }}" name="{{ name }}_alt[]" value="+alt+">
+			</div>
+		</div>
+		<input type="hidden" name="{{ name }}[]" value="{{ file }}">
+		<a href="#" class="button wp_pg_remove">Remove Photo</a>
+	</li>
+	{% endfor %}
+	{% endif %}
+	</ul>
 	<button href="#" class="button button-primary wp_pg_upload_button">{{ labels.button }}</button>
 </div>
 <script>wppgInitPhotos('{{ name }}', '{{ attributes.multiple }}', '{{ attributes.filetype }}', '{{ labels.button }}', '{{ labels.title }}');</script>

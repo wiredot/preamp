@@ -34,7 +34,8 @@
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;
-    position: relative; }
+    position: relative;
+    background-color: #fff; }
     .preamp_mb .wp_pg_upload_container li::after {
       clear: both;
       content: "";

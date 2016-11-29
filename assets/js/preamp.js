@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
 	// wppgInitPhotos($);
 	wppgInitSortable($);
-	// wppgInitRemove($);
+	wppgInitRemove($);
 });
 
 function wppgInitPhotos(name, multiple, filetype, label_button, label_title) {
