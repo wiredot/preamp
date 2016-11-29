@@ -1,13 +1,12 @@
 jQuery(document).ready(function($){
 	// wppgInitPhotos($);
-	// wppgInitSortable($);
+	wppgInitSortable($);
 	// wppgInitRemove($);
 });
 
 function wppgInitPhotos(name, multiple, filetype, label_button, label_title) {
 	jQuery('.wp_pg_upload_button').click(function(event) {
 		event.preventDefault('clicked');
-		console.log('init');
 		wppgInitMediaUpload(name, multiple, filetype, label_button, label_title);
 	});
 }
@@ -132,7 +131,7 @@ function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title
 			console.log(media_attachment);
 			jQuery.each(media_attachment, function( key, value ){
 				var template = wppgNewPhotoTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
-				jQuery('.wp_pg_upload_button').append(template);
+				new_file = jQuery('.wp_pg_upload_button').prev('.wp_pg_upload_container').append(template);
 			});
 
 			wppgInitRemove(jQuery);
@@ -143,32 +142,41 @@ function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title
 }
 
 function wppgNewPhotoTemplate(name, id, title, caption, alt, photo) {
-	var template = '<div class="wp_pg_photo">' +
-	' 	<div class="wp_pg_img"><img src="'+photo+'"></div>' +
+	var template = 
+	'<li>' +
+	' 	<div class="wp_pg_thumbnail">' +
+	' 		<img src="'+photo+'">' +
+	' 	</div>' +
 	'	<div class="wp_pg_details">' +
-	'		<label for="'+name+'_title_'+id+'">Title</label>' +
-	'		<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
-	'		<label for="'+name+'_caption'+id+'">Caption</label>' +
-	'		<input type="text" id="'+name+'_caption'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
-	'		<label for="'+name+'_alt'+id+'">Alt Text</label>' +
-	'		<input type="text" id="'+name+'_alt'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
+	'		<div class="preamp_mb_row">' +
+	'			<label for="'+name+'_title_'+id+'">Title</label>' +
+	'			<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
+	'		</div>' +
+	'		<div class="preamp_mb_row">' +
+	'			<label for="'+name+'_caption_'+id+'">Caption</label>' +
+	'			<input type="text" id="'+name+'_caption_'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
+	'		</div>' +
+	'		<div class="preamp_mb_row">' +
+	'			<label for="'+name+'_alt_'+id+'">Alt Text</label>' +
+	'			<input type="text" id="'+name+'_alt_'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
+	'		</div>' +
 	'	</div>' +
 	'	<input type="hidden" name="'+name+'[]" value="'+id+'">' +
 	'	<a href="#" class="button wp_pg_remove">Remove Photo</a>' +
-	'</div>';
+	'</li>';
 
 	return template;
 }
 
 function wppgInitSortable($) {
-	$('.wp_pg_mb').sortable();
+	$('.wp_pg_upload_container').sortable();
 }
 
 function wppgInitRemove($) {
 	$('.wp_pg_remove').unbind('click');
 	$('.wp_pg_remove').click(function(event) {
 		event.preventDefault();
-		$(this).parent('.wp_pg_photo').slideUp(300, function(){
+		$(this).parent('li').slideUp(300, function(){
 			$(this).remove();
 		});
 	});

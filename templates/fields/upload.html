@@ -1,4 +1,5 @@
 {% if label %}<div class="label">{{ label }}</div>{% endif %}<div class="options">
-	<button href="#" class="button wp_pg_upload_button">{{ labels.button }}</button>
+	<ul class="wp_pg_upload_container"></ul>
+	<button href="#" class="button button-primary wp_pg_upload_button">{{ labels.button }}</button>
 </div>
 <script>wppgInitPhotos('{{ name }}', '{{ attributes.multiple }}', '{{ attributes.filetype }}', '{{ labels.button }}', '{{ labels.title }}');</script>
