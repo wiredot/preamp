@@ -1,15 +1,18 @@
 jQuery(document).ready(function($){
-	wppgInitPhotos($);
+	// wppgInitPhotos($);
+	// wppgInitSortable($);
+	// wppgInitRemove($);
 });
 
-function wppgInitPhotos($) {
-	$('.wp_pg_upload_button').click(function(event) {
+function wppgInitPhotos(name, multiple, filetype, label_button, label_title) {
+	jQuery('.wp_pg_upload_button').click(function(event) {
 		event.preventDefault('clicked');
-		wppgInitMediaUpload();
+		console.log('init');
+		wppgInitMediaUpload(name, multiple, filetype, label_button, label_title);
 	});
 }
 
-function wppgInitMediaUpload() {
+function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title) {
 	
 	var tgm_media_frame;
 	
@@ -57,7 +60,7 @@ function wppgInitMediaUpload() {
 			 * true or false. It defaults to true, but we only want the user to
 			 * upload one file, so let's set it to false.
 			 */
-			multiple: true,
+			multiple: multiple,
 
 			/**
 			 * We can set a custom title for our media workflow. I've localized
@@ -65,7 +68,7 @@ function wppgInitMediaUpload() {
 			 * localized stuff and such. Let's populate the title with our custom
 			 * text.
 			 */
-			title: 'Insert Photos',
+			title: label_title,
 
 			/**
 			 * We can force what type of media to show when the user views his/her
@@ -73,7 +76,7 @@ function wppgInitMediaUpload() {
 			 * images only.
 			 */
 			library: {
-				type: 'image'
+				type: filetype
 			},
 
 			/**
@@ -89,7 +92,7 @@ function wppgInitMediaUpload() {
 			 * own events here, but the default event will work just fine.
 			 */
 			button: {
-				text:  'Insert into Gallery'
+				text:  label_button
 			}
 		});
 
@@ -128,33 +131,47 @@ function wppgInitMediaUpload() {
 			var media_attachment = tgm_media_frame.state().get('selection').toJSON();
 			console.log(media_attachment);
 			jQuery.each(media_attachment, function( key, value ){
-				var template = wppgNewPhotoTemplate(value.id, value.title, value.caption, value.alt, value.url);
+				var template = wppgNewPhotoTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
 				jQuery('.wp_pg_upload_button').append(template);
 			});
 
-			wdgInitRemove(jQuery);
+			wppgInitRemove(jQuery);
 		});
 
 		// Now that everything has been set, let's open up the frame.
 		tgm_media_frame.open();
 }
 
-function wppgNewPhotoTemplate(id, title, caption, alt, photo) {
+function wppgNewPhotoTemplate(name, id, title, caption, alt, photo) {
 	var template = '<div class="wp_pg_photo">' +
 	' 	<div class="wp_pg_img"><img src="'+photo+'"></div>' +
 	'	<div class="wp_pg_details">' +
-	'		<label for="wp_pg_title_'+id+'">Title</label>' +
-	'		<input type="text" id="wp_pg_title_'+id+'" name="wp_pg_title[]" value="'+title+'">' +
-	'		<label for="wp_pg_caption'+id+'">Caption</label>' +
-	'		<input type="text" id="wp_pg_caption'+id+'" name="wp_pg_caption[]" value="'+caption+'">' +
-	'		<label for="wp_pg_alt'+id+'">Alt Text</label>' +
-	'		<input type="text" id="wp_pg_alt'+id+'" name="wp_pg_alt[]" value="'+alt+'">' +
+	'		<label for="'+name+'_title_'+id+'">Title</label>' +
+	'		<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
+	'		<label for="'+name+'_caption'+id+'">Caption</label>' +
+	'		<input type="text" id="'+name+'_caption'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
+	'		<label for="'+name+'_alt'+id+'">Alt Text</label>' +
+	'		<input type="text" id="'+name+'_alt'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
 	'	</div>' +
-	'	<input type="hidden" name="wp_pg_photo[]" value="'+id+'">' +
+	'	<input type="hidden" name="'+name+'[]" value="'+id+'">' +
 	'	<a href="#" class="button wp_pg_remove">Remove Photo</a>' +
 	'</div>';
 
 	return template;
+}
+
+function wppgInitSortable($) {
+	$('.wp_pg_mb').sortable();
+}
+
+function wppgInitRemove($) {
+	$('.wp_pg_remove').unbind('click');
+	$('.wp_pg_remove').click(function(event) {
+		event.preventDefault();
+		$(this).parent('.wp_pg_photo').slideUp(300, function(){
+			$(this).remove();
+		});
+	});
 }
 
 
