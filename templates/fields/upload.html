@@ -9,7 +9,7 @@
 	 	<div class="wp_pg_details">
 			<div class="preamp_mb_row">
 				<label for="{{ name }}_title_{{ file }}">Title</label>
-				<input type="text" id="{{ name }}_title_{{ file }}" name="{{ name }}_title[]" value="+title+">
+				<input type="text" id="{{ name }}_title_{{ file }}" name="{{ name }}_title[]" value="{{ get_the_title(file) }}">
 			</div>
 			<div class="preamp_mb_row">
 				<label for="{{ name }}_caption_{{ file }}">Caption</label>
