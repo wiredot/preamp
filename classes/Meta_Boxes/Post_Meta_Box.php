@@ -57,7 +57,6 @@ class Post_Meta_Box extends Meta_Box {
 
 				$field = new Field_Factory($meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels']);
 
-
 				$row = new Row($field->get_field());
 				$fields.= $row->get_row();
 			}
@@ -82,6 +81,9 @@ class Post_Meta_Box extends Meta_Box {
 
 		foreach ($this->meta_box['fields'] as $key => $field) {
 			switch ($field['type']) {
+				case 'upload':
+					$this->save_upload_field($post_id, $key);
+					break;
 				default:
 					$this->save_meta_box_field($post_id, $key, $field['type']);
 					break;
@@ -108,6 +110,70 @@ class Post_Meta_Box extends Meta_Box {
 		} else {
 			// delete data
 			delete_post_meta( $post_id, $key );
+		}
+	}
+
+	public function save_upload_field($post_id, $key) {
+		if ( isset($_POST[$key]) && is_array($_POST[$key]) ) {
+	    	// validate file ids
+	    	$files = array_map( 'intval', $_POST[$key] );
+	    } else {
+	    	return;
+	    }
+
+	    if ( isset($_POST[$key . '_title']) && is_array($_POST[$key . '_title']) ) {
+	    	$file_title = array_map( 'sanitize_text_field', $_POST[$key . '_title'] );
+	    }
+
+	    if ( isset($_POST[$key . '_caption']) && is_array($_POST[$key . '_caption']) ) {
+	    	$file_caption = array_map( 'sanitize_text_field', $_POST[$key . '_caption'] );
+	    }
+
+	    if ( isset($_POST[$key . '_alt']) && is_array($_POST[$key . '_alt']) ) {
+	    	$file_alt = array_map( 'sanitize_text_field', $_POST[$key . '_alt'] );
+	    }
+
+	    foreach ($files as $key => $file_id) {
+			$title = '';
+			$caption = '';
+			$alt = '';
+
+			if (isset($file_title[$key])) {
+				$title = $file_title[$key];
+			}
+			
+			if (isset($file_caption[$key])) {
+				$caption = $file_caption[$key];
+			}
+
+			if (isset($file_alt[$key])) {
+				$alt = $file_alt[$key];
+			}
+
+			$this->update_image_data($file_id, $title, $caption, $alt);
+		}
+
+	    update_post_meta($post_id, $key, $files);
+	}
+
+	public function update_image_data($post_id, $title, $caption, $alt = '') {
+		global $wpdb;
+
+		$wpdb->update(
+			$wpdb->posts,
+			array(
+				'post_title' => $title,
+				'post_excerpt' => $caption
+			),
+			array(
+				'ID' => $post_id
+			)
+		);
+
+		if ($alt) {
+			update_post_meta( $post_id, '_wp_attachment_image_alt', $alt );
+		} else {
+			delete_post_meta( $post_id, '_wp_attachment_image_alt' );
 		}
 	}
 }

@@ -16,28 +16,33 @@ class Twig {
 	public function __construct() {
 		$directories = Core::get_template_directories();
 		$loader = new Twig_Loader_Filesystem($directories);
-		$this->twig = new Twig_Environment($loader, array(
-    		'debug' => true
-		));
-		$this->twig->addExtension(new Twig_Extension_Debug());
+		$environment = new Twig_Environment($loader);
 
-		$this->twig->registerUndefinedFunctionCallback( array($this, 'undefined_function') );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$debug_extension = new Twig_Extension_Debug();
+			$environment->addExtension( $debug_extension );
+			$environment->enableDebug();
+		}
+
+		$environment->registerUndefinedFunctionCallback( array($this, 'undefined_function') );
 		
 		$image = new Twig_SimpleFunction('image', function ($image_id, $params = array(), $attributes = array()) {
     		$Image = new Image($image_id, $params, $attributes);
     		return $Image->get_image();
 		});
-		$this->twig->addFunction($image);
+		$environment->addFunction($image);
 
 		$alt = new Twig_SimpleFunction('alt', function ($post_id = null) {
     		return get_post_meta( $post_id, '_wp_attachment_image_alt', true );
 		});
-		$this->twig->addFunction($alt);
+		$environment->addFunction($alt);
 		
 		$caption = new Twig_SimpleFunction('caption', function ($post_id = null) {
     		return get_the_excerpt( $post_id );
 		});
-		$this->twig->addFunction($caption);
+		$environment->addFunction($caption);
+
+		$this->twig = $environment;
 	}
 
 	public function undefined_function( $function_name ) {
