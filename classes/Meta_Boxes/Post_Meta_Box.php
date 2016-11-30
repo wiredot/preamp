@@ -79,21 +79,21 @@ class Post_Meta_Box extends Meta_Box {
 			return;
 		}
 
-		foreach ($this->meta_box['fields'] as $key => $field) {
+		foreach ($this->meta_box['fields'] as $meta_key => $field) {
 			switch ($field['type']) {
 				case 'upload':
-					$this->save_upload_field($post_id, $key);
+					$this->save_upload_field($post_id, $meta_key);
 					break;
 				default:
-					$this->save_meta_box_field($post_id, $key, $field['type']);
+					$this->save_meta_box_field($post_id, $meta_key, $field['type']);
 					break;
 			}
 		}
 	}
 
-	public function save_meta_box_field($post_id, $key, $field_type) {
-		if ( isset( $_POST[$key] ) ){
-			$value = $_POST[$key];
+	public function save_meta_box_field($post_id, $meta_key, $field_type) {
+		if ( isset( $_POST[$meta_key] ) ){
+			$value = $_POST[$meta_key];
 
 			switch ($field_type) {
 				default:
@@ -106,31 +106,31 @@ class Post_Meta_Box extends Meta_Box {
 			}
 
 			// save data
-			update_post_meta( $post_id, $key, $sanitized_value );
+			update_post_meta( $post_id, $meta_key, $sanitized_value );
 		} else {
 			// delete data
-			delete_post_meta( $post_id, $key );
+			delete_post_meta( $post_id, $meta_key );
 		}
 	}
 
-	public function save_upload_field($post_id, $key) {
-		if ( isset($_POST[$key]) && is_array($_POST[$key]) ) {
+	public function save_upload_field($post_id, $meta_key) {
+		if ( isset($_POST[$meta_key]) && is_array($_POST[$meta_key]) ) {
 	    	// validate file ids
-	    	$files = array_map( 'intval', $_POST[$key] );
+	    	$files = array_map( 'intval', $_POST[$meta_key] );
 	    } else {
 	    	return;
 	    }
 
-	    if ( isset($_POST[$key . '_title']) && is_array($_POST[$key . '_title']) ) {
-	    	$file_title = array_map( 'sanitize_text_field', $_POST[$key . '_title'] );
+	    if ( isset($_POST[$meta_key . '_title']) && is_array($_POST[$meta_key . '_title']) ) {
+	    	$file_title = array_map( 'sanitize_text_field', $_POST[$meta_key . '_title'] );
 	    }
 
-	    if ( isset($_POST[$key . '_caption']) && is_array($_POST[$key . '_caption']) ) {
-	    	$file_caption = array_map( 'sanitize_text_field', $_POST[$key . '_caption'] );
+	    if ( isset($_POST[$meta_key . '_caption']) && is_array($_POST[$meta_key . '_caption']) ) {
+	    	$file_caption = array_map( 'sanitize_text_field', $_POST[$meta_key . '_caption'] );
 	    }
 
-	    if ( isset($_POST[$key . '_alt']) && is_array($_POST[$key . '_alt']) ) {
-	    	$file_alt = array_map( 'sanitize_text_field', $_POST[$key . '_alt'] );
+	    if ( isset($_POST[$meta_key . '_alt']) && is_array($_POST[$meta_key . '_alt']) ) {
+	    	$file_alt = array_map( 'sanitize_text_field', $_POST[$meta_key . '_alt'] );
 	    }
 
 	    foreach ($files as $key => $file_id) {
@@ -153,7 +153,7 @@ class Post_Meta_Box extends Meta_Box {
 			$this->update_image_data($file_id, $title, $caption, $alt);
 		}
 
-	    update_post_meta($post_id, $key, $files);
+	    update_post_meta($post_id, $meta_key, $files);
 	}
 
 	public function update_image_data($post_id, $title, $caption, $alt = '') {
