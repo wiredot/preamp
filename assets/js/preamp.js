@@ -1,11 +1,11 @@
 jQuery(document).ready(function($){
 	// wppgInitPhotos($);
-	wppgInitSortable($);
+	// wppgInitSortable($);
 	wppgInitRemove($);
 });
 
 function wppgInitPhotos(name, multiple, filetype, label_button, label_title) {
-	jQuery('.wp_pg_upload_button').click(function(event) {
+	jQuery('.wppg_upload_button').click(function(event) {
 		event.preventDefault('clicked');
 		wppgInitMediaUpload(name, multiple, filetype, label_button, label_title);
 	});
@@ -131,7 +131,7 @@ function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title
 			console.log(media_attachment);
 			jQuery.each(media_attachment, function( key, value ){
 				var template = wppgNewPhotoTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
-				new_file = jQuery('.wp_pg_upload_button').prev('.wp_pg_upload_container').append(template);
+				new_file = jQuery('.wppg_upload_button').prev('.wppg_upload_container').append(template);
 			});
 
 			wppgInitRemove(jQuery);
@@ -144,10 +144,10 @@ function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title
 function wppgNewPhotoTemplate(name, id, title, caption, alt, photo) {
 	var template = 
 	'<li>' +
-	' 	<div class="wp_pg_thumbnail">' +
+	' 	<div class="wppg_thumbnail">' +
 	' 		<img src="'+photo+'">' +
 	' 	</div>' +
-	'	<div class="wp_pg_details">' +
+	'	<div class="wppg_details">' +
 	'		<div class="preamp_mb_row">' +
 	'			<label for="'+name+'_title_'+id+'">Title</label>' +
 	'			<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
@@ -162,19 +162,19 @@ function wppgNewPhotoTemplate(name, id, title, caption, alt, photo) {
 	'		</div>' +
 	'	</div>' +
 	'	<input type="hidden" name="'+name+'[]" value="'+id+'">' +
-	'	<a href="#" class="button wp_pg_remove">Remove Photo</a>' +
+	'	<a href="#" class="button wppg_remove">Remove Photo</a>' +
 	'</li>';
 
 	return template;
 }
 
 function wppgInitSortable($) {
-	$('.wp_pg_upload_container').sortable();
+	$('.wppg_upload_container').sortable();
 }
 
 function wppgInitRemove($) {
-	$('.wp_pg_remove').unbind('click');
-	$('.wp_pg_remove').click(function(event) {
+	$('.wppg_remove').unbind('click');
+	$('.wppg_remove').click(function(event) {
 		event.preventDefault();
 		$(this).parent('li').slideUp(300, function(){
 			$(this).remove();

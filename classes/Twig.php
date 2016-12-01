@@ -42,6 +42,9 @@ class Twig {
 		});
 		$environment->addFunction($caption);
 
+		// $twig_extension = new Extension();
+		$environment->addTokenParser( new Loop_Token_Parser() );
+
 		$this->twig = $environment;
 	}
 

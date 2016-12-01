@@ -38,6 +38,10 @@ class Image {
 	public function get_image() {
 		$image_url = $this->get_url();
 
+		if ( ! $image_url ) {
+			return null;
+		}
+
 		$img = '<img src="'; 
 		$img.= $this->metadata['upload_url'].$this->metadata['filename'];
 		$img.= '"';
@@ -154,6 +158,6 @@ class Image {
 	}
 }
 
-function wp_pg_image() {
+function wppg_image() {
 	echo 'sd';
 }

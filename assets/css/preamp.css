@@ -29,37 +29,37 @@
       float: none;
       display: inline;
       margin: 0 0 0 5px; }
-  .preamp_mb .wp_pg_upload_container li {
+  .preamp_mb .wppg_upload_container li {
     border: 1px solid #eee;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;
     position: relative;
     background-color: #fff; }
-    .preamp_mb .wp_pg_upload_container li::after {
+    .preamp_mb .wppg_upload_container li::after {
       clear: both;
       content: "";
       display: table; }
-  .preamp_mb .wp_pg_upload_container .wp_pg_thumbnail {
+  .preamp_mb .wppg_upload_container .wppg_thumbnail {
     width: 25%;
     margin-right: 3%;
     float: left; }
-  .preamp_mb .wp_pg_upload_container .wp_pg_details {
+  .preamp_mb .wppg_upload_container .wppg_details {
     width: 72%;
     float: left; }
-  .preamp_mb .wp_pg_upload_container img {
+  .preamp_mb .wppg_upload_container img {
     max-width: 100%;
     height: auto; }
-  .preamp_mb .wp_pg_upload_container label {
+  .preamp_mb .wppg_upload_container label {
     width: 25%;
     min-width: auto;
     float: left;
     margin: 0 1% 0 0; }
-  .preamp_mb .wp_pg_upload_container .wp_pg_remove {
+  .preamp_mb .wppg_upload_container .wppg_remove {
     position: absolute;
     bottom: 10px;
     right: 10px; }
-  .preamp_mb .wp_pg_upload_container .preamp_mb_row:last-child {
+  .preamp_mb .wppg_upload_container .preamp_mb_row:last-child {
     margin-bottom: 37px; }
 
 /*# sourceMappingURL=preamp.css.map */

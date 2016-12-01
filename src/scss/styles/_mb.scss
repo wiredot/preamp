@@ -41,7 +41,7 @@
 		}
 	}
 
-	.wp_pg_upload_container {
+	.wppg_upload_container {
 
 		li {
 			border: 1px solid #eee;
@@ -54,13 +54,13 @@
 			@include clearfix;
 		}
 
-		.wp_pg_thumbnail {
+		.wppg_thumbnail {
 			width: 25%;
 			margin-right: 3%;
 			float: left;
 		}
 
-		.wp_pg_details {
+		.wppg_details {
 			width: 72%;
 			float: left;
 		}
@@ -77,7 +77,7 @@
 			margin: 0 1% 0 0;
 		}
 
-		.wp_pg_remove {
+		.wppg_remove {
 		    position: absolute;
 			bottom: 10px;
 		    right: 10px;
