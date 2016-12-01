@@ -4,10 +4,9 @@ namespace Wiredot\Preamp;
 
 use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
-use Wiredot\Preamp\Css\Css;
 use Wiredot\Preamp\Css\Css_Factory;
-use Wiredot\Preamp\Js\Js;
 use Wiredot\Preamp\Js\Js_Factory;
+use Wiredot\Preamp\Admin\Admin;
 
 class Core {
 
@@ -26,10 +25,13 @@ class Core {
 	private static $instance = null;
 
 	private function __construct($path, $url) {
+		define('PREAMP_URL', $url);
+		
 		$this->path = $path;
 		$this->url = $url;
 		$this->set_directories();
 		$this->setup();
+
 	}
 
 	public static function run($path, $url) {
@@ -43,12 +45,10 @@ class Core {
 	public function setup() {
 		$Config = new Config;
 		self::$config = $Config->get_config();
-		
-		$preamp_css = new Css('preamp', $this->url.'vendor/wiredot/preamp/assets/css/preamp.css', 'admin');
-		$preamp_css->register_css_files();
 
-		$preamp_js = new Js('admin', 'preamp', $this->url.'vendor/wiredot/preamp/assets/js/preamp.js', 'admin');
-		$preamp_js->register_js_files();
+		if (is_admin()) {
+			new Admin(self::$config);
+		}
 		
 		// register all custom post types
 		if (isset(self::$config['custom_post_type'])) {
