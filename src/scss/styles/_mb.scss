@@ -1,7 +1,7 @@
-.preamp_mb {
+.preamp-mb {
 	box-sizing: border-box;
 
-	.preamp_mb_row {
+	.preamp-mb-row {
 		margin-bottom: 14px;
 		@include clearfix;
 		position: relative;
@@ -41,7 +41,7 @@
 		}
 	}
 
-	.wppg_upload_container {
+	.preamp-upload-container {
 
 		li {
 			border: 1px solid #eee;
@@ -54,13 +54,13 @@
 			@include clearfix;
 		}
 
-		.wppg_thumbnail {
+		.preamp-thumbnail {
 			width: 25%;
 			margin-right: 3%;
 			float: left;
 		}
 
-		.wppg_details {
+		.preamp-details {
 			width: 72%;
 			float: left;
 		}
@@ -77,13 +77,13 @@
 			margin: 0 1% 0 0;
 		}
 
-		.wppg_remove {
+		.preamp-remove {
 		    position: absolute;
 			bottom: 10px;
 		    right: 10px;
 		}
 
-		.preamp_mb_row:last-child {
+		.preamp-mb-row:last-child {
 			margin-bottom: 37px;
 		}
 	}

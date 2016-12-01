@@ -158,6 +158,6 @@ class Image {
 	}
 }
 
-function wppg_image() {
+function wp_photo_gallery_image() {
 	echo 'sd';
 }

@@ -1,31 +1,31 @@
 {% if label %}<div class="label">{{ label }}</div>{% endif %}<div class="options">
-	<ul class="wppg_upload_container">
+	<ul class="preamp-upload-container">
 	{% if value %}
 	{% for file in value %}
 	<li>
-		<div class="wppg_thumbnail">
+		<div class="preamp-thumbnail">
 	 		{{ image(file, {'w': 150})|raw }}
 	 	</div>
-	 	<div class="wppg_details">
-			<div class="preamp_mb_row">
-				<label for="{{ name }}_title_{{ file }}">Title</label>
-				<input type="text" id="{{ name }}_title_{{ file }}" name="{{ name }}_title[]" value="{{ get_the_title(file) }}">
+	 	<div class="preamp-details">
+			<div class="preamp-mb-row">
+				<label for="{{ name }}-title-{{ file }}">Title</label>
+				<input type="text" id="{{ name }}-title-{{ file }}" name="{{ name }}_title[]" value="{{ get_the_title(file) }}">
 			</div>
-			<div class="preamp_mb_row">
-				<label for="{{ name }}_caption_{{ file }}">Caption</label>
-				<input type="text" id="{{ name }}_caption_{{ file }}" name="{{ name }}_caption[]" value="{{ caption(file) }}">
+			<div class="preamp-mb-row">
+				<label for="{{ name }}-caption-{{ file }}">Caption</label>
+				<input type="text" id="{{ name }}-caption-{{ file }}" name="{{ name }}_caption[]" value="{{ caption(file) }}">
 			</div>
-			<div class="preamp_mb_row">
-				<label for="{{ name }}_alt_{{ file }}">Alt Text</label>
-				<input type="text" id="{{ name }}_alt_{{ file }}" name="{{ name }}_alt[]" value="{{ alt(file) }}">
+			<div class="preamp-mb-row">
+				<label for="{{ name }}-alt-{{ file }}">Alt Text</label>
+				<input type="text" id="{{ name }}-alt-{{ file }}" name="{{ name }}_alt[]" value="{{ alt(file) }}">
 			</div>
 		</div>
 		<input type="hidden" name="{{ name }}[]" value="{{ file }}">
-		<a href="#" class="button wppg_remove">Remove Photo</a>
+		<a href="#" class="button preamp-remove-file">Remove Photo</a>
 	</li>
 	{% endfor %}
 	{% endif %}
 	</ul>
-	<button href="#" class="button button-primary wppg_upload_button">{{ labels.button }}</button>
+	<button href="#" class="button button-primary preamp_upload_button">{{ labels.button }}</button>
 </div>
-<script>wppgInitPhotos('{{ name }}', '{{ attributes.multiple }}', '{{ attributes.filetype }}', '{{ labels.button }}', '{{ labels.title }}');</script>
+<script>preampInitUploadButton('{{ name }}', '{{ attributes.multiple }}', '{{ attributes.filetype }}', '{{ labels.button }}', '{{ labels.title }}');</script>

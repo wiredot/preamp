@@ -1,17 +1,17 @@
 jQuery(document).ready(function($){
-	// wppgInitPhotos($);
-	// wppgInitSortable($);
-	wppgInitRemove($);
+	// preampInitUploadButton($);
+	// preampInitSortable($);
+	preampInitRemoveButton($);
 });
 
-function wppgInitPhotos(name, multiple, filetype, label_button, label_title) {
-	jQuery('.wppg_upload_button').click(function(event) {
+function preampInitUploadButton(name, multiple, filetype, label_button, label_title) {
+	jQuery('.preamp_upload_button').click(function(event) {
 		event.preventDefault('clicked');
-		wppgInitMediaUpload(name, multiple, filetype, label_button, label_title);
+		preampInitUpload(name, multiple, filetype, label_button, label_title);
 	});
 }
 
-function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title) {
+function preampInitUpload(name, multiple, filetype, label_button, label_title) {
 	
 	var tgm_media_frame;
 	
@@ -130,51 +130,51 @@ function wppgInitMediaUpload(name, multiple, filetype, label_button, label_title
 			var media_attachment = tgm_media_frame.state().get('selection').toJSON();
 			console.log(media_attachment);
 			jQuery.each(media_attachment, function( key, value ){
-				var template = wppgNewPhotoTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
-				new_file = jQuery('.wppg_upload_button').prev('.wppg_upload_container').append(template);
+				var template = preampNewFileTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
+				new_file = jQuery('.preamp_upload_button').prev('.preamp-upload-container').append(template);
 			});
 
-			wppgInitRemove(jQuery);
+			preampInitRemoveButton(jQuery);
 		});
 
 		// Now that everything has been set, let's open up the frame.
 		tgm_media_frame.open();
 }
 
-function wppgNewPhotoTemplate(name, id, title, caption, alt, photo) {
+function preampNewFileTemplate(name, id, title, caption, alt, photo) {
 	var template = 
 	'<li>' +
-	' 	<div class="wppg_thumbnail">' +
+	' 	<div class="preamp-thumbnail">' +
 	' 		<img src="'+photo+'">' +
 	' 	</div>' +
-	'	<div class="wppg_details">' +
-	'		<div class="preamp_mb_row">' +
+	'	<div class="preamp-details">' +
+	'		<div class="preamp-mb-row">' +
 	'			<label for="'+name+'_title_'+id+'">Title</label>' +
 	'			<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
 	'		</div>' +
-	'		<div class="preamp_mb_row">' +
+	'		<div class="preamp-mb-row">' +
 	'			<label for="'+name+'_caption_'+id+'">Caption</label>' +
 	'			<input type="text" id="'+name+'_caption_'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
 	'		</div>' +
-	'		<div class="preamp_mb_row">' +
+	'		<div class="preamp-mb-row">' +
 	'			<label for="'+name+'_alt_'+id+'">Alt Text</label>' +
 	'			<input type="text" id="'+name+'_alt_'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
 	'		</div>' +
 	'	</div>' +
 	'	<input type="hidden" name="'+name+'[]" value="'+id+'">' +
-	'	<a href="#" class="button wppg_remove">Remove Photo</a>' +
+	'	<a href="#" class="button preamp-remove-file">Remove Photo</a>' +
 	'</li>';
 
 	return template;
 }
 
-function wppgInitSortable($) {
-	$('.wppg_upload_container').sortable();
+function preampInitSortable($) {
+	$('.preamp-upload-container').sortable();
 }
 
-function wppgInitRemove($) {
-	$('.wppg_remove').unbind('click');
-	$('.wppg_remove').click(function(event) {
+function preampInitRemoveButton($) {
+	$('.preamp-remove-file').unbind('click');
+	$('.preamp-remove-file').click(function(event) {
 		event.preventDefault();
 		$(this).parent('li').slideUp(300, function(){
 			$(this).remove();
