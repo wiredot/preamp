@@ -17,9 +17,6 @@ class Core {
 	private $path;
 	private $url;
 
-	private static $template_directories = array();
-	private static $config_directories = array();
-	
 	private static $config;
 
 	private static $instance = null;
@@ -29,7 +26,6 @@ class Core {
 		
 		$this->path = $path;
 		$this->url = $url;
-		$this->set_directories();
 		$this->setup();
 	}
 
@@ -68,37 +64,6 @@ class Core {
 			$js = new Js_Factory(self::$config['js']);
 			$js->register_js_files();
 		}
-	}
-
-	public function set_directories() {
-		if (is_dir(dirname(dirname(__FILE__)).'/templates/')) {
-			self::$template_directories[] = dirname(dirname(__FILE__)).'/templates/';
-		}
-
-		$active_plugins = get_option('active_plugins');
-
-		if ($active_plugins) {
-			foreach ($active_plugins AS $plugin) {
-				if (is_dir(WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/')) {
-					self::$config_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'config/';
-				}
-
-				if (is_dir(WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'templates/')) {
-					self::$template_directories[] = WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin).'templates/';
-				}
-			}
-		}
-		
-		if (is_dir(get_template_directory().'/config/')) {
-			self::$config_directories[] = get_template_directory().'/config/';
-		}
-		if (is_dir(get_template_directory().'/templates/')) {
-			self::$template_directories[] = get_template_directory().'/templates/';
-		}
-	}
-
-	public static function get_template_directories() {
-		return self::$template_directories;
 	}
 
 	public static function get_config($key) {

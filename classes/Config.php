@@ -28,7 +28,7 @@ class Config {
 		}
 		
 		$this->directories[] = array(
-			'directory' => WP_PLUGIN_DIR.'/'.plugin_dir_path($plugin),
+			'directory' => WP_PLUGIN_DIR.'/'.get_template_directory(),
 			'url' => dirname( get_stylesheet_uri()) 
 		);
 	}
