@@ -13,8 +13,10 @@ class Twig {
 
 	private $directories = array();
 
-	public function __construct() {
-		$directories = Core::get_template_directories();
+	public function __construct($directories = null) {
+		if ( ! $directories) {
+			$directories = Core::get_template_directories();
+		}
 		$loader = new Twig_Loader_Filesystem($directories);
 		$environment = new Twig_Environment($loader);
 
