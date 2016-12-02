@@ -12,8 +12,12 @@ class Js_Factory {
 
 	public function register_js_files() {
 		foreach ( $this->js_files as $handle => $js_file ) {
-			if ( ! isset($js_file['files'])) {
+			if ( ! isset($js_file['files']) || ! isset($js_file['url']) ) {
 				continue;
+			}
+
+			foreach ($js_file['files'] as $key => $file) {
+				$js_file['files'][$key] = $js_file['url'] . '/' . $file;
 			}
 
 			if ( isset($js_file['front']) && $js_file['front'] ) {

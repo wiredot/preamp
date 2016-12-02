@@ -31,7 +31,6 @@ class Core {
 		$this->url = $url;
 		$this->set_directories();
 		$this->setup();
-
 	}
 
 	public static function run($path, $url) {

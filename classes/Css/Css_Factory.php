@@ -12,8 +12,12 @@ class Css_Factory {
 
 	public function register_css_files() {
 		foreach ( $this->css_files as $name => $css_file ) {
-			if ( ! isset($css_file['files'])) {
+			if ( ! isset($css_file['files']) || ! isset($css_file['url']) ) {
 				continue;
+			}
+
+			foreach ($css_file['files'] as $key => $file) {
+				$css_file['files'][$key] = $css_file['url'] . '/' . $file;
 			}
 
 			if ( isset($css_file['front']) && $css_file['front'] ) {
