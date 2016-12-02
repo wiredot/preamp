@@ -34,6 +34,12 @@ class Twig {
 		});
 		$environment->addFunction($image);
 
+		$image_url = new Twig_SimpleFunction('image_url', function ($image_id, $params = array(), $attributes = array()) {
+    		$Image = new Image($image_id, $params, $attributes);
+    		return $Image->get_url();
+		});
+		$environment->addFunction($image_url);
+
 		$alt = new Twig_SimpleFunction('alt', function ($post_id = null) {
     		return get_post_meta( $post_id, '_wp_attachment_image_alt', true );
 		});
