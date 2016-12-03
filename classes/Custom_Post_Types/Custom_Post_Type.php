@@ -15,10 +15,6 @@ class Custom_Post_Type {
 	}
 
 	public function register_post_type() {
-		// echo $this->post_type;
-
 		register_post_type( $this->post_type, $this->args );
-		// echo $this->post_type;
-		//exit;
 	}
 }
