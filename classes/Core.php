@@ -26,7 +26,8 @@ class Core {
 		
 		$this->path = $path;
 		$this->url = $url;
-		$this->setup();
+		add_action( 'plugins_loaded', array( $this, 'setup' ) );
+		//$this->setup();
 	}
 
 	public static function run($path, $url) {

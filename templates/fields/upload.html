@@ -8,20 +8,20 @@
 	 	</div>
 	 	<div class="preamp-details">
 			<div class="preamp-mb-row">
-				<label for="{{ name }}-title-{{ file }}">Title</label>
+				<label for="{{ name }}-title-{{ file }}">{{ __("Title") }}</label>
 				<input type="text" id="{{ name }}-title-{{ file }}" name="{{ name }}_title[]" value="{{ get_the_title(file) }}">
 			</div>
 			<div class="preamp-mb-row">
-				<label for="{{ name }}-caption-{{ file }}">Caption</label>
+				<label for="{{ name }}-caption-{{ file }}">{{ __("Caption") }}</label>
 				<input type="text" id="{{ name }}-caption-{{ file }}" name="{{ name }}_caption[]" value="{{ caption(file) }}">
 			</div>
 			<div class="preamp-mb-row">
-				<label for="{{ name }}-alt-{{ file }}">Alt Text</label>
+				<label for="{{ name }}-alt-{{ file }}">{{ __("Alt Text") }}</label>
 				<input type="text" id="{{ name }}-alt-{{ file }}" name="{{ name }}_alt[]" value="{{ alt(file) }}">
 			</div>
 		</div>
 		<input type="hidden" name="{{ name }}[]" value="{{ file }}">
-		<a href="#" class="button preamp-remove-file">Remove Photo</a>
+		<a href="#" class="button preamp-remove-file">{{ __("Remove") }}</a>
 	</li>
 	{% endfor %}
 	{% endif %}
