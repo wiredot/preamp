@@ -28,7 +28,7 @@ class Js_Factory {
 				continue;
 			}
 
-			if (isset($js_file['dependencies'])) {
+			if ( ! isset($js_file['dependencies'])) {
 				$js_file['dependencies'] = false;
 			}
 

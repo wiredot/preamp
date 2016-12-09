@@ -42,7 +42,8 @@ class Config {
 			}
 		}
 
-		// print_r($this->config);
+		// var_dump($this->config);
+		// exit;
 	}
 
 	private static function load_config_directory($directory, $url) {

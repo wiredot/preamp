@@ -18,7 +18,7 @@ class Field_Factory {
 	protected $options;
 	protected $labels;
 
-	public function __construct($type, $label, $name, $id, $value, $attributes = array(), $options = array(), $labels = array()) {
+	public function __construct($type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array()) {
 		$this->type = $type;
 		$this->label = $label;
 		$this->name = $name;
