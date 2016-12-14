@@ -143,7 +143,7 @@ function preampInitUpload(id, name, attributes, label_button, label_title) {
 			jQuery.each(media_attachment, function( key, value ) {
 				console.log(value);
 				var image = '';
-				if (typeof(value.sizes.thumbnail.url) != 'undefined') {
+				if (typeof value.sizes.thumbnail.url !== 'undefined') {
 					image = value.sizes.thumbnail.url;
 				} else {
 					image = value.url;
