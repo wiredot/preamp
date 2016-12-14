@@ -142,7 +142,13 @@ function preampInitUpload(id, name, attributes, label_button, label_title) {
 			var media_attachment = tgm_media_frame.state().get('selection').toJSON();
 			jQuery.each(media_attachment, function( key, value ) {
 				console.log(value);
-				var template = preampNewFileTemplate(name, value.id, value.title, value.caption, value.alt, value.sizes.thumbnail.url, attributes);
+				var image = '';
+				if (typeof(value.sizes.thumbnail.url) != 'undefined') {
+					image = value.sizes.thumbnail.url;
+				} else {
+					image = value.url;
+				}
+				var template = preampNewFileTemplate(name, value.id, value.title, value.caption, value.alt, image, attributes);
 				
 				new_file = jQuery('#button-'+id).prev('.preamp-upload-container').append(template);
 
