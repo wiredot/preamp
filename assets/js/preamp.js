@@ -4,15 +4,27 @@ jQuery(document).ready(function($){
 	preampInitRemoveButton($);
 });
 
-function preampInitUploadButton(name, multiple, filetype, label_button, label_title) {
-	jQuery('.preamp_upload_button').click(function(event) {
+function preampInitUploadButton(id, name, attributes, label_button, label_title) {
+	console.log(attributes);
+	jQuery('#button-'+id).click(function(event) {
 		event.preventDefault('clicked');
-		preampInitUpload(name, multiple, filetype, label_button, label_title);
+		console.log('clicked');
+		preampInitUpload(id, name, attributes, label_button, label_title);
 	});
 }
 
-function preampInitUpload(name, multiple, filetype, label_button, label_title) {
+function preampInitUpload(id, name, attributes, label_button, label_title) {
+	if (attributes.filetype == 'file') {
+		attributes.filetype = '';
+	}
 	
+	var link_status = jQuery('#button-'+id).attr('disabled');
+
+	// ignore clicks when button is disabled
+	if (link_status == 'disabled') {
+		return null;
+	}
+
 	var tgm_media_frame;
 	
 		// If the frame already exists, re-open it.
@@ -59,7 +71,7 @@ function preampInitUpload(name, multiple, filetype, label_button, label_title) {
 			 * true or false. It defaults to true, but we only want the user to
 			 * upload one file, so let's set it to false.
 			 */
-			multiple: multiple,
+			multiple: attributes.multiple,
 
 			/**
 			 * We can set a custom title for our media workflow. I've localized
@@ -75,7 +87,7 @@ function preampInitUpload(name, multiple, filetype, label_button, label_title) {
 			 * images only.
 			 */
 			library: {
-				type: filetype
+				type: attributes.filetype
 			},
 
 			/**
@@ -128,10 +140,15 @@ function preampInitUpload(name, multiple, filetype, label_button, label_title) {
 		tgm_media_frame.on('select', function() {
 		// 	// Grab our attachment selection and construct a JSON representation of the model.
 			var media_attachment = tgm_media_frame.state().get('selection').toJSON();
-			console.log(media_attachment);
-			jQuery.each(media_attachment, function( key, value ){
-				var template = preampNewFileTemplate(name, value.id, value.title, value.caption, value.alt, value.url);
-				new_file = jQuery('.preamp_upload_button').prev('.preamp-upload-container').append(template);
+			jQuery.each(media_attachment, function( key, value ) {
+				console.log(value);
+				var template = preampNewFileTemplate(name, value.id, value.title, value.caption, value.alt, value.sizes.thumbnail.url, attributes);
+				
+				new_file = jQuery('#button-'+id).prev('.preamp-upload-container').append(template);
+
+				if ( ! attributes.multiple ) {
+					jQuery('#button-'+id).attr("disabled", "disabled");;
+				}
 			});
 
 			preampInitRemoveButton(jQuery);
@@ -141,26 +158,34 @@ function preampInitUpload(name, multiple, filetype, label_button, label_title) {
 		tgm_media_frame.open();
 }
 
-function preampNewFileTemplate(name, id, title, caption, alt, photo) {
+function preampNewFileTemplate(name, id, title, caption, alt, photo, attributes) {
 	var template = 
 	'<li>' +
 	' 	<div class="preamp-thumbnail">' +
 	' 		<img src="'+photo+'">' +
-	' 	</div>' +
-	'	<div class="preamp-details">' +
-	'		<div class="preamp-mb-row">' +
-	'			<label for="'+name+'_title_'+id+'">Title</label>' +
-	'			<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
-	'		</div>' +
-	'		<div class="preamp-mb-row">' +
-	'			<label for="'+name+'_caption_'+id+'">Caption</label>' +
-	'			<input type="text" id="'+name+'_caption_'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
-	'		</div>' +
-	'		<div class="preamp-mb-row">' +
-	'			<label for="'+name+'_alt_'+id+'">Alt Text</label>' +
-	'			<input type="text" id="'+name+'_alt_'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
-	'		</div>' +
-	'	</div>' +
+	' 	</div>';
+	' 	<div class="preamp-details">';
+
+	if (attributes.title) {
+		template = template + '		<div class="preamp-mb-row">' +
+		'			<label for="'+name+'_title_'+id+'">Title</label>' +
+		'			<input type="text" id="'+name+'_title_'+id+'" name="'+name+'_title[]" value="'+title+'">' +
+		'		</div>';
+	}
+
+	if (attributes.caption) {
+		template = template + '		<div class="preamp-mb-row">' +
+		'			<label for="'+name+'_caption_'+id+'">Caption</label>' +
+		'			<input type="text" id="'+name+'_caption_'+id+'" name="'+name+'_caption[]" value="'+caption+'">' +
+		'		</div>';
+	}
+	if (attributes.alt) {
+		template = template + '		<div class="preamp-mb-row">' +
+		'			<label for="'+name+'_alt_'+id+'">Alt Text</label>' +
+		'			<input type="text" id="'+name+'_alt_'+id+'" name="'+name+'_alt[]" value="'+alt+'">' +
+		'		</div>';
+	}
+	template = template + '	</div>' +
 	'	<input type="hidden" name="'+name+'[]" value="'+id+'">' +
 	'	<a href="#" class="button preamp-remove-file">Remove Photo</a>' +
 	'</li>';
@@ -177,6 +202,7 @@ function preampInitRemoveButton($) {
 	$('.preamp-remove-file').click(function(event) {
 		event.preventDefault();
 		$(this).parent('li').slideUp(300, function(){
+			jQuery(this).parent('.preamp-upload-container').next('button').removeAttr("disabled");
 			$(this).remove();
 		});
 	});

@@ -1,4 +1,5 @@
 {% if label %}<div class="label">{{ label }}</div>{% endif %}<div class="options">
+	<input type="hidden" name="{{ name }}" value="{{ file }}">
 	<ul class="preamp-upload-container">
 	{% if value %}
 	{% for file in value %}
@@ -7,18 +8,18 @@
 	 		{{ image(file, {'w': 150})|raw }}
 	 	</div>
 	 	<div class="preamp-details">
-			<div class="preamp-mb-row">
+			{% if attributes.title %}<div class="preamp-mb-row">
 				<label for="{{ name }}-title-{{ file }}">{{ __("Title") }}</label>
 				<input type="text" id="{{ name }}-title-{{ file }}" name="{{ name }}_title[]" value="{{ get_the_title(file) }}">
-			</div>
-			<div class="preamp-mb-row">
+			</div>{% endif %}
+			{% if attributes.caption %}<div class="preamp-mb-row">
 				<label for="{{ name }}-caption-{{ file }}">{{ __("Caption") }}</label>
 				<input type="text" id="{{ name }}-caption-{{ file }}" name="{{ name }}_caption[]" value="{{ caption(file) }}">
-			</div>
-			<div class="preamp-mb-row">
+			</div>{% endif %}
+			{% if attributes.alt %}<div class="preamp-mb-row">
 				<label for="{{ name }}-alt-{{ file }}">{{ __("Alt Text") }}</label>
 				<input type="text" id="{{ name }}-alt-{{ file }}" name="{{ name }}_alt[]" value="{{ alt(file) }}">
-			</div>
+			</div>{% endif %}
 		</div>
 		<input type="hidden" name="{{ name }}[]" value="{{ file }}">
 		<a href="#" class="button preamp-remove-file">{{ __("Remove") }}</a>
@@ -26,6 +27,6 @@
 	{% endfor %}
 	{% endif %}
 	</ul>
-	<button href="#" class="button button-primary preamp_upload_button">{{ labels.button }}</button>
+	<button href="#" class="button button-primary preamp_upload_button"{% if not attributes.multiple and is_array(value) %} disabled="disabled"{% endif %} id="button-{{ id }}">{{ labels.button }}</button>
 </div>
-<script>preampInitUploadButton('{{ name }}', '{{ attributes.multiple }}', '{{ attributes.filetype }}', '{{ labels.button }}', '{{ labels.title }}');</script>
+<script>preampInitUploadButton('{{ id }}', '{{ name }}', {'multiple': '{{ attributes.multiple }}', 'alt': '{{ attributes.alt }}', 'caption': '{{ attributes.caption }}', 'title': '{{ attributes.title }}', 'filetype': '{{ attributes.filetype }}'}, '{{ labels.button }}', '{{ labels.title }}');</script>

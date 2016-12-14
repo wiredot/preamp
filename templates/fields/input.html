@@ -1,7 +1,2 @@
-{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}<input type="{{ type }}" name="{{ name }}" value="{{ value }}" id="{{ id }}"
-
-{% if attributes.class is defined %}
-	class="{{ attributes.class }}" 
-{% endif %}
-
->
+{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}
+<input type="{{ type }}" name="{{ name }}" value="{{ value }}" id="{{ id }}"{% if attributes.class is defined %} class="{{ attributes.class }}"{% endif %}>
