@@ -18,7 +18,7 @@ class Field_Factory {
 	protected $options;
 	protected $labels;
 
-	public function __construct($type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array()) {
+	public function __construct( $type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array() ) {
 		$this->type = $type;
 		$this->label = $label;
 		$this->name = $name;
@@ -30,7 +30,7 @@ class Field_Factory {
 	}
 
 	public function get_field() {
-		switch ($this->type) {
+		switch ( $this->type ) {
 			case 'text':
 			case 'password':
 			case 'email':
@@ -39,33 +39,33 @@ class Field_Factory {
 			case 'color':
 			case 'url':
 			case 'date':
-				$field = new Input($this->type, $this->label, $this->name, $this->id, $this->value, $this->attributes);
+				$field = new Input( $this->type, $this->label, $this->name, $this->id, $this->value, $this->attributes );
 				break;
 
 			case 'textarea':
-				$field = new Textarea($this->label, $this->name, $this->id, $this->value, $this->attributes);
+				$field = new Textarea( $this->label, $this->name, $this->id, $this->value, $this->attributes );
 				break;
-			
+
 			case 'editor':
-				$field = new Editor($this->label, $this->name, $this->id, $this->value, $this->attributes);
+				$field = new Editor( $this->label, $this->name, $this->id, $this->value, $this->attributes );
 				break;
-			
+
 			case 'select':
-				$field = new Select($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options);
+				$field = new Select( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
 				break;
-			
+
 			case 'checkbox':
-				$field = new Checkbox($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options);
+				$field = new Checkbox( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
 				break;
-			
+
 			case 'radio':
-				$field = new Radio($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options);
+				$field = new Radio( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
 				break;
-			
+
 			case 'upload':
-				$field = new Upload($this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels);
+				$field = new Upload( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels );
 				break;
-			
+
 			default:
 				return;
 				break;
@@ -74,8 +74,8 @@ class Field_Factory {
 		return $field->get_field();
 	}
 
-	public function showField() {
+	public function show_field() {
 		echo $this->get_field();
 	}
-	
+
 }

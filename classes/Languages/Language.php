@@ -7,7 +7,7 @@ class Language {
 	private $name;
 	private $prefix;
 
-	public function __construct($name, $prefix) {
+	public function __construct( $name, $prefix ) {
 		$this->name = $name;
 		$this->prefix = $prefix;
 	}
@@ -16,5 +16,4 @@ class Language {
 		return $this->name;
 	}
 
-	
 }

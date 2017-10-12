@@ -6,10 +6,10 @@ class Languages_Factory {
 
 	private $languages = array();
 
-	public function add_language($name, $prefix) {
-		$new_language = new Language($name, $prefix);
+	public function add_language( $name, $prefix ) {
+		$new_language = new Language( $name, $prefix );
 
-		$this->languages[$prefix] = $new_language;			
+		$this->languages[ $prefix ] = $new_language;
 	}
 
 	public function list_languages() {

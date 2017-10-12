@@ -20,8 +20,7 @@ class Loop_Node extends Twig_Node {
 				->subcompile( $this->getNode( 'query' ) )
 				->raw( ");\n" )
 				->write( 'while( $loop->have_posts() ) : $loop->the_post();' . "\n" ); // TODO nested loops
-		}
-		else {
+		} else {
 			$compiler->write( 'while( have_posts() ) : the_post();' . "\n" );
 		}
 		$compiler

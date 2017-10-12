@@ -14,7 +14,7 @@ class Input {
 	protected $attributes;
 	protected $options;
 
-	public function __construct($type, $label, $name, $id, $value, $attributes, $options = array()) {
+	public function __construct( $type, $label, $name, $id, $value, $attributes, $options = array() ) {
 		$this->type = $type;
 		$this->label = $label;
 		$this->name = $name;
@@ -27,7 +27,8 @@ class Input {
 	public function get_field() {
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/input.twig',
+		return $Twig->twig->render(
+			'fields/input.twig',
 			array(
 				'type' => $this->type,
 				'label' => $this->label,

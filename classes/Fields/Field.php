@@ -14,7 +14,7 @@ class Field {
 	protected $options;
 	protected $labels;
 
-	public function __construct($label, $name, $id, $value, $attributes, $options = array()) {
+	public function __construct( $label, $name, $id, $value, $attributes, $options = array() ) {
 		$this->label = $label;
 		$this->name = $name;
 		$this->id = $id;
@@ -26,7 +26,8 @@ class Field {
 	public function get_field() {
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/'.$this->type.'.twig',
+		return $Twig->twig->render(
+			'fields/' . $this->type . '.twig',
 			array(
 				'label' => $this->label,
 				'name' => $this->name,

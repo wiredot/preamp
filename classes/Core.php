@@ -21,17 +21,17 @@ class Core {
 
 	private static $instance = null;
 
-	private function __construct($path, $url) {
-		define('PREAMP_URL', $url);
-		
+	private function __construct( $path, $url ) {
+		define( 'PREAMP_URL', $url );
+
 		$this->path = $path;
 		$this->url = $url;
 		add_action( 'plugins_loaded', array( $this, 'setup' ) );
 	}
 
-	public static function run($path, $url) {
+	public static function run( $path, $url ) {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
-			self::$instance = new Core($path, $url);
+			self::$instance = new Core( $path, $url );
 		}
 
 		return self::$instance;
@@ -41,40 +41,40 @@ class Core {
 		$Config = new Config;
 		self::$config = $Config->get_config();
 
-		if (is_admin()) {
-			new Admin(self::$config);
+		if ( is_admin() ) {
+			new Admin( self::$config );
 		}
-		
+
 		// register all custom post types
-		if (isset(self::$config['custom_post_type'])) {
-			new Custom_Post_Type_Factory(self::$config['custom_post_type']);
+		if ( isset( self::$config['custom_post_type'] ) ) {
+			new Custom_Post_Type_Factory( self::$config['custom_post_type'] );
 		}
 
 		// register all meta boxes
-		if (isset(self::$config['meta_box'])) {
-			new Meta_Box_Factory(self::$config['meta_box']);
+		if ( isset( self::$config['meta_box'] ) ) {
+			new Meta_Box_Factory( self::$config['meta_box'] );
 		}
 
-		if (isset(self::$config['css'])) {
-			$css = new Css_Factory(self::$config['css']);
+		if ( isset( self::$config['css'] ) ) {
+			$css = new Css_Factory( self::$config['css'] );
 			$css->register_css_files();
 		}
 
-		if (isset(self::$config['js'])) {
-			$js = new Js_Factory(self::$config['js']);
+		if ( isset( self::$config['js'] ) ) {
+			$js = new Js_Factory( self::$config['js'] );
 			$js->register_js_files();
 		}
 	}
 
-	public static function get_config($key) {
-		if ($key) {
-			if (isset(self::$config[$key])) {
-				return self::$config[$key];
+	public static function get_config( $key ) {
+		if ( $key ) {
+			if ( isset( self::$config[ $key ] ) ) {
+				return self::$config[ $key ];
 			} else {
 				return null;
 			}
 		}
-		
+
 		return self::$config;
 	}
 }

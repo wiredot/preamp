@@ -9,16 +9,17 @@ class Row {
 
 	protected $field;
 
-	public function __construct($field) {
+	public function __construct( $field ) {
 		$this->field = $field;
 	}
 
 	public function get_row() {
 
 		$Twig = new Twig;
-		return $Twig->twig->render('forms/row.twig',
+		return $Twig->twig->render(
+			'forms/row.twig',
 			array(
-				'field' => $this->field
+				'field' => $this->field,
 			)
 		);
 	}

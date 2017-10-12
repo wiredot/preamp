@@ -11,7 +11,7 @@ class Css {
 	private $version;
 	private $media;
 
-	public function __construct($name, $files, $mode = 'front', $dependencies = array(), $version = null, $media = 'all') {
+	public function __construct( $name, $files, $mode = 'front', $dependencies = array(), $version = null, $media = 'all' ) {
 		$this->name = $name;
 		$this->files = $files;
 		$this->mode = $mode;
@@ -21,25 +21,25 @@ class Css {
 	}
 
 	public function register_css_files() {
-		if ($this->mode == 'front') {
-			add_filter('wp_enqueue_scripts', array($this,'register_css_file'));
+		if ( 'front' == $this->mode ) {
+			add_filter( 'wp_enqueue_scripts', array( $this, 'register_css_file' ) );
 		} else {
-			add_filter('admin_enqueue_scripts', array($this,'register_css_file'));
+			add_filter( 'admin_enqueue_scripts', array( $this, 'register_css_file' ) );
 		}
 	}
 
 	public function register_css_file() {
-		if (is_array($this->files)) {
-			foreach ($this->files as $css_name => $css_link) {
-				$this->display_css_file($css_name, $css_link, $this->dependencies, $this->version, $this->media);
+		if ( is_array( $this->files ) ) {
+			foreach ( $this->files as $css_name => $css_link ) {
+				$this->display_css_file( $css_name, $css_link, $this->dependencies, $this->version, $this->media );
 			}
 		} else {
-			$this->display_css_file($this->name, $this->files, $this->dependencies, $this->version, $this->media);
+			$this->display_css_file( $this->name, $this->files, $this->dependencies, $this->version, $this->media );
 		}
 	}
 
-	private function display_css_file($name, $file, $dependencies, $version, $media) {
-		wp_register_style($name, $file, $dependencies, $version, $media);
-		wp_enqueue_style($name);
+	private function display_css_file( $name, $file, $dependencies, $version, $media ) {
+		wp_register_style( $name, $file, $dependencies, $version, $media );
+		wp_enqueue_style( $name );
 	}
 }

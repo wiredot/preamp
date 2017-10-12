@@ -8,61 +8,62 @@ use Twig_Extension;
  * Meadow extension for Twig with WordPress specific functionality.
  */
 class Extension extends Twig_Extension {
-	
+
 	public function getName() {
 		return 'preamp';
 	}
 
 	public function initRuntime( \Twig_Environment $environment ) {
 	}
-	
+
 	public function getFunctions() {
 		$options = array(
 			'needs_environment' => true,
 			'needs_context'     => true,
-			'is_safe'           => array( 'all' )
+			'is_safe'           => array( 'all' ),
 		);
-		
+
 		$functions = array();
-		
+
 		foreach ( array( 'get_header', 'get_footer', 'get_sidebar', 'get_template_part', 'get_search_form', 'comments_template' ) as $function ) {
 			$functions[] = new \Twig_SimpleFunction( $function, array( $this, $function ), $options );
 		}
 		return $functions;
 	}
-	
+
 	public function getGlobals() {
 		global $wp_query;
 		return compact( 'wp_query' );
 	}
-	
-	public function getTokenParsers(  ) {
+
+	public function getTokenParsers() {
 		return array(
 			new Loop_Token_Parser(),
 			// new Comments_Token_Parser(),
 		);
 	}
-	
+
 	public function get_header( \Twig_Environment $env, $context, $name = null ) {
 		return $this->get_template( $env, $context, 'header', $name );
 	}
-	
+
 	public function get_templates( $slug, $name = null ) {
 		$templates = array();
-		if ( ! empty( $name ) )
+		if ( ! empty( $name ) ) {
 			$templates[] = "{$slug}-{$name}.twig";
+		}
 		$templates[] = "{$slug}.twig";
 		return $templates;
 	}
-	
+
 	public function get_footer( \Twig_Environment $env, $context, $name = null ) {
 		return $this->get_template( $env, $context, 'footer', $name );
 	}
-	
+
 	public function get_sidebar( \Twig_Environment $env, $context, $name = null ) {
 		return $this->get_template( $env, $context, 'sidebar', $name );
 	}
-	
+
 	public function get_template_part( \Twig_Environment $env, $context, $slug, $name = null ) {
 		try {
 			$return = twig_include( $env, $context, $this->get_templates( $slug, $name ) );
@@ -79,11 +80,11 @@ class Extension extends Twig_Extension {
 	 *
 	 * @return string
 	 */
-	
+
 	public function get_search_form() {
 		return apply_filters( 'get_search_form', true );
 	}
-	
+
 	protected function get_template( \Twig_Environment $env, $context, $type, $name = null ) {
 		try {
 			$return = twig_include( $env, $context, $this->get_templates( $type, $name ) );
