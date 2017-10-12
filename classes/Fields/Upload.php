@@ -18,7 +18,7 @@ class Upload extends Field {
 	public function get_field() {
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/upload.html',
+		return $Twig->twig->render('fields/upload.twig',
 			array(
 				'label' => $this->label,
 				'labels' => $this->labels,

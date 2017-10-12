@@ -16,7 +16,7 @@ class Editor extends Field {
 
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/editor.html',
+		return $Twig->twig->render('fields/editor.twig',
 			array(
 				'label' => $this->label,
 				'editor' => $editor

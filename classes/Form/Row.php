@@ -16,7 +16,7 @@ class Row {
 	public function get_row() {
 
 		$Twig = new Twig;
-		return $Twig->twig->render('forms/row.html',
+		return $Twig->twig->render('forms/row.twig',
 			array(
 				'field' => $this->field
 			)

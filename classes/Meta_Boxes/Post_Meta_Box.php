@@ -62,7 +62,7 @@ class Post_Meta_Box extends Meta_Box {
 			}
 
 			$Twig = new Twig;
-			echo $Twig->twig->render('meta_box.html',
+			echo $Twig->twig->render('meta_box.twig',
 				array(
 					'fields' => $fields
 				)

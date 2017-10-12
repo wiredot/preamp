@@ -27,7 +27,7 @@ class Input {
 	public function get_field() {
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/input.html',
+		return $Twig->twig->render('fields/input.twig',
 			array(
 				'type' => $this->type,
 				'label' => $this->label,

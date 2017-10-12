@@ -26,7 +26,7 @@ class Field {
 	public function get_field() {
 		$Twig = new Twig;
 
-		return $Twig->twig->render('fields/'.$this->type.'.html',
+		return $Twig->twig->render('fields/'.$this->type.'.twig',
 			array(
 				'label' => $this->label,
 				'name' => $this->name,
