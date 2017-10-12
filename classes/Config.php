@@ -102,8 +102,8 @@ class Config {
 
 			// get config array from file
 			require_once $filename;
-			if ( isset( $preamp['config'] ) ) {
-				return $preamp['config'];
+			if ( isset( $preamp_config ) ) {
+				return $preamp_config;
 			}
 		}
 
