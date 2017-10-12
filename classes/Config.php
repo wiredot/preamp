@@ -9,28 +9,32 @@ class Config {
 	private $config = array();
 
 	public function __construct() {
-		$this->get_directories();
+		$this->directories = $this->get_directories();
 		$this->load_directories();
 
-		// print_r($this->config);
+		// print_r($this->directories);
 	}
 
 	public function get_directories() {
+		$directories = array();
+
 		$active_plugins = get_option( 'active_plugins' );
 
 		if ( $active_plugins ) {
 			foreach ( $active_plugins as $plugin ) {
-				$this->directories[] = array(
+				$directories[] = array(
 					'directory' => WP_PLUGIN_DIR . '/' . plugin_dir_path( $plugin ),
 					'url' => dirname( plugins_url( $plugin ) ),
 				);
 			}
 		}
 
-		$this->directories[] = array(
-			'directory' => WP_PLUGIN_DIR . '/' . get_template_directory(),
+		$directories[] = array(
+			'directory' => get_template_directory() . '/',
 			'url' => dirname( get_stylesheet_uri() ),
 		);
+
+		return $directories;
 	}
 
 	public function load_directories() {
