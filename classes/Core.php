@@ -4,12 +4,12 @@ namespace Wiredot\Preamp;
 
 use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
+use Wiredot\Preamp\Taxonomies\Taxonomy_Factory;
 use Wiredot\Preamp\Css\Css_Factory;
 use Wiredot\Preamp\Js\Js_Factory;
 use Wiredot\Preamp\Admin\Admin;
 
 class Core {
-
 	private $languages;
 	private $custom_post_types;
 	private $meta_boxes;
@@ -53,6 +53,11 @@ class Core {
 		// register all meta boxes
 		if ( isset( self::$config['meta_box'] ) ) {
 			new Meta_Box_Factory( self::$config['meta_box'] );
+		}
+
+		// register all taxonomies
+		if ( isset( self::$config['taxonomy'] ) ) {
+			new Taxonomy_Factory( self::$config['taxonomy'] );
 		}
 
 		if ( isset( self::$config['css'] ) ) {
