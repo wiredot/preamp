@@ -14,32 +14,28 @@ class Core {
 	private $custom_post_types;
 	private $meta_boxes;
 
-	private $path;
-	private $url;
-
 	private static $config;
 
 	private static $instance = null;
 
-	private function __construct( $path, $url ) {
+	private function __construct( $url ) {
 		define( 'PREAMP_URL', $url );
 
-		$this->path = $path;
-		$this->url = $url;
 		add_action( 'plugins_loaded', array( $this, 'setup' ) );
 	}
 
-	public static function run( $path, $url ) {
+	public static function run( $url ) {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
-			self::$instance = new Core( $path, $url );
+			self::$instance = new Core( $url );
+
+			$Config = new Config;
+			self::$config = $Config->get_config();
 		}
 
 		return self::$instance;
 	}
 
 	public function setup() {
-		$Config = new Config;
-		self::$config = $Config->get_config();
 
 		if ( is_admin() ) {
 			new Admin( self::$config );
@@ -71,15 +67,15 @@ class Core {
 		}
 	}
 
-	public static function get_config( $key ) {
-		if ( $key ) {
-			if ( isset( self::$config[ $key ] ) ) {
-				return self::$config[ $key ];
-			} else {
-				return null;
-			}
+	public static function get_config( $key = null ) {
+		if ( ! $key ) {
+			return self::$config;
 		}
 
-		return self::$config;
+		if ( isset( self::$config[ $key ] ) ) {
+			return self::$config[ $key ];
+		}
+
+		return null;
 	}
 }

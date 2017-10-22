@@ -83,11 +83,11 @@ class Twig {
 	public function get_directories() {
 		$directories = array();
 
-		if ( is_dir( dirname( dirname( __FILE__ ) ) . '/templates/' ) ) {
-			$directories[] = dirname( dirname( __FILE__ ) ) . '/templates/';
-		}
-
 		$active_plugins = get_option( 'active_plugins' );
+
+		if ( is_dir( get_template_directory() . '/templates/' ) ) {
+			$directories[] = get_template_directory() . '/templates/';
+		}
 
 		if ( $active_plugins ) {
 			foreach ( $active_plugins as $plugin ) {
@@ -97,8 +97,8 @@ class Twig {
 			}
 		}
 
-		if ( is_dir( get_template_directory() . '/templates/' ) ) {
-			$directories[] = get_template_directory() . '/templates/';
+		if ( is_dir( dirname( dirname( __FILE__ ) ) . '/templates/' ) ) {
+			$directories[] = dirname( dirname( __FILE__ ) ) . '/templates/';
 		}
 
 		return $directories;
