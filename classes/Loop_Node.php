@@ -14,6 +14,7 @@ class Loop_Node extends Twig_Node {
 	 */
 	public function compile( Twig_Compiler $compiler ) {
 		$compiler->addDebugInfo( $this );
+
 		if ( $this->hasNode( 'query' ) ) {
 			$compiler
 				->write( '$loop = new WP_Query(' )
@@ -23,8 +24,9 @@ class Loop_Node extends Twig_Node {
 		} else {
 			$compiler->write( 'while( have_posts() ) : the_post();' . "\n" );
 		}
+
 		$compiler
-				->subcompile( $this->getNode( 'body' ) )
-				->write( 'endwhile;' . "\n" );
+			->subcompile( $this->getNode( 'body' ) )
+			->write( 'endwhile;' . "\n" );
 	}
 }

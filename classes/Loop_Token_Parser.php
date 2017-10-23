@@ -18,18 +18,16 @@ class Loop_Token_Parser extends Twig_TokenParser {
 		$nodes  = array();
 		$parser = $this->parser;
 		$stream = $parser->getStream();
+
 		if ( ! $stream->getCurrent()->test( Twig_Token::BLOCK_END_TYPE ) ) {
 			$nodes['query'] = $parser->getExpressionParser()->parseExpression();
 		}
+
 		$stream->expect( Twig_Token::BLOCK_END_TYPE );
 		$nodes['body'] = $parser->subparse( array( $this, 'decide_loop_end' ), true );
 		$stream->expect( Twig_Token::BLOCK_END_TYPE );
 
-		// global $post;
-		// var_dump($post);
-
 		return new Loop_Node( $nodes, array(), $token->getLine(), $this->getTag() );
-		// exit;
 	}
 
 	/**
