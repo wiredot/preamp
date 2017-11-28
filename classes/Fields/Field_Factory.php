@@ -17,8 +17,9 @@ class Field_Factory {
 	protected $attributes;
 	protected $options;
 	protected $labels;
+	protected $arguments;
 
-	public function __construct( $type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array() ) {
+	public function __construct( $type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array(), $arguments = array() ) {
 		$this->type = $type;
 		$this->label = $label;
 		$this->name = $name;
@@ -27,6 +28,7 @@ class Field_Factory {
 		$this->attributes = $attributes;
 		$this->options = $options;
 		$this->labels = $labels;
+		$this->arguments = $arguments;
 	}
 
 	public function get_field() {
@@ -60,6 +62,10 @@ class Field_Factory {
 
 			case 'radio':
 				$field = new Radio( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
+				break;
+
+			case 'post':
+				$field = new Post( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
 				break;
 
 			case 'upload':

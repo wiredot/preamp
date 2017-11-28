@@ -12,7 +12,6 @@ class Field {
 	protected $value;
 	protected $attributes;
 	protected $options;
-	protected $labels;
 
 	public function __construct( $label, $name, $id, $value, $attributes, $options = array() ) {
 		$this->label = $label;

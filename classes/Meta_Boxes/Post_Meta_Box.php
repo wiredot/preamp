@@ -53,9 +53,13 @@ class Post_Meta_Box extends Meta_Box {
 					$meta_box_field['labels'] = array();
 				}
 
+				if ( ! isset( $meta_box_field['arguments'] ) ) {
+					$meta_box_field['arguments'] = array();
+				}
+
 				$value = get_post_meta( $post->ID, $key, true );
 
-				$field = new Field_Factory( $meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels'] );
+				$field = new Field_Factory( $meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels'], $meta_box_field['arguments'] );
 
 				$row = new Row( $field->get_field() );
 				$fields .= $row->get_row();
