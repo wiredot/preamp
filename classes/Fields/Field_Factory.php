@@ -64,8 +64,12 @@ class Field_Factory {
 				$field = new Radio( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
 				break;
 
-			case 'post':
+			case 'posts':
 				$field = new Post( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
+				break;
+
+			case 'users':
+				$field = new User( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
 				break;
 
 			case 'upload':
