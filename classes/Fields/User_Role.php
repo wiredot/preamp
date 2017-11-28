@@ -2,7 +2,9 @@
 
 namespace Wiredot\Preamp\Fields;
 
-class User extends Field {
+use \WP_Roles;
+
+class User_Role extends Field {
 
 	protected $type = 'select';
 
@@ -18,16 +20,18 @@ class User extends Field {
 	}
 
 	public function get_options() {
-		$users = get_users( $this->arguments );
+		$roles = new WP_Roles();
 
-		if ( ! $users ) {
+		$role_names = $roles->role_names;
+
+		if ( ! is_array( $role_names ) ) {
 			return null;
 		}
 
 		$options = array( 0 => '-- select --' );
 
-		foreach ( $users as $user ) {
-			$options[ $user->ID ] = get_user_meta( $user->ID, 'first_name', true ) . ' ' . get_user_meta( $user->ID, 'last_name', true ) . ' (' . $user->data->user_login . ')';
+		foreach ( $role_names as $field_key => $field_value ) {
+			$options[ $field_key ] = $field_value;
 		}
 
 		return $options;
