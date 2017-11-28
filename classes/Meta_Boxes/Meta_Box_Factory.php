@@ -11,16 +11,14 @@ class Meta_Box_Factory {
 			return;
 		}
 
+		foreach ( $meta_boxes as $type => $type_meta_boxes ) {
+			$this->init_meta_boxes( $type, $type_meta_boxes );
+		}
+	}
+
+	public function init_meta_boxes( $type, $meta_boxes ) {
 		foreach ( $meta_boxes as $meta_box_id => $meta_box ) {
-			if ( is_array( $meta_box['post_type'] ) ) {
-				foreach ( $meta_box['post_type'] as $post_type ) {
-					$new_meta_box = $meta_box;
-					$new_meta_box['post_type'] = $post_type;
-					$this->init_meta_box( $meta_box['type'], $meta_box_id, $new_meta_box );
-				}
-			} else {
-				$this->init_meta_box( $meta_box['type'], $meta_box_id, $meta_box );
-			}
+			$this->init_meta_box( $type, $meta_box_id, $meta_box );
 		}
 	}
 
@@ -30,8 +28,12 @@ class Meta_Box_Factory {
 				new Post_Meta_Box( $meta_box_id, $meta_box );
 				break;
 
-			default:
-				# code...
+			case 'term':
+				new Term_Meta_Box( $meta_box_id, $meta_box );
+				break;
+
+			case 'user':
+				new User_Meta_Box( $meta_box_id, $meta_box );
 				break;
 		}
 	}

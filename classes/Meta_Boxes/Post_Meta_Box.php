@@ -9,9 +9,6 @@ use Wiredot\Preamp\Form\Label;
 
 class Post_Meta_Box extends Meta_Box {
 
-	private $meta_box;
-	private $meta_box_id;
-
 	function __construct( $meta_box_id, $meta_box ) {
 		$this->meta_box_id = $meta_box_id;
 		$this->meta_box = $meta_box;
@@ -20,7 +17,13 @@ class Post_Meta_Box extends Meta_Box {
 		add_action( 'admin_init', array( $this, 'add_meta_box' ) );
 
 		// save meta boxes
-		add_action( 'save_post_' . $meta_box['post_type'], array( $this, 'save_meta_box' ), 10, 3 );
+		if ( is_array( $meta_box['post_type'] ) ) {
+			foreach ( $meta_box['post_type'] as $post_type ) {
+				add_action( 'save_post_' . $post_type, array( $this, 'save_meta_box' ), 10, 3 );
+			}
+		} else {
+			add_action( 'save_post_' . $meta_box['post_type'], array( $this, 'save_meta_box' ), 10, 3 );
+		}
 	}
 
 	public function add_meta_box() {
