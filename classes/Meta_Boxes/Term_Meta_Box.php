@@ -26,36 +26,17 @@ class Term_Meta_Box extends Meta_Box {
 
 	public function add_form_fields( $taxonomy ) {
 		if ( is_array( $this->meta_box['fields'] ) ) {
-			$fields = wp_nonce_field( 'preamp-tmb_' . $this->meta_box_id . '_nonce', 'preamp-tmb_' . $this->meta_box_id . '_nonce', false, false );
+			$fields = '';
+			// $fields = wp_nonce_field( 'preamp-tmb_' . $this->meta_box_id . '_nonce', 'preamp-tmb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
-				if ( ! isset( $meta_box_field['attributes'] ) ) {
-					$meta_box_field['attributes'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['options'] ) ) {
-					$meta_box_field['options'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['labels'] ) ) {
-					$meta_box_field['labels'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['arguments'] ) ) {
-					$meta_box_field['arguments'] = array();
-				}
-
-				$value = get_post_meta( $post->ID, $key, true );
-
-				$field = new Field_Factory( $meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels'], $meta_box_field['arguments'] );
-
-				$row = new Row( $field->get_field() );
+				$row = new Row( $key, $meta_box_field );
 				$fields .= $row->get_row();
 			}
 
 			$Twig = new Twig;
 			echo $Twig->twig->render(
-				'meta_box.twig',
+				'forms/meta_box.twig',
 				array(
 					'fields' => $fields,
 				)
@@ -68,33 +49,14 @@ class Term_Meta_Box extends Meta_Box {
 			$fields = wp_nonce_field( 'preamp-tmb_' . $this->meta_box_id . '_nonce', 'preamp-tmb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
-				if ( ! isset( $meta_box_field['attributes'] ) ) {
-					$meta_box_field['attributes'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['options'] ) ) {
-					$meta_box_field['options'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['labels'] ) ) {
-					$meta_box_field['labels'] = array();
-				}
-
-				if ( ! isset( $meta_box_field['arguments'] ) ) {
-					$meta_box_field['arguments'] = array();
-				}
-
-				$value = get_post_meta( $post->ID, $key, true );
-
-				$field = new Field_Factory( $meta_box_field['type'], $meta_box_field['label'], $key, $key, $value, $meta_box_field['attributes'], $meta_box_field['options'], $meta_box_field['labels'], $meta_box_field['arguments'] );
-
-				$row = new Row( $field->get_field() );
+				$value = get_term_meta( $term->term_id, $key, true );
+				$row = new Row( $key, $meta_box_field, $value );
 				$fields .= $row->get_row();
 			}
 
 			$Twig = new Twig;
 			echo $Twig->twig->render(
-				'meta_box.twig',
+				'forms/meta_box.twig',
 				array(
 					'fields' => $fields,
 				)

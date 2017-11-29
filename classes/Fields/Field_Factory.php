@@ -2,37 +2,39 @@
 
 namespace Wiredot\Preamp\Fields;
 
-use Wiredot\Preamp\Fields\Text;
-use Wiredot\Preamp\Fields\Email;
-use Wiredot\Preamp\Fields\Textarea;
-use Wiredot\Preamp\Fields\Select;
-
 class Field_Factory {
 
-	protected $type;
-	protected $label;
-	protected $name;
 	protected $id;
-	protected $value;
-	protected $attributes;
-	protected $options;
-	protected $labels;
-	protected $arguments;
+	protected $field;
 
-	public function __construct( $type, $label, $name, $id, $value = '', $attributes = array(), $options = array(), $labels = array(), $arguments = array() ) {
-		$this->type = $type;
-		$this->label = $label;
-		$this->name = $name;
+	public function __construct( $id, $field, $value ) {
 		$this->id = $id;
+		$this->field = $field;
 		$this->value = $value;
-		$this->attributes = $attributes;
-		$this->options = $options;
-		$this->labels = $labels;
-		$this->arguments = $arguments;
+
+		if ( ! isset( $this->field['attributes'] ) ) {
+			$this->field['attributes'] = array();
+		}
+
+		if ( ! isset( $this->field['options'] ) ) {
+			$this->field['options'] = array();
+		}
+
+		if ( ! isset( $this->field['labels'] ) ) {
+			$this->field['labels'] = array();
+		}
+
+		if ( ! isset( $this->field['arguments'] ) ) {
+			$this->field['arguments'] = array();
+		}
+
+		if ( ! isset( $this->field['size'] ) ) {
+			$this->field['size'] = array();
+		}
 	}
 
 	public function get_field() {
-		switch ( $this->type ) {
+		switch ( $this->field['type'] ) {
 			case 'text':
 			case 'password':
 			case 'email':
@@ -41,43 +43,43 @@ class Field_Factory {
 			case 'color':
 			case 'url':
 			case 'date':
-				$field = new Input( $this->type, $this->label, $this->name, $this->id, $this->value, $this->attributes );
+				$field = new Input( $this->field['type'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['size'] );
 				break;
 
 			case 'textarea':
-				$field = new Textarea( $this->label, $this->name, $this->id, $this->value, $this->attributes );
+				$field = new Textarea( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'] );
 				break;
 
 			case 'editor':
-				$field = new Editor( $this->label, $this->name, $this->id, $this->value, $this->attributes );
+				$field = new Editor( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'] );
 				break;
 
 			case 'select':
-				$field = new Select( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
+				$field = new Select( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'checkbox':
-				$field = new Checkbox( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
+				$field = new Checkbox( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'radio':
-				$field = new Radio( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options );
+				$field = new Radio( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'post':
-				$field = new Post( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
+				$field = new Post( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'user':
-				$field = new User( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
+				$field = new User( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'user_role':
-				$field = new User_Role( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels, $this->arguments );
+				$field = new User_Role( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'upload':
-				$field = new Upload( $this->label, $this->name, $this->id, $this->value, $this->attributes, $this->options, $this->labels );
+				$field = new Upload( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
 				break;
 
 			default:

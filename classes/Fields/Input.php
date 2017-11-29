@@ -7,21 +7,27 @@ use Wiredot\Preamp\Twig;
 class Input {
 
 	protected $type;
-	protected $label;
 	protected $name;
 	protected $id;
 	protected $value;
 	protected $attributes;
-	protected $options;
+	protected $size;
 
-	public function __construct( $type, $label, $name, $id, $value, $attributes, $options = array() ) {
+	public function __construct( $type, $name, $id, $value, $attributes, $size = '' ) {
 		$this->type = $type;
-		$this->label = $label;
 		$this->name = $name;
 		$this->id = $id;
 		$this->value = $value;
 		$this->attributes = $attributes;
-		$this->options = $options;
+		$this->size = $size;
+
+		if ( $size ) {
+			if ( isset( $this->attributes['class'] ) ) {
+				$this->attributes['class'] .= ' ' . $size . '-text';
+			} else {
+				$this->attributes['class'] = $size . '-text';
+			}
+		}
 	}
 
 	public function get_field() {
@@ -31,12 +37,10 @@ class Input {
 			'fields/input.twig',
 			array(
 				'type' => $this->type,
-				'label' => $this->label,
 				'name' => $this->name,
 				'id' => $this->id,
 				'value' => $this->value,
 				'attributes' => $this->attributes,
-				'options' => $this->options,
 			)
 		);
 	}

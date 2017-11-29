@@ -1,5 +1,10 @@
-{% if label %}<div class="label">{{ label }}</div>{% endif %}<div class="options">{% for key, option in options %}
-	<div>
-		<input type="radio" name="{{ name }}" value="{{ key }}" id="{{ id }}_{{ key }}"{% if value == key %} checked="checked"{% endif %}><label for="{{ id }}_{{ key }}">{{ option }}</label>
-	</div>
-{% endfor %}</div>
+<fieldset>
+	<legend class="screen-reader-text"><span>{{ label }}</span></legend>
+	{% for key, option in options %}
+		<label>
+			<input type="radio" name="{{ name }}" value="{{ key }}"{% if value == key %} checked="checked"{% endif %}><span>{{ option }}</span>
+		</label>
+		<br>
+	{% endfor %}
+	
+</fieldset>

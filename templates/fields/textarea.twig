@@ -1,1 +1,1 @@
-{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}<textarea name="{{ name }}" id="{{ id }}"{% if attributes.class is defined %} class="{{ attributes.class }}" {% endif %}>{{ value }}</textarea>
+<textarea name="{{ name }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != true %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>{{ value }}</textarea>

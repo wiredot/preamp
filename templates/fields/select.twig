@@ -1,5 +1,4 @@
-{% if label %}<label for="{{ id }}">{{ label }}</label>{% endif %}
-<select name="{{ name }}" id="{{ id }}"{% if attributes.class is defined %} class="{{ attributes.class }}" {% endif %}{% if attributes.multiple %} multiple {% endif %}>
+<select name="{{ name }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != true %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>
 	{% for key, option in options %}
 	<option value="{{ key }}"{% if key == value %} selected="selected"{% endif %}>{{ option }}</option>
 	{% endfor %}
