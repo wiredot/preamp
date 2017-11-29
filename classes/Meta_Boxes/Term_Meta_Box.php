@@ -2,10 +2,8 @@
 
 namespace Wiredot\Preamp\Meta_Boxes;
 
-use Wiredot\Preamp\Fields\Field_Factory;
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Form\Row;
-use Wiredot\Preamp\Form\Label;
 
 class Term_Meta_Box extends Meta_Box {
 
