@@ -43,43 +43,43 @@ class Field_Factory {
 			case 'color':
 			case 'url':
 			case 'date':
-				$field = new Input( $this->field['type'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['size'] );
+				$field = new Input( $this->field['type'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['size'] );
 				break;
 
 			case 'textarea':
-				$field = new Textarea( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'] );
+				$field = new Textarea( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'] );
 				break;
 
 			case 'editor':
-				$field = new Editor( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'] );
+				$field = new Editor( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'] );
 				break;
 
 			case 'select':
-				$field = new Select( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
+				$field = new Select( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'checkbox':
-				$field = new Checkbox( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
+				$field = new Checkbox( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'radio':
-				$field = new Radio( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
+				$field = new Radio( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;
 
 			case 'post':
-				$field = new Post( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
+				$field = new Post( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'user':
-				$field = new User( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
+				$field = new User( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'user_role':
-				$field = new User_Role( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
+				$field = new User_Role( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'], $this->field['arguments'] );
 				break;
 
 			case 'upload':
-				$field = new Upload( $this->field['label'], $this->field['name'], $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
+				$field = new Upload( $this->field['label'], $this->id, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
 				break;
 
 			default:

@@ -14,6 +14,8 @@ class User_Meta_Box extends Meta_Box {
 
 		add_action( 'edit_user_profile', array( $this, 'add_user_meta_boxes' ) );
 		add_action( 'show_user_profile', array( $this, 'add_user_meta_boxes' ) );
+
+		add_action( 'profile_update', array( $this, 'update_user_meta' ) );
 	}
 
 	public function add_user_meta_boxes( $user ) {
@@ -34,6 +36,19 @@ class User_Meta_Box extends Meta_Box {
 					'header' => $this->meta_box['name'],
 				)
 			);
+		}
+	}
+
+	public function update_user_meta( $user_id ) {
+		if ( is_array( $this->meta_box['fields'] ) ) {
+
+			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
+				if ( isset( $_POST[ $key ] ) ) {
+						update_user_meta( $user_id, $key, $_POST[ $key ] );
+				} else {
+					delete_user_meta( $user_id, $key );
+				}
+			}
 		}
 	}
 }
