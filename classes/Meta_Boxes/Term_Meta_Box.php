@@ -16,12 +16,16 @@ class Term_Meta_Box extends Meta_Box {
 			foreach ( $meta_box['taxonomy'] as $taxonomy ) {
 				add_action( $taxonomy . '_add_form_fields', array( $this, 'add_form_fields' ), 10, 3 );
 				add_action( $taxonomy . '_edit_form_fields', array( $this, 'edit_form_fields' ), 10, 2 );
+
+				add_action( 'edited_' . $taxonomy, array( $this, 'update_term_meta' ), 10, 2 );
+				add_action( 'created_' . $taxonomy, array( $this, 'save_term_meta' ), 10, 2 );
 			}
 		} else {
 			add_action( $meta_box['taxonomy'] . '_add_form_fields', array( $this, 'add_form_fields' ), 10, 3 );
 			add_action( $meta_box['taxonomy'] . '_edit_form_fields', array( $this, 'edit_form_fields' ), 10, 2 );
 
 			add_action( 'edited_' . $meta_box['taxonomy'], array( $this, 'update_term_meta' ), 10, 2 );
+			add_action( 'created_' . $meta_box['taxonomy'], array( $this, 'save_term_meta' ), 10, 2 );
 		}
 	}
 
@@ -65,12 +69,23 @@ class Term_Meta_Box extends Meta_Box {
 		}
 	}
 
+	public function save_term_meta( $term_id, $tt_id ) {
+		if ( is_array( $this->meta_box['fields'] ) ) {
+
+			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
+				if ( isset( $_POST[ $key ] ) ) {
+					add_term_meta( $term_id, $key, $_POST[ $key ] );
+				}
+			}
+		}
+	}
+
 	public function update_term_meta( $term_id, $tt_id ) {
 		if ( is_array( $this->meta_box['fields'] ) ) {
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
 				if ( isset( $_POST[ $key ] ) ) {
-						update_term_meta( $term_id, $key, $_POST[ $key ] );
+					update_term_meta( $term_id, $key, $_POST[ $key ] );
 				} else {
 					delete_term_meta( $term_id, $key );
 				}
