@@ -15,8 +15,8 @@ class Nav_Menu_Factory {
 			return;
 		}
 
-		foreach ( $this->nav_menus as $location => $description ) {
-			$nav_menu = new Nav_Menu( $location, $description );
+		foreach ( $this->nav_menus as $location => $menu ) {
+			$nav_menu = new Nav_Menu( $location, $menu['description'] );
 		}
 	}
 }
