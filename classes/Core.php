@@ -5,6 +5,7 @@ namespace Wiredot\Preamp;
 use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
 use Wiredot\Preamp\Taxonomies\Taxonomy_Factory;
+use Wiredot\Preamp\Sidebars\Sidebar_Factory;
 use Wiredot\Preamp\Css\Css_Factory;
 use Wiredot\Preamp\Js\Js_Factory;
 use Wiredot\Preamp\Admin\Admin;
@@ -54,6 +55,12 @@ class Core {
 		// register all taxonomies
 		if ( isset( self::$config['taxonomy'] ) ) {
 			new Taxonomy_Factory( self::$config['taxonomy'] );
+		}
+
+		// register all sidebars
+		if ( isset( self::$config['sidebar'] ) ) {
+			$sidebars = new Sidebar_Factory( self::$config['sidebar'] );
+			$sidebars->register_sidebars();
 		}
 
 		if ( isset( self::$config['css'] ) ) {
