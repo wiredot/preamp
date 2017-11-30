@@ -6,6 +6,7 @@ use Wiredot\Preamp\Custom_Post_Types\Custom_Post_Type_Factory;
 use Wiredot\Preamp\Meta_Boxes\Meta_Box_Factory;
 use Wiredot\Preamp\Taxonomies\Taxonomy_Factory;
 use Wiredot\Preamp\Sidebars\Sidebar_Factory;
+use Wiredot\Preamp\Nav_Menus\Nav_Menu_Factory;
 use Wiredot\Preamp\Css\Css_Factory;
 use Wiredot\Preamp\Js\Js_Factory;
 use Wiredot\Preamp\Admin\Admin;
@@ -62,6 +63,12 @@ class Core {
 		if ( isset( self::$config['sidebar'] ) ) {
 			$sidebars = new Sidebar_Factory( self::$config['sidebar'] );
 			$sidebars->register_sidebars();
+		}
+
+		// register nav menus
+		if ( isset( self::$config['nav_menu'] ) ) {
+			$nav_menus = new Nav_Menu_Factory( self::$config['nav_menu'] );
+			$nav_menus->register_nav_menus();
 		}
 
 		if ( isset( self::$config['css'] ) ) {
