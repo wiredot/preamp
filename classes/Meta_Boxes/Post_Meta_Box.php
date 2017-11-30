@@ -39,19 +39,19 @@ class Post_Meta_Box extends Meta_Box {
 	public function add_meta_box_content( $post, $meta_box ) {
 		if ( is_array( $this->meta_box['fields'] ) ) {
 
-			$fields = wp_nonce_field( 'preamp-mb_' . $this->meta_box_id . '_nonce', 'preamp-mb_' . $this->meta_box_id . '_nonce', false, false );
+			$rows = wp_nonce_field( 'preamp-mb_' . $this->meta_box_id . '_nonce', 'preamp-mb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
 				$value = get_post_meta( $post->ID, $key, true );
-				$row = new Row( $key, $meta_box_field, $value );
-				$fields .= $row->get_row();
+				$row = new Row( $key, $key, $meta_box_field, $value );
+				$rows .= $row->get_row();
 			}
 
 			$Twig = new Twig;
 			echo $Twig->twig->render(
 				'forms/meta_box.twig',
 				array(
-					'fields' => $fields,
+					'rows' => $rows,
 				)
 			);
 		}
@@ -85,19 +85,28 @@ class Post_Meta_Box extends Meta_Box {
 			switch ( $field_type ) {
 				default:
 					if ( is_array( $value ) ) {
-						$sanitized_value = array_map( 'sanitize_text_field', $value );
+						$sanitized_value = $this->array_map_r( 'sanitize_text_field', $value );
 					} else {
 						$sanitized_value = sanitize_text_field( $value );
 					}
 					break;
 			}
-
 			// save data
 			update_post_meta( $post_id, $meta_key, $sanitized_value );
 		} else {
 			// delete data
 			delete_post_meta( $post_id, $meta_key );
 		}
+	}
+
+	public function array_map_r( $function, $array ) {
+		$new_array = array();
+
+		foreach ( $array as $key => $value ) {
+			$new_array[ $key ] = ( is_array( $value ) ? $this->array_map_r( $function, $value ) : ( is_array( $function ) ? call_user_func_array( $function, $value ) : $function( $value ) ) );
+		}
+
+		return $new_array;
 	}
 
 	public function save_upload_field( $post_id, $meta_key ) {

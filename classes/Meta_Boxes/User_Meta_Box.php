@@ -20,19 +20,19 @@ class User_Meta_Box extends Meta_Box {
 
 	public function add_user_meta_boxes( $user ) {
 		if ( is_array( $this->meta_box['fields'] ) ) {
-			$fields = wp_nonce_field( 'preamp-tmb_' . $this->meta_box_id . '_nonce', 'preamp-tmb_' . $this->meta_box_id . '_nonce', false, false );
+			$rows = wp_nonce_field( 'preamp-tmb_' . $this->meta_box_id . '_nonce', 'preamp-tmb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
 				$value = get_user_meta( $user->ID, $key, true );
-				$row = new Row( $key, $meta_box_field, $value );
-				$fields .= $row->get_row();
+				$row = new Row( $key, $key, $meta_box_field, $value );
+				$rows .= $row->get_row();
 			}
 
 			$Twig = new Twig;
 			echo $Twig->twig->render(
 				'forms/meta_box.twig',
 				array(
-					'fields' => $fields,
+					'rows' => $rows,
 					'header' => $this->meta_box['name'],
 				)
 			);

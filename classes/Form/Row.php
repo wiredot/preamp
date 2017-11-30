@@ -9,16 +9,18 @@ class Row {
 
 	protected $field;
 	protected $id;
+	protected $name;
 	protected $value;
 
-	public function __construct( $id, $field, $value = '' ) {
+	public function __construct( $id, $name, $field, $value = '' ) {
 		$this->id = $id;
+		$this->name = $name;
 		$this->field = $field;
 		$this->value = $value;
 	}
 
 	public function get_row() {
-		$field = new Field_Factory( $this->id, $this->field, $this->value );
+		$field = new Field_Factory( $this->id, $this->name, $this->field, $this->value );
 
 		if ( 'checkbox' == $this->field['type'] && ! count( $this->field['options'] ) ) {
 			$this->field['type'] = 'checkboxes';
