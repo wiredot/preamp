@@ -18,7 +18,6 @@ class Sidebar_Factory {
 		foreach ( $this->sidebars as $id => $args ) {
 			$args['id'] = $id;
 			$sidebar = new Sidebar( $sidebar );
-			$sidebar->register_sidebar();
 		}
 	}
 }

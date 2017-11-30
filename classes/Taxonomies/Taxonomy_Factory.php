@@ -7,16 +7,16 @@ class Taxonomy_Factory {
 	private $taxonomies;
 
 	function __construct( $taxonomies ) {
-		if ( ! is_array( $taxonomies ) ) {
+		$this->taxonomies = $taxonomies;
+	}
+
+	public function register_taxonomies() {
+		if ( ! is_array( $this->taxonomies ) ) {
 			return;
 		}
 
-		foreach ( $taxonomies as $taxonomy_id => $taxonomy ) {
-			$this->init_taxonomy( $taxonomy_id, $taxonomy['post_type'], $taxonomy['args'] );
+		foreach ( $this->taxonomies as $taxonomy_id => $taxonomy ) {
+			new Taxonomy( $taxonomy_id, $taxonomy['post_type'], $taxonomy['args'] );
 		}
-	}
-
-	public function init_taxonomy( $taxonomy_id, $post_type, $args ) {
-		new Taxonomy( $taxonomy_id, $post_type, $args );
 	}
 }

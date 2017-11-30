@@ -54,7 +54,8 @@ class Core {
 
 		// register all taxonomies
 		if ( isset( self::$config['taxonomy'] ) ) {
-			new Taxonomy_Factory( self::$config['taxonomy'] );
+			$taxonomy = new Taxonomy_Factory( self::$config['taxonomy'] );
+			$taxonomy->register_taxonomies();
 		}
 
 		// register all sidebars
