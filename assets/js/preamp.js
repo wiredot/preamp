@@ -331,6 +331,10 @@ function preampConditionCheck(field) {
 		jQuery(field).removeClass('preamp-condition').addClass('preamp-condition-disabled');
 	} else {
 		jQuery(field).removeClass('preamp-condition-disabled').addClass('preamp-condition');
+		if ( jQuery(field).find('select').length ) {
+			console.log('select');
+			jQuery(field).find('select').prop('selectedIndex',0).trigger('change');
+		}
 	}
 }
 
