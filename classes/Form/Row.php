@@ -50,8 +50,23 @@ class Row {
 			}
 		}
 
+		$data = array();
+
 		if ( $this->condition ) {
 			$class .= 'preamp-condition ';
+
+			foreach ( $this->condition as $field_condition => $value ) {
+				$data[] = $field_condition;
+				$class .= 'preamp-condition-' . $field_condition . ' ';
+
+				if ( is_array( $value ) ) {
+					foreach ( $value as $val ) {
+						$class .= 'preamp-condition-' . $field_condition . '-' . $val . ' ';
+					}
+				} else {
+					$class .= 'preamp-condition-' . $field_condition . '-' . $value . ' ';
+				}
+			}
 		}
 
 		$Twig = new Twig;
@@ -64,6 +79,7 @@ class Row {
 				'description' => $this->field['description'],
 				'class' => $class,
 				'id' => $this->id,
+				'data' => $data,
 			)
 		);
 	}

@@ -1,4 +1,4 @@
-<tr{% if class %} class="{{ class }}"{% endif %}>
+<tr{% if class %} class="{{ class }}"{% endif %}{% if data %} preamp-condition-fields="{% for key, d in data %}{{ d }}{% if not loop.last %} {% endif %}{% endfor %}"{% endif %}>
 	<th scope="row">{% if type != 'checkbox' and type != 'radio' %}<label for="{{ id }}">{% endif %}{{ label }}{% if type != 'checkbox' %}</label>{% endif %}</th>
 	<td>
 		{{ field|raw }}

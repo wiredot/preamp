@@ -6,6 +6,7 @@ use Wiredot\Preamp\Twig;
 
 class Field {
 
+	protected $type;
 	protected $label;
 	protected $name;
 	protected $id;
@@ -20,6 +21,12 @@ class Field {
 		$this->value = $value;
 		$this->attributes = $attributes;
 		$this->options = $options;
+
+		if ( isset( $attributes['class'] ) ) {
+			$this->attributes['class'] .= ' preamp-' . $this->type;
+		} else {
+			$this->attributes['class'] = 'preamp-' . $this->type;
+		}
 	}
 
 	public function get_field() {

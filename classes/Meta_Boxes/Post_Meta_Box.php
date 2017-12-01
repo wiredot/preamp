@@ -56,6 +56,26 @@ class Post_Meta_Box extends Meta_Box {
 				$classes[] = 'preamp-template-' . $this->meta_box['template'];
 			}
 		}
+
+		if ( isset( $this->meta_box['condition'] ) && $this->meta_box['condition'] ) {
+			$classes[] = 'preamp-condition';
+
+			if ( is_array( $this->meta_box['condition'] ) ) {
+				foreach ( $this->meta_box['condition'] as $key => $values ) {
+					$classes[] = 'preamp-condition-' . $key;
+
+					if ( is_array( $values ) ) {
+						foreach ($values as $value) {
+							$classes[] = 'preamp-condition-' . $key . '-' . $value;
+						}
+					} else {
+						$classes[] = 'preamp-condition-' . $key . '-' . $values;
+					}
+				}
+			}
+		}
+
+
 		return $classes;
 	}
 

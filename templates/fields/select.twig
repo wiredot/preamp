@@ -1,4 +1,4 @@
-<select name="{{ name }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != true %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>
+<select name="{{ name }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != 'true' %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>
 	{% for key, option in options %}
 	<option value="{{ key }}"{% if key == value %} selected="selected"{% endif %}>{{ option }}</option>
 	{% endfor %}
