@@ -34,6 +34,29 @@ class Post_Meta_Box extends Meta_Box {
 			$this->meta_box['priority'],
 			$this->meta_box
 		);
+
+		if ( is_array( $this->meta_box['post_type'] ) ) {
+			foreach ( $this->meta_box['post_type'] as $post_type ) {
+				add_filter( 'postbox_classes_' . $post_type . '_' . $this->meta_box_id, array( $this, 'add_my_meta_box_classes' ) );
+			}
+		} else {
+			add_filter( 'postbox_classes_' . $this->meta_box['post_type'] . '_' . $this->meta_box_id, array( $this, 'add_my_meta_box_classes' ) );
+		}
+	}
+
+	public function add_my_meta_box_classes( $classes = array() ) {
+		if ( isset( $this->meta_box['template'] ) && $this->meta_box['template'] ) {
+			$classes[] = 'preamp-template';
+
+			if ( is_array( $this->meta_box['template'] ) ) {
+				foreach ( $this->meta_box['template'] as $template ) {
+					$classes[] = 'preamp-template-' . $template;
+				}
+			} else {
+				$classes[] = 'preamp-template-' . $this->meta_box['template'];
+			}
+		}
+		return $classes;
 	}
 
 	public function add_meta_box_content( $post, $meta_box ) {
