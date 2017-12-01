@@ -273,12 +273,18 @@ function preampConditionInit() {
 	var all_selects = preampConditionGetSelects();
 	jQuery(all_selects).each(function(index, el) {
 		jQuery('#' + el).change(function(event) {
-			var id = jQuery(this).attr('id');
-			jQuery('.preamp-condition-' + id).each(function(index, el) {
-				var field = jQuery(this);
-				preampConditionCheck(field);
-			});
+			preampConditionFieldSet(this);
 		});
+		var select = jQuery('#' + this);
+		preampConditionFieldSet(select);
+	});
+}
+
+function preampConditionFieldSet(select) {
+	var id = jQuery(select).attr('id');
+	jQuery('.preamp-condition-' + id).each(function(index, el) {
+		var field = jQuery(this);
+		preampConditionCheck(field);
 	});
 }
 
