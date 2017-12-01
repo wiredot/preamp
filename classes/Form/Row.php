@@ -11,12 +11,22 @@ class Row {
 	protected $id;
 	protected $name;
 	protected $value;
+	protected $template;
+	protected $condition;
 
 	public function __construct( $id, $name, $field, $value = '' ) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->field = $field;
 		$this->value = $value;
+
+		if ( isset( $field['condition'] ) ) {
+			$this->condition = $field['condition'];
+		}
+
+		if ( isset( $field['template'] ) ) {
+			$this->template = $field['template'];
+		}
 	}
 
 	public function get_row() {
@@ -24,6 +34,24 @@ class Row {
 
 		if ( 'checkbox' == $this->field['type'] && ! count( $this->field['options'] ) ) {
 			$this->field['type'] = 'checkboxes';
+		}
+
+		$class = '';
+
+		if ( $this->template ) {
+			$class .= 'preamp-template ';
+
+			if ( is_array( $this->template ) ) {
+				foreach ( $this->template as $template ) {
+					$class .= 'preamp-template-' . $template . ' ';
+				}
+			} else {
+				$class .= 'preamp-template-' . $this->template . ' ';
+			}
+		}
+
+		if ( $this->condition ) {
+			$class .= 'preamp-condition ';
 		}
 
 		$Twig = new Twig;
@@ -34,6 +62,7 @@ class Row {
 				'type' => $this->field['type'],
 				'label' => $this->field['label'],
 				'description' => $this->field['description'],
+				'class' => $class,
 				'id' => $this->id,
 			)
 		);

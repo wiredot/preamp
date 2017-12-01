@@ -3,6 +3,7 @@ jQuery(document).ready(function($){
 	// preampInitSortable($);
 	// preampInitRemoveButton($);
 	preampInitGroups();
+	preampPageTemplateInit();
 });
 
 function preampInitGroups() {
@@ -250,6 +251,21 @@ function preampInitRemoveButton($) {
 			$(this).remove();
 		});
 	});
+}
+
+function preampPageTemplateInit() {
+	preampPageTemplateShow();
+
+	jQuery('#page_template').change(function(event) {
+		preampPageTemplateShow();
+	});
+}
+
+function preampPageTemplateShow() {
+	var template = jQuery('#page_template').val();
+
+	jQuery('.preamp-template-disabled').addClass('preamp-template').removeClass('preamp-template-disabled');
+	jQuery('.preamp-template-' + template ).addClass('preamp-template-disabled').removeClass('preamp-template');
 }
 
 

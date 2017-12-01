@@ -1,4 +1,4 @@
-<tr>
+<tr{% if class %} class="{{ class }}"{% endif %}>
 	<th scope="row">{% if type != 'checkbox' and type != 'radio' %}<label for="{{ id }}">{% endif %}{{ label }}{% if type != 'checkbox' %}</label>{% endif %}</th>
 	<td>
 		{{ field|raw }}
