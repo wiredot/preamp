@@ -1,65 +1,16 @@
-.preamp-mb {
-  box-sizing: border-box; }
-  .preamp-mb .preamp-mb-row {
-    margin-bottom: 14px;
-    position: relative; }
-    .preamp-mb .preamp-mb-row::after {
-      clear: both;
-      content: "";
-      display: table; }
-  .preamp-mb label, .preamp-mb .label {
-    width: 25%;
-    min-width: 150px;
-    display: block;
-    vertical-align: bottom;
-    padding-top: 4px;
-    float: left;
-    margin: 0 1% 2px 0; }
-  .preamp-mb input[type=text], .preamp-mb input[type=email], .preamp-mb textarea, .preamp-mb select {
-    width: 74%;
-    margin: 0; }
-  .preamp-mb textarea {
-    height: 100px; }
-  .preamp-mb .options {
-    width: 74%;
-    float: left; }
-    .preamp-mb .options > div {
-      margin-bottom: 4px; }
-    .preamp-mb .options label {
-      float: none;
-      display: inline;
-      margin: 0 0 0 5px; }
-  .preamp-mb .preamp-upload-container li {
-    border: 1px solid #eee;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    position: relative;
-    background-color: #fff; }
-    .preamp-mb .preamp-upload-container li::after {
-      clear: both;
-      content: "";
-      display: table; }
-  .preamp-mb .preamp-upload-container .preamp-thumbnail {
-    width: 25%;
-    margin-right: 3%;
-    float: left; }
-  .preamp-mb .preamp-upload-container .preamp-details {
-    width: 72%;
-    float: left; }
-  .preamp-mb .preamp-upload-container img {
-    max-width: 100%;
-    height: auto; }
-  .preamp-mb .preamp-upload-container label {
-    width: 25%;
-    min-width: auto;
-    float: left;
-    margin: 0 1% 0 0; }
-  .preamp-mb .preamp-upload-container .preamp-remove {
-    position: absolute;
-    bottom: 10px;
-    right: 10px; }
-  .preamp-mb .preamp-upload-container .preamp-mb-row:last-child {
-    margin-bottom: 37px; }
+.preamp-group li {
+  border: 1px solid #eee;
+  padding: 0 20px 20px 20px;
+  margin-bottom: 10px;
+  border-radius: 4px; }
+
+.preamp-group .preamp-new-group-item {
+  display: none; }
+
+.preamp-group .form-table th {
+  padding: 15px 10px 15px 0; }
+
+.preamp-group .form-table td {
+  padding: 10px; }
 
 /*# sourceMappingURL=preamp.css.map */

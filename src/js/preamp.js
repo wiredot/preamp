@@ -1,14 +1,50 @@
 jQuery(document).ready(function($){
 	// preampInitUploadButton($);
 	// preampInitSortable($);
-	preampInitRemoveButton($);
+	// preampInitRemoveButton($);
+	preampInitGroups();
 });
 
+function preampInitGroups() {
+	preampInitGroupRemoveItemButton();
+	preampInitGroupNewItemButton();
+}
+
+function preampInitGroupRemoveItemButton() {
+	jQuery('.preamp-group-remove').unbind('click');
+	jQuery('.preamp-group-remove').click(function(event) {
+		event.preventDefault();
+		jQuery(this).parents('li').eq(0).remove();
+	});
+}
+
+function preampInitGroupNewItemButton() {
+	jQuery('.preamp-group-add').unbind('click');
+	jQuery('.preamp-group-add').click(function(event) {
+		event.preventDefault();
+		var newButton = jQuery(this);
+		var group = newButton.prev('.preamp-group');
+		var item = group.children('.preamp-new-group-item');
+		var newItem = item.clone();
+		var nextKey = jQuery(this).attr('data-next-key');
+		newButton.attr('data-next-key', parseInt(nextKey) + 1);
+		newItem.removeClass('preamp-new-group-item').insertBefore(item);
+		newItem.find('input').each(function(index, el) {
+			var id = jQuery(this).attr('id');
+			var newId = id.replace('%%', nextKey);
+			jQuery(this).attr('id', newId);
+			jQuery(this).parents('tr').eq(0).find('label').attr('for', newId);
+			var name = jQuery(this).attr('name');
+			var newName = name.replace('preamp_new_','').replace('%%', nextKey);
+			jQuery(this).attr('name', newName);
+		});
+		preampInitGroupRemoveItemButton();
+	});
+}
+
 function preampInitUploadButton(id, name, attributes, label_button, label_title) {
-	console.log(attributes);
 	jQuery('#button-'+id).click(function(event) {
 		event.preventDefault('clicked');
-		console.log('clicked');
 		preampInitUpload(id, name, attributes, label_button, label_title);
 	});
 }

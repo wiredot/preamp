@@ -27,23 +27,15 @@ class Group {
 
 		$rows = '';
 
-		$values = array(
-			1 => array(
-				'text' => 'Adsf df',
-				'textb' => 'Koasdia',
-			),
-			2 => array(
-				'text' => 'PWOWO',
-				'textb' => 'NJUDUHUNE',
-			),
-		);
+		$max_key = max( array_keys( $this->value ) );
+		$next_key = $max_key + 1;
 
 		$group_items = $this->get_group_items( $this->name, $this->fields, $this->value );
 
 		$new_group_item = '';
 
 		foreach ( $this->fields as $name => $field ) {
-			$row = new Row( $this->id, $this->name . '[' . $key . '][' . $name . ']', $field, '' );
+			$row = new Row( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, '' );
 			$new_group_item .= $row->get_row();
 		}
 
@@ -56,6 +48,7 @@ class Group {
 				'value' => $this->value,
 				'group_items' => $group_items,
 				'new_group_item' => $new_group_item,
+				'next_key' => $next_key,
 			)
 		);
 	}
@@ -75,7 +68,7 @@ class Group {
 
 			foreach ( $fields as $name => $field ) {
 				$item_value = $value[ $name ];
-				$row = new Row( $key, $group_name . '[' . $key . '][' . $name . ']', $field, $item_value );
+				$row = new Row( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $item_value );
 				$rows .= $row->get_row();
 			}
 
