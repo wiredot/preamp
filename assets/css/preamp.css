@@ -18,7 +18,7 @@
 
 .preamp-tabs {
   margin-top: -5px; }
-  .preamp-tabs .preamp-tabs-menu a {
+  .preamp-tabs .preamp-tabs-menu label {
     color: #888;
     text-decoration: none;
     padding: 8px 15px 10px 15px;
@@ -28,9 +28,9 @@
     border-top: 2px solid transparent;
     display: inline-block;
     margin-bottom: -1px; }
-    .preamp-tabs .preamp-tabs-menu a:focus {
+    .preamp-tabs .preamp-tabs-menu label:focus {
       box-shadow: none; }
-    .preamp-tabs .preamp-tabs-menu a.active {
+    .preamp-tabs .preamp-tabs-menu label.active {
       color: #23282d;
       border-color: #eee;
       border-radius: 4px 4px 0 0;

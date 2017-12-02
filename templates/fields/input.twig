@@ -1,16 +1,1 @@
-<div class="preamp-tabs">
-	<div class="preamp-tabs-menu">
-		<a href="#preamp-tab-{{ id }}-en" class="active">english</a>
-		<a href="#preamp-tab-{{ id }}-de">german</a>
-		<a href="#preamp-tab-{{ id }}-fr">french</a>
-	</div>
-	<div class="preamp-tab active" id="preamp-tab-{{ id }}-en">
-		<input type="{{ type }}" name="{{ name }}" value="{{ value }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != 'true' %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>
-	</div>
-	<div class="preamp-tab" id="preamp-tab-{{ id }}-de">
-		asd asd asd 
-	</div>
-	<div class="preamp-tab" id="preamp-tab-{{ id }}-fr">
-		asd asd asd 
-	</div>
-</div>
+<input type="{{ type }}" name="{{ name }}" value="{{ value }}" id="{{ id }}"{% for key, attribute in attributes %}{% if attribute != false %} {{ key }}{% if attribute != 'true' %}="{{ attribute }}"{% endif %}{% endif %}{% endfor %}>

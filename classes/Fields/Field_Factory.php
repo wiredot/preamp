@@ -103,5 +103,4 @@ class Field_Factory {
 	public function show_field() {
 		echo $this->get_field();
 	}
-
 }

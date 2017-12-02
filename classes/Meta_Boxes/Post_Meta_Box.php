@@ -4,6 +4,8 @@ namespace Wiredot\Preamp\Meta_Boxes;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Form\Row;
+use Wiredot\Preamp\Form\Row_Multilingual;
+use Wiredot\Preamp\Languages;
 
 class Post_Meta_Box extends Meta_Box {
 
@@ -65,7 +67,7 @@ class Post_Meta_Box extends Meta_Box {
 					$classes[] = 'preamp-condition-' . $key;
 
 					if ( is_array( $values ) ) {
-						foreach ($values as $value) {
+						foreach ( $values as $value ) {
 							$classes[] = 'preamp-condition-' . $key . '-' . $value;
 						}
 					} else {
@@ -74,7 +76,6 @@ class Post_Meta_Box extends Meta_Box {
 				}
 			}
 		}
-
 
 		return $classes;
 	}
@@ -85,8 +86,13 @@ class Post_Meta_Box extends Meta_Box {
 			$rows = wp_nonce_field( 'preamp-mb_' . $this->meta_box_id . '_nonce', 'preamp-mb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
-				$value = get_post_meta( $post->ID, $key, true );
-				$row = new Row( $key, $key, $meta_box_field, $value );
+				if ( isset( $meta_box_field['translate'] ) && $meta_box_field['translate'] ) {
+					$values = $this->get_multilingual_values( $post->ID, $key );
+					$row = new Row_Multilingual( $key, $key, $meta_box_field, $values );
+				} else {
+					$value = get_post_meta( $post->ID, $key, true );
+					$row = new Row( $key, $key, $meta_box_field, $value );
+				}
 				$rows .= $row->get_row();
 			}
 
@@ -98,6 +104,16 @@ class Post_Meta_Box extends Meta_Box {
 				)
 			);
 		}
+	}
+
+	public function get_multilingual_values( $post_id, $key ) {
+		$languages = Languages::get_languages();
+		$values = array();
+		foreach ( $languages as $language_id => $language ) {
+			$values[ $language_id ] = get_post_meta( $post_id, $key . $language['postmeta_suffix'], true );
+		}
+
+		return $values;
 	}
 
 	public function save_meta_box( $post_id, $post, $update ) {

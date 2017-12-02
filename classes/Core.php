@@ -48,6 +48,11 @@ class Core {
 			new Custom_Post_Type_Factory( self::$config['custom_post_type'] );
 		}
 
+		// register all custom post types
+		if ( isset( self::$config['language'] ) ) {
+			Languages::set_languages( self::$config['language'] );
+		}
+
 		// register all meta boxes
 		if ( isset( self::$config['meta_box'] ) ) {
 			new Meta_Box_Factory( self::$config['meta_box'] );
