@@ -33,12 +33,32 @@ class Post extends Field {
 			return null;
 		}
 
+		foreach ( $posts as $key => $p ) {
+			if ( 'attachment' != $p->post_type ) {
+				$ancestors = get_ancestors( $p->ID, $p->post_type );
+				$title = str_repeat( '- ', count( $ancestors ) ) . $p->post_title;
+				$posts[ $key ]->post_title = $title;
+			}
+		}
+
 		$options = array();
 
-		$options[0] = '-- select --';
+		// $options[0] = '-- select --';
 		foreach ( $posts as $post ) {
-			$options[ $post->ID ] = $post->post_title;
+			if ( $arguments['post_type'] == 'any' || ( is_array($arguments['post_type']) && count($arguments['post_type']) ) ) {
+				$post_type_object = get_post_type_object( $post->post_type );
+				$post_type_name = $post_type_object->labels->name;
+				$options[$post_type_name][ $post->ID ] = $post->post_title;
+			} else {
+				$options[ $post->ID ] = $post->post_title;
+			}
 		}
+
+		if ( $arguments['post_type'] == 'any' || ( is_array($arguments['post_type']) && count($arguments['post_type']) ) ) {
+			ksort($options);
+		}
+
+		print_r($options);
 
 		return $options;
 	}
