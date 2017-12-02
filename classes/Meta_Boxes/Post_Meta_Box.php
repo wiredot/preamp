@@ -126,14 +126,25 @@ class Post_Meta_Box extends Meta_Box {
 		}
 
 		foreach ( $this->meta_box['fields'] as $meta_key => $field ) {
-			switch ( $field['type'] ) {
-				case 'upload':
-					$this->save_upload_field( $post_id, $meta_key );
-					break;
-				default:
-					$this->save_meta_box_field( $post_id, $meta_key, $field['type'] );
-					break;
+			if ( isset( $field['translate'] ) && $field['translate'] ) {
+				$languages = Languages::get_languages();
+				foreach ( $languages as $language_id => $language ) {
+					$this->save_meta_box_field_by_type( $field['type'], $post_id, $meta_key . $language['postmeta_suffix'] );
+				}
+			} else {
+				$this->save_meta_box_field_by_type( $field['type'], $post_id, $meta_key );
 			}
+		}
+	}
+
+	public function save_meta_box_field_by_type( $type, $post_id, $meta_key ) {
+		switch ( $type ) {
+			case 'upload':
+				$this->save_upload_field( $post_id, $meta_key );
+				break;
+			default:
+				$this->save_meta_box_field( $post_id, $meta_key, $type );
+				break;
 		}
 	}
 
