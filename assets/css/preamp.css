@@ -16,4 +16,31 @@
 .preamp-group .form-table td {
   padding: 10px; }
 
+.preamp-tabs {
+  margin-top: -5px; }
+  .preamp-tabs .preamp-tabs-menu a {
+    color: #888;
+    text-decoration: none;
+    padding: 8px 15px 10px 15px;
+    border-bottom: none;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-top: 2px solid transparent;
+    display: inline-block;
+    margin-bottom: -1px; }
+    .preamp-tabs .preamp-tabs-menu a:focus {
+      box-shadow: none; }
+    .preamp-tabs .preamp-tabs-menu a.active {
+      color: #23282d;
+      border-color: #eee;
+      border-radius: 4px 4px 0 0;
+      background-color: #FFF; }
+  .preamp-tabs .preamp-tab {
+    display: none;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #eee;
+    padding: 10px; }
+    .preamp-tabs .preamp-tab.active {
+      display: block; }
+
 /*# sourceMappingURL=preamp.css.map */

@@ -5,6 +5,7 @@ jQuery(document).ready(function($){
 	preampInitGroups();
 	preampPageTemplateInit();
 	preampConditionInit();
+	preampTabsInit();
 });
 
 function preampInitGroups() {
@@ -351,6 +352,20 @@ function preamConditionCheckField(field, condition_field, value) {
 	}
 
 	return ok;
+}
+
+function preampTabsInit() {
+	jQuery('.preamp-tabs-menu a').unbind('click');
+
+	jQuery('.preamp-tabs-menu a').click(function(event){
+		event.preventDefault();
+		jQuery(this).parent().children('a').removeClass('active');
+		jQuery(this).parents('.preamp-tabs').eq(0).find('.preamp-tab').removeClass('active');
+		jQuery(this).addClass('active');
+		
+		var id = jQuery(this).attr('href');
+		jQuery(id).addClass('active');
+	});
 }
 
 //# sourceMappingURL=preamp.js.map

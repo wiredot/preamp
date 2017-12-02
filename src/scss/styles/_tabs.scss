@@ -1,0 +1,41 @@
+.preamp-tabs {
+	margin-top: -5px;
+
+	.preamp-tabs-menu {
+
+		a {
+			color: #888;
+			text-decoration: none;
+			padding: 8px 15px 10px 15px;
+			border-bottom: none;
+			border-left: 1px solid transparent;
+			border-right: 1px solid transparent;
+			border-top: 2px solid transparent;
+			display: inline-block;
+			margin-bottom: -1px;
+
+			&:focus {
+				box-shadow: none;
+			}
+
+			&.active {
+				color: #23282d;
+				border-color: #eee;
+				border-radius: 4px 4px 0 0;
+				background-color: #FFF;
+			}
+		}
+
+	}
+
+	.preamp-tab {
+		display: none;
+		border-radius: 0 0 4px 4px;
+		border: 1px solid #eee;
+		padding: 10px;
+
+		&.active {
+			display: block;
+		}
+	}
+}
