@@ -43,22 +43,20 @@ class Post extends Field {
 
 		$options = array();
 
-		// $options[0] = '-- select --';
+		$options[0] = '-- select --';
 		foreach ( $posts as $post ) {
-			if ( $arguments['post_type'] == 'any' || ( is_array($arguments['post_type']) && count($arguments['post_type']) ) ) {
+			if ( 'any' == $arguments['post_type'] || ( is_array( $arguments['post_type'] ) && count( $arguments['post_type'] ) ) ) {
 				$post_type_object = get_post_type_object( $post->post_type );
 				$post_type_name = $post_type_object->labels->name;
-				$options[$post_type_name][ $post->ID ] = $post->post_title;
+				$options[ $post_type_name ][ $post->ID ] = $post->post_title;
 			} else {
 				$options[ $post->ID ] = $post->post_title;
 			}
 		}
 
-		if ( $arguments['post_type'] == 'any' || ( is_array($arguments['post_type']) && count($arguments['post_type']) ) ) {
-			ksort($options);
+		if ( 'any' == $arguments['post_type'] || ( is_array( $arguments['post_type'] ) && count( $arguments['post_type'] ) ) ) {
+			ksort( $options );
 		}
-
-		print_r($options);
 
 		return $options;
 	}
