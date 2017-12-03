@@ -32,18 +32,33 @@ function preampInitGroupNewItemButton() {
 		var nextKey = jQuery(this).attr('data-next-key');
 		newButton.attr('data-next-key', parseInt(nextKey) + 1);
 		newItem.removeClass('preamp-new-group-item').insertBefore(item);
-		newItem.find('input, select, textarea').each(function(index, el) {
+		newItem.find('input, select, textarea, .preamp-tab, label').each(function(index, el) {
 			var id = jQuery(this).attr('id');
 			if ( typeof(id) != 'undefined' ) {
 				var newId = id.replace('%%', nextKey);
 				jQuery(this).attr('id', newId);
-				jQuery(this).parents('tr').eq(0).find('label').attr('for', newId);
 			}
+			
 			var name = jQuery(this).attr('name');
-			var newName = name.replace('preamp_new_','').replace('%%', nextKey);
-			jQuery(this).attr('name', newName);
+			if (name) {
+				var newName = name.replace('preamp_new_','').replace('%%', nextKey);
+				jQuery(this).attr('name', newName);
+			}
+
+			var data = jQuery(this).attr('data-id');
+			if (data) {
+				var newData = data.replace('preamp_new_','').replace('%%', nextKey);
+				jQuery(this).attr('data-id', newData);
+			}
+
+			var oldFor = jQuery(this).attr('for');
+			if (oldFor) {
+				var newFor = oldFor.replace('preamp_new_','').replace('%%', nextKey);
+				jQuery(this).attr('for', newFor);
+			}
 		});
 		preampInitGroupRemoveItemButton();
+		preampTabsInit();
 	});
 }
 
@@ -339,7 +354,6 @@ function preampConditionCheck(field) {
 	} else {
 		jQuery(field).removeClass('preamp-condition-disabled').addClass('preamp-condition');
 		if ( jQuery(field).find('select').length ) {
-			console.log('select');
 			jQuery(field).find('select').prop('selectedIndex',0).trigger('change');
 		}
 	}

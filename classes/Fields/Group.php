@@ -4,6 +4,8 @@ namespace Wiredot\Preamp\Fields;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Form\Row;
+use Wiredot\Preamp\Form\Row_Multilingual;
+use Wiredot\Preamp\Languages;
 
 class Group {
 
@@ -35,7 +37,11 @@ class Group {
 		$new_group_item = '';
 
 		foreach ( $this->fields as $name => $field ) {
-			$row = new Row( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, '' );
+			if ( isset( $field['translate'] ) && $field['translate'] ) {
+				$row = new Row_Multilingual( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, array(), 1 );
+			} else {
+				$row = new Row( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, '' );
+			}
 			$new_group_item .= $row->get_row();
 		}
 
@@ -67,8 +73,17 @@ class Group {
 			$rows = '';
 
 			foreach ( $fields as $name => $field ) {
-				$item_value = $value[ $name ];
-				$row = new Row( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $item_value );
+				if ( isset( $field['translate'] ) && $field['translate'] ) {
+					$mvalues = array();
+					$languages = Languages::get_languages();
+					foreach ( $languages as $language_id => $language ) {
+						$mvalues[ $language_id ] = $value[ $name . $language['postmeta_suffix'] ];
+					}
+					$row = new Row_Multilingual( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $mvalues, 1 );
+				} else {
+					$item_value = $value[ $name ];
+					$row = new Row( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $item_value );
+				}
 				$rows .= $row->get_row();
 			}
 

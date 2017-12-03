@@ -14,12 +14,14 @@ class Row_Multilingual {
 	protected $values;
 	protected $template;
 	protected $condition;
+	protected $in_group;
 
-	public function __construct( $id, $name, $field, $values = array() ) {
+	public function __construct( $id, $name, $field, $values = array(), $in_group = false ) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->field = $field;
 		$this->values = $values;
+		$this->in_group = $in_group;
 
 		if ( isset( $field['condition'] ) ) {
 			$this->condition = $field['condition'];
@@ -88,7 +90,12 @@ class Row_Multilingual {
 	public function get_fields() {
 		$languages = Languages::get_languages();
 		foreach ( $languages as $language_id => $language ) {
-			$field = new Field_Factory( $this->id . $language['postmeta_suffix'], $this->name . $language['postmeta_suffix'], $this->field, $this->values[ $language_id ] );
+			if ( $this->in_group ) {
+				$name = substr_replace( $this->name, $language['postmeta_suffix'] . ']', -1 );
+			} else {
+				$name = $this->name . $language['postmeta_suffix'];
+			}
+			$field = new Field_Factory( $this->id . $language['postmeta_suffix'], $name, $this->field, $this->values[ $language_id ] );
 			$languages[ $language_id ]['field'] = $field->get_field();
 		}
 
