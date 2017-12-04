@@ -12,8 +12,7 @@ class Custom_Columns_Factory {
 
 	public function set_custom_columns() {
 		foreach ( $this->custom_columns as $custom_columns ) {
-			$columns = new Custom_Columns( $custom_columns );
-			$columns->set_columns();
+			$columns = new Custom_Columns( $custom_columns['post_type'], $custom_columns['columns'] );
 		}
 	}
 }
