@@ -11,8 +11,6 @@ class Config {
 	public function __construct() {
 		$this->directories = $this->get_directories();
 		$this->load_directories();
-
-		// print_r($this->directories);
 	}
 
 	public function get_directories() {
@@ -38,16 +36,15 @@ class Config {
 	}
 
 	public function load_directories() {
-		// print_r($this->directories);
+		$config = array();
 		foreach ( $this->directories as $config_directory ) {
 			$config_part = self::load_config_directory( $config_directory['directory'] . 'config/', $config_directory['url'] );
 			if ( is_array( $config_part ) ) {
-				$this->config = array_replace_recursive( $this->config, $config_part );
+				$config = array_replace_recursive( $config, $config_part );
 			}
 		}
 
-		// var_dump($this->config);
-		// exit;
+		$this->config = $config;
 	}
 
 	private static function load_config_directory( $directory, $url ) {
