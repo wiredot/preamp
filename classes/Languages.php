@@ -22,4 +22,11 @@ class Languages {
 	public static function get_languages() {
 		return self::$languages;
 	}
+
+	public static function has_languages() {
+		if ( is_array( self::$languages ) && count( self::$languages ) > 1 ) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -1,7 +1,5 @@
 <h2>{{ name }}</h2>
-<div class="preamp-inside">
-	s <br>
-	s <br>
-	s <br>
-	s <br>
-</div>
+{% if description %}<p>{{ description }}</p>{% endif %}
+<table class="form-table">
+	{{ rows|raw }}
+</table>

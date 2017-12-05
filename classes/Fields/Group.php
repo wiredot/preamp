@@ -31,7 +31,7 @@ class Group {
 
 		$next_key = 1;
 
-		if (is_array($this->value)) {
+		if ( is_array( $this->value ) ) {
 			$max_key = max( array_keys( $this->value ) );
 			$next_key = $max_key + 1;
 		}
@@ -41,7 +41,7 @@ class Group {
 		$new_group_item = '';
 
 		foreach ( $this->fields as $name => $field ) {
-			if ( isset( $field['translate'] ) && $field['translate'] ) {
+			if ( Languages::has_languages() && isset( $field['translate'] ) && $field['translate'] ) {
 				$row = new Row_Multilingual( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, array(), 1 );
 			} else {
 				$row = new Row( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, '' );
@@ -77,7 +77,7 @@ class Group {
 			$rows = '';
 
 			foreach ( $fields as $name => $field ) {
-				if ( isset( $field['translate'] ) && $field['translate'] ) {
+				if ( Languages::has_languages() && isset( $field['translate'] ) && $field['translate'] ) {
 					$mvalues = array();
 					$languages = Languages::get_languages();
 					foreach ( $languages as $language_id => $language ) {

@@ -87,7 +87,7 @@ class Post_Meta_Box extends Meta_Box {
 			$rows = wp_nonce_field( 'preamp-mb_' . $this->meta_box_id . '_nonce', 'preamp-mb_' . $this->meta_box_id . '_nonce', false, false );
 
 			foreach ( $this->meta_box['fields'] as $key => $meta_box_field ) {
-				if ( isset( $meta_box_field['translate'] ) && $meta_box_field['translate'] ) {
+				if ( Languages::has_languages() && isset( $meta_box_field['translate'] ) && $meta_box_field['translate'] ) {
 					$values = $this->get_multilingual_values( $post->ID, $key );
 					$row = new Row_Multilingual( $key, $key, $meta_box_field, $values );
 				} else {
