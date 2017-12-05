@@ -197,7 +197,6 @@ function preampInitUpload(id, name, attributes, label_button, label_title) {
 		// 	// Grab our attachment selection and construct a JSON representation of the model.
 			var media_attachment = tgm_media_frame.state().get('selection').toJSON();
 			jQuery.each(media_attachment, function( key, value ) {
-				console.log(value);
 				var image = '';
 				if ( typeof value.sizes.thumbnail !== 'undefined') {
 					image = value.sizes.thumbnail.url;
@@ -286,86 +285,74 @@ function preampPageTemplateShow() {
 }
 
 function preampConditionInit() {
-	var all_selects = preampConditionGetSelects();
-	jQuery(all_selects).each(function(index, el) {
-		jQuery('#' + el).change(function(event) {
-			preampConditionFieldSet(this);
-		});
-		var select = jQuery('#' + this);
-		preampConditionFieldSet(select);
+	jQuery('.preamp-select, .preamp-checkbox').change(function(event) {
+		preampConditionCheckFields();
 	});
+	preampConditionCheckFields();
 }
 
-function preampConditionFieldSet(select) {
-	var id = jQuery(select).attr('id');
-	jQuery('.preamp-condition-' + id).each(function(index, el) {
-		var field = jQuery(this);
-		preampConditionCheck(field);
-	});
-}
+function preampConditionCheckFields() {
+	jQuery('.preamp-condition').each(function(index, el) {
+		var ok = preampConditionCheckSelectboxes( el );
+		if ( ! ok ) {
+			var ok = preampConditionCheckCheckboxes( el );
+		}
 
-function preampConditionGetSelects() {
-	var selects = [];
-	jQuery('.preamp-select').each(function(index, el) {
-		var id = jQuery(this).attr('id');
-		if ( id.indexOf('%%') === -1 && jQuery('.preamp-condition-' + id).length ) {
-			selects.push(id);
+		if (ok) {
+			jQuery(el).removeClass('preamp-condition-active').addClass('preamp-condition-disabled');
+		} else {
+			jQuery(el).removeClass('preamp-condition-disabled').addClass('preamp-condition-active');
+			if ( jQuery(el).find('select').length ) {
+				jQuery(el).find('select').prop('selectedIndex',0);
+			}
 		}
 	});
-
-	return selects;
 }
 
-function preampConditionGetSelectsField(field) {
-	var selects = [];
-	jQuery('.preamp-select').each(function(index, el) {
-		var id = jQuery(this).attr('id');
-		if ( jQuery(field).hasClass('preamp-condition-' + id) ) {
-			selects.push(id);
-		}
-	});
-
-	return selects;
-}
-
-function preampConditionCheck(field) {
+function preampConditionCheckSelectboxes( field ) {
 	var ok = false;
-
-	var selects = preampConditionGetSelectsField(field);
-
-	jQuery(selects).each(function(index, el) {
-		var condition_field = this;
-		var value = jQuery('#' + condition_field).val();
-		if (Array.isArray(value)) {
-			jQuery(value).each(function(index, el) {
-				if (preamConditionCheckField(field, condition_field, this)) {
+	jQuery('.preamp-select').each(function(index, el) {
+		var id = jQuery(this).attr('id');
+		if ( id.indexOf('%%') === -1 ) {
+			var value = jQuery(this).val();
+			if (Array.isArray(value)) {
+				jQuery(value).each(function(index, el) {
+					if (preamConditionFieldHasClass(field, 'preamp-condition-' + id + '-' + el )) {
+						ok = true;
+					}
+				});
+			} else {
+				if (preamConditionFieldHasClass(field, 'preamp-condition-' + id + '-' + value )) {
 					ok = true;
 				}
-			});
-		} else {
-			if (preamConditionCheckField(field, condition_field, value)) {
+			}
+		}
+	});
+
+	return ok;
+}
+
+function preampConditionCheckCheckboxes( field ) {
+	var ok = false;
+	jQuery('.preamp-checkbox').each(function(index, el) {
+		var id = jQuery(this).attr('id');
+
+		if ( id.indexOf('%%') === -1 && jQuery(this).is(':checked')) {
+			if (preamConditionFieldHasClass(field, 'preamp-condition-' + id )) {
 				ok = true;
 			}
 		}
 	});
 
-	if (ok) {
-		jQuery(field).removeClass('preamp-condition').addClass('preamp-condition-disabled');
-	} else {
-		jQuery(field).removeClass('preamp-condition-disabled').addClass('preamp-condition');
-		if ( jQuery(field).find('select').length ) {
-			jQuery(field).find('select').prop('selectedIndex',0).trigger('change');
-		}
-	}
+	return ok;
 }
 
-function preamConditionCheckField(field, condition_field, value) {
-	var ok = false;
-	if ( jQuery(field).hasClass('preamp-condition-' + condition_field + '-' + value )) {
-		ok = true;
+function preamConditionFieldHasClass( field, class_name ) {
+	if ( jQuery(field).hasClass(class_name) ) {
+		return true;
 	}
-
-	return ok;
+	
+	return false;
 }
 
 function preampTabsInit() {

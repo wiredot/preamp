@@ -60,7 +60,7 @@ class Post_Meta_Box extends Meta_Box {
 		}
 
 		if ( isset( $this->meta_box['condition'] ) && $this->meta_box['condition'] ) {
-			$classes[] = 'preamp-condition';
+			$classes[] = 'preamp-condition preamp-condition-active';
 
 			if ( is_array( $this->meta_box['condition'] ) ) {
 				foreach ( $this->meta_box['condition'] as $key => $values ) {
@@ -81,7 +81,7 @@ class Post_Meta_Box extends Meta_Box {
 	}
 
 	public function add_meta_box_content( $post, $meta_box ) {
-		$this->meta_box = apply_filters( 'preamp_meta_box_post-'.$this->meta_box_id, $this->meta_box );
+		$this->meta_box = apply_filters( 'preamp_meta_box_post-' . $this->meta_box_id, $this->meta_box );
 		if ( is_array( $this->meta_box['fields'] ) ) {
 
 			$rows = wp_nonce_field( 'preamp-mb_' . $this->meta_box_id . '_nonce', 'preamp-mb_' . $this->meta_box_id . '_nonce', false, false );

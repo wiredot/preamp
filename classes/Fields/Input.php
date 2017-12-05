@@ -28,6 +28,12 @@ class Input {
 				$this->attributes['class'] = $size . '-text';
 			}
 		}
+
+		if ( isset( $attributes['class'] ) ) {
+			$this->attributes['class'] .= ' preamp-' . $this->type;
+		} else {
+			$this->attributes['class'] = 'preamp-' . $this->type;
+		}
 	}
 
 	public function get_field() {
