@@ -29,8 +29,12 @@ class Group {
 
 		$rows = '';
 
-		$max_key = max( array_keys( $this->value ) );
-		$next_key = $max_key + 1;
+		$next_key = 1;
+
+		if (is_array($this->value)) {
+			$max_key = max( array_keys( $this->value ) );
+			$next_key = $max_key + 1;
+		}
 
 		$group_items = $this->get_group_items( $this->name, $this->fields, $this->value );
 
