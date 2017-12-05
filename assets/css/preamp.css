@@ -43,4 +43,9 @@
     .preamp-tabs .preamp-tab.active {
       display: block; }
 
+.preamp-option-tab {
+  display: none; }
+  .preamp-option-tab.active {
+    display: block; }
+
 /*# sourceMappingURL=preamp.css.map */

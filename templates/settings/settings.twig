@@ -1,0 +1,16 @@
+<div class="wrap">
+	<h1>{{ page_title }}</h1>
+	<h2 class="nav-tab-wrapper preamp-option-tabs">
+		{% for tab in tabs %}
+			<a href="#preamp-tab-{{ tab.id }}" class="nav-tab{% if loop.index == 1 %} nav-tab-active{% endif %}">{{ tab.name }}</a>
+		{% endfor %}
+	</h2>
+	{% for tab in tabs %}
+		<div class="preamp-option-tab {% if loop.index == 1 %} active{% endif %}" id="preamp-tab-{{ tab.id }}">
+			{{ tab.sections|raw }}
+		<p class="submit">
+			<input name="save" class="button-primary" type="submit" value="Save changes">
+		</p>
+		</div>
+	{% endfor %}
+</div>

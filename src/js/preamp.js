@@ -6,6 +6,7 @@ jQuery(document).ready(function($){
 	preampPageTemplateInit();
 	preampConditionInit();
 	preampTabsInit();
+	preampOptionTabsInit();
 });
 
 function preampInitGroups() {
@@ -366,5 +367,20 @@ function preampTabsInit() {
 		
 		var id = jQuery(this).attr('data-id');
 		jQuery('#' + id).addClass('active');
+	});
+}
+
+function preampOptionTabsInit() {
+	jQuery('.preamp-option-tabs a').unbind('click');
+
+	jQuery('.preamp-option-tabs a').click(function(event){
+		event.preventDefault();
+		this.blur();
+		jQuery(this).parent().children('a').removeClass('nav-tab-active');
+		jQuery(this).addClass('nav-tab-active');
+		jQuery('.preamp-option-tab').removeClass('active');
+		
+		var id = jQuery(this).attr('href');
+		jQuery(id).addClass('active');
 	});
 }
