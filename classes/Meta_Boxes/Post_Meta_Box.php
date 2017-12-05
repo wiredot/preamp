@@ -4,6 +4,7 @@ namespace Wiredot\Preamp\Meta_Boxes;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Form\Row;
+use Wiredot\Preamp\Form\Utilities;
 use Wiredot\Preamp\Form\Row_Multilingual;
 use Wiredot\Preamp\Languages;
 
@@ -156,7 +157,7 @@ class Post_Meta_Box extends Meta_Box {
 			switch ( $field_type ) {
 				default:
 					if ( is_array( $value ) ) {
-						$sanitized_value = $this->array_map_r( 'sanitize_text_field', $value );
+						$sanitized_value = Utilities::array_map_r( 'sanitize_text_field', $value );
 					} else {
 						$sanitized_value = sanitize_text_field( $value );
 					}
@@ -168,16 +169,6 @@ class Post_Meta_Box extends Meta_Box {
 			// delete data
 			delete_post_meta( $post_id, $meta_key );
 		}
-	}
-
-	public function array_map_r( $function, $array ) {
-		$new_array = array();
-
-		foreach ( $array as $key => $value ) {
-			$new_array[ $key ] = ( is_array( $value ) ? $this->array_map_r( $function, $value ) : ( is_array( $function ) ? call_user_func_array( $function, $value ) : $function( $value ) ) );
-		}
-
-		return $new_array;
 	}
 
 	public function save_upload_field( $post_id, $meta_key ) {

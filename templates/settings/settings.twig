@@ -7,10 +7,13 @@
 	</h2>
 	{% for tab in tabs %}
 		<div class="preamp-option-tab {% if loop.index == 1 %} active{% endif %}" id="preamp-tab-{{ tab.id }}">
-			{{ tab.sections|raw }}
-		<p class="submit">
-			<input name="save" class="button-primary" type="submit" value="Save changes">
-		</p>
+			<form action="{{ admin_url( 'admin-ajax.php' ) }}?action=preamp_settings_save_{{ menu_slug }}" method="post" class="preamp-settings-form">
+				{{ tab.sections|raw }}
+				<p class="submit">
+					<input name="save" class="button-primary" type="submit" value="Save changes">
+				</p>
+				<input type="hidden" name="preamp-settings-tab" value="{{ tab.id }}">
+			</form>
 		</div>
 	{% endfor %}
 </div>

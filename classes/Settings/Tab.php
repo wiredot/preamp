@@ -8,12 +8,12 @@ class Tab {
 
 	private $id;
 	private $name;
-	private $sections;
+	private $options_prefix;
 
-	public function __construct( $id, $name, $sections ) {
+	public function __construct( $id, $name, $options_prefix ) {
 		$this->id = $id;
 		$this->name = $name;
-		$this->sections = $sections;
+		$this->options_prefix = $options_prefix;
 	}
 
 	public function get_tab() {
@@ -25,20 +25,18 @@ class Tab {
 	}
 
 	public function get_sections() {
-		if ( ! is_array( $this->sections ) ) {
-			return '';
-		}
-
 		$sections = '';
 
-		foreach ( $this->sections as $section ) {
-			$config = Core::get_config( 'settings' );
-			if ( isset( $config['section'][ $section ] ) ) {
-				$Section_Factory = new Section_Factory( $config['section'] );
-				$sections .= $Section_Factory->get_section( $section );
-			}
-		}
+		$config = Core::get_config( 'settings' );
+		$Section_Factory = new Section_Factory( $config['section'], $this->options_prefix );
+		$sections .= $Section_Factory->get_section( $this->id );
 
 		return $sections;
+	}
+
+	public function save_tab() {
+		$config = Core::get_config( 'settings' );
+		$Section_Factory = new Section_Factory( $config['section'], $this->options_prefix );
+		$Section_Factory->save_section( $this->id );
 	}
 }

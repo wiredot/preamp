@@ -7,6 +7,7 @@ jQuery(document).ready(function($){
 	preampConditionInit();
 	preampTabsInit();
 	preampOptionTabsInit();
+	preampSettingsFormInit();
 });
 
 function preampInitGroups() {
@@ -382,5 +383,27 @@ function preampOptionTabsInit() {
 		
 		var id = jQuery(this).attr('href');
 		jQuery(id).addClass('active');
+	});
+}
+
+function preampSettingsFormInit() {
+	jQuery('.preamp-settings-form').submit(function(event) {
+		event.preventDefault();
+
+		var formAction = jQuery(this).attr('action');
+		var formValues = jQuery(this).serialize();
+
+		jQuery.ajax({
+            type: "POST",
+            url: formAction,
+            data: formValues,
+
+            success: function(response) {
+				console.log(response);
+            },
+            error: function() {
+            	console.log('error');
+            }
+        });
 	});
 }
