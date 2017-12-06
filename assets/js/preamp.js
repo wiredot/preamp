@@ -387,8 +387,19 @@ function preampOptionTabsInit() {
 }
 
 function preampSettingsFormInit() {
+	jQuery('.preamp-button').each(function(index, el) {
+		
+		var text = jQuery(this).text();
+		console.log(text);
+		jQuery(this).html('<span>' + text + '</span><div class="lds-spin" style="100%;height:100%"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>');
+	});
+	jQuery('.preamp-button').click(function(event) {
+		this.blur();
+	});
 	jQuery('.preamp-settings-form').submit(function(event) {
 		event.preventDefault();
+		var button = jQuery(this).find('.preamp-button');
+		button.addClass('loading');
 
 		var formAction = jQuery(this).attr('action');
 		var formValues = jQuery(this).serialize();
@@ -400,6 +411,14 @@ function preampSettingsFormInit() {
 
             success: function(response) {
 				console.log(response);
+				button.removeClass('loading');
+				jQuery('.preamp-form-message').text(response.message).fadeTo(400, 1);
+				window.setTimeout(function(){
+					console.log('go');
+					jQuery('.preamp-form-message').fadeTo(400, 0, function(){
+						jQuery('.preamp-form-message').text('');
+					});
+				}, 3000);
             },
             error: function() {
             	console.log('error');

@@ -10,7 +10,7 @@
 			<form action="{{ admin_url( 'admin-ajax.php' ) }}?action=preamp_settings_save_{{ menu_slug }}" method="post" class="preamp-settings-form">
 				{{ tab.sections|raw }}
 				<p class="submit">
-					<input name="save" class="button-primary" type="submit" value="Save changes">
+					<button name="save" class="button-primary preamp-button" type="submit">Save changes</button><span class="preamp-form-message"></span>
 				</p>
 				<input type="hidden" name="preamp-settings-tab" value="{{ tab.id }}">
 			</form>

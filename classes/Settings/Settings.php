@@ -72,7 +72,7 @@ class Settings {
 
 		$response = array(
 			'success' => 1,
-			'message' => __( 'Good job!', 'preamp' ),
+			'message' => __( 'Settings Saved!', 'preamp' ),
 		);
 		echo json_encode( $response );
 		exit;
