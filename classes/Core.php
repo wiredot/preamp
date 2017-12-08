@@ -13,96 +13,79 @@ use Wiredot\Preamp\Js\Js_Factory;
 use Wiredot\Preamp\Admin\Admin;
 
 class Core {
-	private $languages;
-	private $custom_post_types;
-	private $meta_boxes;
-
-	private static $config;
 
 	private static $instance = null;
 
 	private function __construct( $url ) {
-		define( 'PREAMP_URL', $url );
+		// define( 'PREAMP_URL', $url );
+		$this->url = $url;
 
 		add_action( 'plugins_loaded', array( $this, 'setup' ) );
 	}
 
-	public static function run( $url ) {
+	public static function run( $url, $dir ) {
+		Config::set_directory($dir);
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
 			self::$instance = new Core( $url );
-
-			$Config = new Config;
-			self::$config = $Config->get_config();
 		}
 
 		return self::$instance;
 	}
 
 	public function setup() {
+		Config::setup();
 
 		if ( is_admin() ) {
-			new Admin( self::$config );
+			new Admin( Config::get_config( $config ) );
 		}
 
 		// register all custom post types
-		if ( isset( self::$config['custom_post_type'] ) ) {
-			new Custom_Post_Type_Factory( self::$config['custom_post_type'] );
+		if ( Config::get_config( 'custom_post_type' ) ) {
+			new Custom_Post_Type_Factory( Config::get_config( 'custom_post_type' ) );
 		}
 
 		// register all custom post types
-		if ( isset( self::$config['language'] ) ) {
-			Languages::set_languages( self::$config['language'] );
+		if ( Config::get_config( 'language' ) ) {
+			Languages::set_languages( Config::get_config( 'language' ) );
 		}
 
 		// register all meta boxes
-		if ( isset( self::$config['meta_box'] ) ) {
-			new Meta_Box_Factory( self::$config['meta_box'] );
+		if ( Config::get_config( 'meta_box' ) ) {
+			new Meta_Box_Factory( Config::get_config( 'meta_box' ) );
 		}
 
 		// register all taxonomies
-		if ( isset( self::$config['taxonomy'] ) ) {
-			$taxonomy = new Taxonomy_Factory( self::$config['taxonomy'] );
+		if ( Config::get_config( 'taxonomy' ) ) {
+			$taxonomy = new Taxonomy_Factory( Config::get_config( 'taxonomy' ) );
 			$taxonomy->register_taxonomies();
 		}
 
 		// register all sidebars
-		if ( isset( self::$config['sidebar'] ) ) {
-			$sidebars = new Sidebar_Factory( self::$config['sidebar'] );
+		if ( Config::get_config( 'sidebar' ) ) {
+			$sidebars = new Sidebar_Factory( Config::get_config( 'sidebar' ) );
 			$sidebars->register_sidebars();
 		}
 
 		// add settings
-		if ( isset( self::$config['settings']['page'] ) ) {
-			$settings = new Settings_Factory( self::$config['settings']['page'] );
+		if ( Config::get_config( 'settings' ) ) {
+			$settings = new Settings_Factory( Config::get_config( 'settings' ) );
 			$settings->add_settings();
 		}
 
 		// register nav menus
-		if ( isset( self::$config['nav_menu'] ) ) {
-			$nav_menus = new Nav_Menu_Factory( self::$config['nav_menu'] );
+		if ( Config::get_config( 'nav_menu' ) ) {
+			$nav_menus = new Nav_Menu_Factory( Config::get_config( 'nav_menu' ) );
 			$nav_menus->register_nav_menus();
 		}
 
-		if ( isset( self::$config['css'] ) ) {
-			$css = new Css_Factory( self::$config['css'] );
+		if ( Config::get_config( 'css' ) ) {
+			$css = new Css_Factory( Config::get_config( 'css' ) );
 			$css->register_css_files();
 		}
 
-		if ( isset( self::$config['js'] ) ) {
-			$js = new Js_Factory( self::$config['js'] );
+		if ( Config::get_config( 'js' ) ) {
+			$js = new Js_Factory( Config::get_config( 'js' ) );
 			$js->register_js_files();
 		}
-	}
-
-	public static function get_config( $key = null ) {
-		if ( ! $key ) {
-			return self::$config;
-		}
-
-		if ( isset( self::$config[ $key ] ) ) {
-			return self::$config[ $key ];
-		}
-
-		return null;
 	}
 }

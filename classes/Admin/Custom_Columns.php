@@ -3,7 +3,7 @@
 namespace Wiredot\Preamp\Admin;
 
 use Wiredot\Preamp\Image;
-use Wiredot\Preamp\Core;
+use Wiredot\Preamp\Config;
 
 class Custom_Columns {
 
@@ -19,7 +19,7 @@ class Custom_Columns {
 			return;
 		}
 
-		$config = Core::get_config( 'meta_box' );
+		$config = Config::get_config( 'meta_box' );
 		if ( isset( $config['post'] ) ) {
 			$this->meta_boxes = $config['post'];
 		}

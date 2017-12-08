@@ -3,7 +3,7 @@
 namespace Wiredot\Preamp\Settings;
 
 use Wiredot\Preamp\Twig;
-use Wiredot\Preamp\Core;
+use Wiredot\Preamp\Config;
 use Wiredot\Preamp\Settings\Tab_Factory;
 
 class Settings {
@@ -56,7 +56,7 @@ class Settings {
 	public function get_tabs() {
 		$tabs = array();
 
-		$config = Core::get_config( 'settings' );
+		$config = Config::get_config( 'settings' );
 		$Tab_Factory = new Tab_Factory( $config['tab'], $this->options_prefix );
 		return $Tab_Factory->get_tab( $this->menu_slug );
 	}
@@ -66,7 +66,7 @@ class Settings {
 
 		$tab = $_POST['preamp-settings-tab'];
 
-		$config = Core::get_config( 'settings' );
+		$config = Config::get_config( 'settings' );
 		$Tab_Factory = new Tab_Factory( $config['tab'], $this->options_prefix );
 		$Tab_Factory->save_tab( $tab );
 

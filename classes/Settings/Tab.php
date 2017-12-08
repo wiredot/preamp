@@ -2,7 +2,7 @@
 
 namespace Wiredot\Preamp\Settings;
 
-use Wiredot\Preamp\Core;
+use Wiredot\Preamp\Config;
 
 class Tab {
 
@@ -27,7 +27,7 @@ class Tab {
 	public function get_sections() {
 		$sections = '';
 
-		$config = Core::get_config( 'settings' );
+		$config = Config::get_config( 'settings' );
 		$Section_Factory = new Section_Factory( $config['section'], $this->options_prefix );
 		$sections .= $Section_Factory->get_section( $this->id );
 
@@ -35,7 +35,7 @@ class Tab {
 	}
 
 	public function save_tab() {
-		$config = Core::get_config( 'settings' );
+		$config = Config::get_config( 'settings' );
 		$Section_Factory = new Section_Factory( $config['section'], $this->options_prefix );
 		$Section_Factory->save_section( $this->id );
 	}
