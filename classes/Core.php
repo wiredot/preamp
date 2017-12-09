@@ -24,7 +24,7 @@ class Core {
 	}
 
 	public static function run( $url, $dir ) {
-		Config::set_directory($dir);
+		Config::set_directory( $url, $dir);
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
 			self::$instance = new Core( $url );
 		}

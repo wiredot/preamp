@@ -47,7 +47,7 @@ class Config {
 	public function load_directories() {
 		$config = array();
 		foreach ( self::$directories as $config_directory ) {
-			$config_part = self::load_config_directory( $config_directory . 'config/', '' );
+			$config_part = self::load_config_directory( $config_directory['dir'] . 'config/', $config_directory['url'] );
 			if ( is_array( $config_part ) ) {
 				$config = array_replace_recursive( $config, $config_part );
 			}
@@ -132,8 +132,11 @@ class Config {
 		return null;
 	}
 
-	public static function set_directory( $dir ) {
-		self::$directories[] = $dir;		
+	public static function set_directory( $url, $dir ) {
+		self::$directories[] = array(
+			'url' => $url,
+			'dir' => $dir,
+		);		
 	}
 }
 
