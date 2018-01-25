@@ -69,7 +69,7 @@ class Core {
 		// add settings
 		if ( Config::get_config( 'settings' ) ) {
 			$settings = new Settings_Factory( Config::get_config( 'settings' ) );
-			// $settings->add_settings();
+			$settings->add_settings();
 		}
 
 		// register nav menus
