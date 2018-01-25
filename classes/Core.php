@@ -17,7 +17,7 @@ class Core {
 	private static $instance = null;
 
 	private function __construct( $url ) {
-		// define( 'PREAMP_URL', $url );
+		define( 'PREAMP_URL', $url );
 		$this->url = $url;
 
 		add_action( 'plugins_loaded', array( $this, 'setup' ) );
