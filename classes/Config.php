@@ -132,7 +132,7 @@ class Config {
 		return null;
 	}
 
-	public static function set_directory( $url, $dir ) {
+	public static function add_directory( $url, $dir ) {
 		self::$directories[] = array(
 			'url' => $url,
 			'dir' => $dir,
