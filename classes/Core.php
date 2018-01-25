@@ -24,7 +24,7 @@ class Core {
 	}
 
 	public static function run( $url, $dir ) {
-		Config::add_directory( $url, $dir);
+		Config::add_directory( $url, $dir );
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Core ) ) {
 			self::$instance = new Core( $url );
 		}
@@ -36,7 +36,7 @@ class Core {
 		Config::setup();
 
 		if ( is_admin() ) {
-			new Admin( Config::get_config( $config ) );
+			new Admin( Config::get_config() );
 		}
 
 		// register all custom post types
@@ -69,7 +69,7 @@ class Core {
 		// add settings
 		if ( Config::get_config( 'settings' ) ) {
 			$settings = new Settings_Factory( Config::get_config( 'settings' ) );
-			$settings->add_settings();
+			// $settings->add_settings();
 		}
 
 		// register nav menus

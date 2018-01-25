@@ -66,6 +66,10 @@ class Row {
 			}
 		}
 
+		if ( ! isset( $this->field['description'] ) ) {
+			$this->field['description'] = '';
+		}
+
 		$Twig = new Twig;
 		return $Twig->twig->render(
 			'forms/row.twig',

@@ -4,7 +4,7 @@ namespace Wiredot\Preamp\Meta_Boxes;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Form\Row;
-use Wiredot\Preamp\Form\Utilities;
+use Wiredot\Preamp\Utilities;
 use Wiredot\Preamp\Form\Row_Multilingual;
 use Wiredot\Preamp\Languages;
 
