@@ -34,6 +34,11 @@ function preampInitGroupNewItemButton() {
 		var nextKey = jQuery(this).attr('data-next-key');
 		newButton.attr('data-next-key', parseInt(nextKey) + 1);
 		newItem.removeClass('preamp-new-group-item').insertBefore(item);
+
+		var dataGroupItem = newItem.attr('data-groupitem');
+		var newDataGroupItem = dataGroupItem.replace('%%', nextKey);
+		newItem.attr('data-groupitem', newDataGroupItem);
+
 		newItem.find('input, select, textarea, .preamp-tab, label').each(function(index, el) {
 			var id = jQuery(this).attr('id');
 			if ( typeof(id) != 'undefined' ) {
@@ -59,7 +64,8 @@ function preampInitGroupNewItemButton() {
 				jQuery(this).attr('for', newFor);
 			}
 		});
-		preampInitGroupRemoveItemButton();
+		preampConditionBind();
+		preampInitGroups();
 		preampTabsInit();
 	});
 }
@@ -287,16 +293,25 @@ function preampPageTemplateShow() {
 }
 
 function preampConditionInit() {
-	jQuery('.preamp-select, .preamp-checkbox').change(function(event) {
-		preampConditionCheckFields();
-	});
+	preampConditionBind();
 	preampConditionCheckFields();
 }
 
+function preampConditionBind() {
+	jQuery('.preamp-select, .preamp-checkbox').unbind('change');
+
+	jQuery('.preamp-select, .preamp-checkbox').change(function(event) {
+		preampConditionCheckFields();
+	});
+}
+
 function preampConditionCheckFields() {
+	// for all conditional fields
 	jQuery('.preamp-condition').each(function(index, el) {
+		// check all selectboxes
 		var ok = preampConditionCheckSelectboxes( el );
 		if ( ! ok ) {
+			// check all checkboxes
 			var ok = preampConditionCheckCheckboxes( el );
 		}
 
@@ -316,7 +331,22 @@ function preampConditionCheckSelectboxes( field ) {
 	jQuery('.preamp-select').each(function(index, el) {
 		var id = jQuery(this).attr('id');
 		if ( id.indexOf('%%') === -1 ) {
-			var value = jQuery(this).val();
+
+			// if select box is part of a group
+			var parent_li = jQuery(this).parents('li');
+			if ( jQuery(parent_li).hasClass('wpep-group-item') ) {
+				var attr = jQuery(this).parents('.wpep-group-item').attr('data-groupitem');
+				id = id.replace( attr + '_', '' );
+				jQuery(field).addClass('class_name');
+				// check if this selectbox is in the same parent element as field
+				if ( jQuery(field).parents('.wpep-group-item').attr('data-groupitem') == attr ) {
+					var value = jQuery(this).val();
+				} else {
+					var value = '';
+				}
+			} else {
+				var value = jQuery(this).val();
+			}
 			if (Array.isArray(value)) {
 				jQuery(value).each(function(index, el) {
 					if (preamConditionFieldHasClass(field, 'preamp-condition-' + id + '-' + el )) {

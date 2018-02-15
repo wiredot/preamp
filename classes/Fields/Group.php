@@ -85,7 +85,11 @@ class Group {
 					}
 					$row = new Row_Multilingual( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $mvalues, 1 );
 				} else {
-					$item_value = $value[ $name ];
+					if (isset($value[ $name ])) {
+						$item_value = $value[ $name ];
+					} else {
+						$item_value = '';
+					}
 					$row = new Row( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $item_value );
 				}
 				$rows .= $row->get_row();
@@ -95,6 +99,8 @@ class Group {
 				'forms/group_item.twig',
 				array(
 					'rows' => $rows,
+					'group_name' => $group_name,
+					'key' => $key,
 				)
 			);
 		}
