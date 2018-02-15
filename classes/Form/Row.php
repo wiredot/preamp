@@ -32,6 +32,10 @@ class Row {
 	public function get_row() {
 		$field = new Field_Factory( $this->id, $this->name, $this->field, $this->value );
 
+		if ( ! isset( $this->field['options'] ) ) {
+			$this->field['options'] = array();
+		}
+
 		if ( 'checkbox' == $this->field['type'] && ! count( $this->field['options'] ) ) {
 			$this->field['type'] = 'checkboxes';
 		}
