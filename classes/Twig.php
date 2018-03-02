@@ -58,6 +58,13 @@ class Twig {
 		);
 		$environment->addFunction( $caption );
 
+		$get_user_email = new Twig_SimpleFunction(
+			'get_user_email', function ( $user_id = null ) {
+				return $this->get_user_email( $user_id );
+			}
+		);
+		$environment->addFunction( $get_user_email );
+
 		// $twig_extension = new Extension();
 		$environment->addTokenParser( new Loop_Token_Parser() );
 
@@ -102,5 +109,18 @@ class Twig {
 		}
 
 		return $directories;
+	}
+
+	public function get_user_email( $user_id = null ) {
+		if ( ! $user_id ) {
+			$user_id = get_current_user_id();
+		}
+
+		if ( ! $user_id ) {
+			return null;
+		}
+
+		$user = get_userdata( $user_id );
+		return $user->user_email;
 	}
 }

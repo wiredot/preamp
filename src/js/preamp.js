@@ -404,16 +404,26 @@ function preampTabsInit() {
 function preampOptionTabsInit() {
 	jQuery('.preamp-option-tabs a').unbind('click');
 
+	var hash = window.location.hash;
+	if ( hash ) {
+		preampOptionShowTab( hash );
+	}
+
 	jQuery('.preamp-option-tabs a').click(function(event){
 		event.preventDefault();
 		this.blur();
-		jQuery(this).parent().children('a').removeClass('nav-tab-active');
-		jQuery(this).addClass('nav-tab-active');
-		jQuery('.preamp-option-tab').removeClass('active');
 		
 		var id = jQuery(this).attr('href');
-		jQuery(id).addClass('active');
+		location.replace( id );
+		preampOptionShowTab( id );
 	});
+}
+
+function preampOptionShowTab( id ) {
+	jQuery('.preamp-option-tabs a').removeClass('nav-tab-active');
+	jQuery('.preamp-option-tabs a[href=' + id + ']').addClass('nav-tab-active');
+	jQuery('.preamp-option-tab').removeClass('active');
+	jQuery(id).addClass('active');
 }
 
 function preampSettingsFormInit() {
