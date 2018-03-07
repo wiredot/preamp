@@ -28,6 +28,20 @@ class Twig {
 
 		$environment->registerUndefinedFunctionCallback( array( $this, 'undefined_function' ) );
 
+		$svg = new Twig_SimpleFunction(
+			'svg', function ( $file, $class = '' ) {
+				$svg = '<svg';
+
+				if ( isset( $class ) ) {
+					$svg .= ' class="' . $class . '"';
+				}
+
+				$svg .= '><use xlink:href="' . $file . '"></use></svg>';
+				return $svg;
+			}
+		);
+		$environment->addFunction( $svg );
+
 		$image = new Twig_SimpleFunction(
 			'image', function ( $image_id, $params = array(), $attributes = array() ) {
 				$Image = new Image( $image_id, $params, $attributes );

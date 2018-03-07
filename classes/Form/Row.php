@@ -30,6 +30,9 @@ class Row {
 	}
 
 	public function get_row() {
+		if ( ! isset( $this->field['type'] ) ) {
+			return;
+		}
 		$field = new Field_Factory( $this->id, $this->name, $this->field, $this->value );
 
 		if ( ! isset( $this->field['options'] ) ) {
