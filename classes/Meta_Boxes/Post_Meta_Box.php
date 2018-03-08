@@ -127,6 +127,8 @@ class Post_Meta_Box extends Meta_Box {
 			return;
 		}
 
+		// print_r($this->meta_box['fields']);
+
 		foreach ( $this->meta_box['fields'] as $meta_key => $field ) {
 			if ( isset( $field['translate'] ) && $field['translate'] ) {
 				$languages = Languages::get_languages();
@@ -154,15 +156,14 @@ class Post_Meta_Box extends Meta_Box {
 		if ( isset( $_POST[ $meta_key ] ) ) {
 			$value = $_POST[ $meta_key ];
 
-			switch ( $field_type ) {
-				default:
-					if ( is_array( $value ) ) {
-						$sanitized_value = Utilities::array_map_r( 'sanitize_text_field', $value );
-					} else {
-						$sanitized_value = sanitize_text_field( $value );
-					}
-					break;
+			// echo $field_type;
+
+			if ( 'group' == $field_type ) {
+				$sanitized_value = $this->sanitize_group( $this->meta_box['fields'][ $meta_key ]['fields'], $meta_key, $value );
+			} else {
+				$sanitized_value = $this->sanitize_field( $field_type, $value );
 			}
+
 			// save data
 			update_post_meta( $post_id, $meta_key, $sanitized_value );
 		} else {
@@ -233,5 +234,55 @@ class Post_Meta_Box extends Meta_Box {
 		} else {
 			delete_post_meta( $post_id, '_wp_attachment_image_alt' );
 		}
+	}
+
+	public function sanitize_field( $field_type, $value ) {
+		// print_r($field_type);
+		switch ( $field_type ) {
+			case 'textarea':
+				$sanitized_value = sanitize_textarea_field( $value );
+				break;
+			case 'textarea':
+				$sanitized_value = sanitize_textarea_field( $value );
+				break;
+			default:
+				if ( is_array( $value ) ) {
+					$sanitized_value = Utilities::array_map_r( 'sanitize_text_field', $value );
+				} else {
+					$sanitized_value = sanitize_text_field( $value );
+				}
+				break;
+		}
+
+		return $sanitized_value;
+	}
+
+	public function sanitize_group( $fields, $meta_key, $values ) {
+		$sanitized_value = array();
+
+		if ( ! is_array( $values ) ) {
+			return '';
+		}
+
+		foreach ( $values as $vkey => $value ) {
+			foreach ( $fields as $key => $field ) {
+				if ( 'group' == $field['type'] ) {
+					if ( isset( $value[ $key ] ) ) {
+						$this_value = $value[ $key ];
+					} else {
+						$this_value = '';
+					}
+					// print_r($this_value);
+					$sanitized_value[ $vkey ][ $key ] = $this->sanitize_group( $field['fields'], $key, $this_value );
+					// print_r($sanitized_value);
+				} else {
+					if ( isset( $value[ $key ] ) ) {
+						$sanitized_value[ $vkey ][ $key ] = $this->sanitize_field( $field['type'], $value[ $key ] );
+					}
+				}
+			}
+		}
+
+		return $sanitized_value;
 	}
 }
