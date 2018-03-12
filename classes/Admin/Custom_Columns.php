@@ -122,6 +122,9 @@ class Custom_Columns {
 							return $meta_box['fields'][ $column ]['options'][ $value ];
 						}
 						break;
+					case 'post':
+						return get_the_title( $value );
+						break;
 				}
 			}
 		}
