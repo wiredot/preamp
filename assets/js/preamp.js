@@ -12,7 +12,9 @@ jQuery(document).ready(function($){
 
 function preampInitGroups() {
 	preampInitGroupRemoveItemButton();
+	preampInitGroupUpDownItemButton();
 	preampInitGroupNewItemButton();
+	preampInitGroupUpDownButtons();
 }
 
 function preampInitGroupRemoveItemButton() {
@@ -20,6 +22,51 @@ function preampInitGroupRemoveItemButton() {
 	jQuery('.preamp-group-remove').click(function(event) {
 		event.preventDefault();
 		jQuery(this).parents('li').eq(0).remove();
+		preampInitGroupUpDownButtons();
+	});
+}
+
+function preampInitGroupUpDownButtons() {
+	jQuery('.preamp-group-up, .preamp-group-down').removeClass('disabled');
+
+	jQuery('.wpep-group-item:first-child .preamp-group-up').addClass('disabled');
+	jQuery('.wpep-group-item:last-child .preamp-group-down').addClass('disabled');
+	jQuery('.preamp-new-group-item').prev('.wpep-group-item').children('.preamp-group-down').addClass('disabled');
+}
+
+function preampInitGroupUpDownItemButton() {
+	jQuery('.preamp-group-up').unbind('click');
+	jQuery('.preamp-group-up').click(function(event) {
+		event.preventDefault();
+		var box = jQuery(this).parent('.wpep-group-item');
+		var previous = box.prev('.wpep-group-item');
+		if (previous) {
+			var b_offset = box.offset();
+			var p_offset = previous.offset();
+			var w_scroll = jQuery(window).scrollTop();
+			jQuery(window).scrollTop( w_scroll - ( b_offset.top - p_offset.top) );
+			old_box = box.detach();
+			previous.before(old_box);
+			preampInitGroupUpDownButtons();
+		}
+	});
+
+	jQuery('.preamp-group-down').unbind('click');
+	jQuery('.preamp-group-down').click(function(event) {
+		event.preventDefault();
+		var box = jQuery(this).parent('.wpep-group-item');
+		var next = box.next('.wpep-group-item');
+		if (next) {
+			var b_offset = box.offset();
+			var b_height = box.height();
+			var n_offset = next.offset();
+			var n_height = next.height();
+			var w_scroll = jQuery(window).scrollTop();
+			jQuery(window).scrollTop( w_scroll + ( n_offset.top - b_offset.top) + ( n_height - b_height ) );
+			old_box = box.detach();
+			next.after(old_box);
+			preampInitGroupUpDownButtons();
+		}
 	});
 }
 
@@ -273,6 +320,7 @@ function preampInitRemoveButton($) {
 		$(this).parent('li').slideUp(300, function(){
 			jQuery(this).parent('.preamp-upload-container').next('button').removeAttr("disabled");
 			$(this).remove();
+			preampInitGroupUpDownButtons();
 		});
 	});
 }

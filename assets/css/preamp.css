@@ -12,11 +12,25 @@
     background: #fff; }
   .preamp-group .preamp-new-group-item {
     display: none; }
-  .preamp-group .preamp-group-remove {
+  .preamp-group .preamp-group-remove, .preamp-group .preamp-group-up, .preamp-group .preamp-group-down {
     position: absolute;
-    top: 5px;
     right: 5px;
-    cursor: pointer; }
+    cursor: pointer;
+    opacity: 0.8; }
+    .preamp-group .preamp-group-remove:hover, .preamp-group .preamp-group-up:hover, .preamp-group .preamp-group-down:hover {
+      opacity: 1; }
+    .preamp-group .preamp-group-remove.disabled, .preamp-group .preamp-group-up.disabled, .preamp-group .preamp-group-down.disabled {
+      opacity: 0.1;
+      pointer-events: none;
+      cursor: default; }
+  .preamp-group .preamp-group-up, .preamp-group .preamp-group-down {
+    opacity: 0.4; }
+  .preamp-group .preamp-group-remove {
+    top: 5px; }
+  .preamp-group .preamp-group-up {
+    bottom: 25px; }
+  .preamp-group .preamp-group-down {
+    bottom: 5px; }
   .preamp-group .form-table th {
     padding: 11px 10px 11px 0; }
   .preamp-group .form-table td {

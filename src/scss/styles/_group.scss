@@ -14,11 +14,37 @@
 		display: none;
 	}
 
-	.preamp-group-remove {
+	.preamp-group-remove, .preamp-group-up, .preamp-group-down {
 		position: absolute;
-		top: 5px;
 		right: 5px;
 		cursor: pointer;
+		opacity: 0.8;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&.disabled {
+			opacity: 0.1;
+			pointer-events: none;
+			cursor: default;
+		}
+	}
+
+	.preamp-group-up, .preamp-group-down {
+		opacity: 0.4;
+	}
+
+	.preamp-group-remove {
+		top: 5px;
+	}
+
+	.preamp-group-up {
+		bottom: 25px;
+	}
+
+	.preamp-group-down {
+		bottom: 5px;
 	}
 
 	.form-table {
