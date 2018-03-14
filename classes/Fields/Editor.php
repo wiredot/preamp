@@ -8,7 +8,7 @@ class Editor extends Field {
 
 	protected $type = 'editor';
 
-	public function get_field() {
+	public function get_field_() {
 		ob_start();
 		$field['attributes']['textarea_name'] = $this->name;
 		wp_editor( $this->value, $this->id, $field['attributes'] );

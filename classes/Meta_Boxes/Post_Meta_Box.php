@@ -245,6 +245,9 @@ class Post_Meta_Box extends Meta_Box {
 			case 'textarea':
 				$sanitized_value = sanitize_textarea_field( $value );
 				break;
+			case 'editor':
+				$sanitized_value = wp_kses_post( $value );
+				break;
 			default:
 				if ( is_array( $value ) ) {
 					$sanitized_value = Utilities::array_map_r( 'sanitize_text_field', $value );
