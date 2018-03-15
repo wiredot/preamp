@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function( $ ){
 	// preampInitUploadButton($);
 	// preampInitSortable($);
 	// preampInitRemoveButton($);
@@ -79,52 +79,37 @@ function preampInitGroupNewItemButton() {
 		var item = group.children('.preamp-new-group-item');
 		var newItem = item.clone();
 		var nextKey = jQuery(this).attr('data-next-key');
-		newButton.attr('data-next-key', parseInt(nextKey) + 1);
+
+		newItemHtml = newItem.html().replace(/#_#/g, nextKey);
+		newItem.html(newItemHtml);
+
 		newItem.removeClass('preamp-new-group-item').insertBefore(item);
 
 		var dataGroupItem = newItem.attr('data-groupitem');
-		var newDataGroupItem = dataGroupItem.replace('%%', nextKey);
+		var newDataGroupItem = dataGroupItem.replace('#_#', nextKey);
 		newItem.attr('data-groupitem', newDataGroupItem);
 
-		newItem.find('input, select, textarea, .preamp-tab, label').each(function(index, el) {
-			var id = jQuery(this).attr('id');
-			if ( typeof(id) != 'undefined' ) {
-				var newId = id.replace('%%', nextKey);
-				jQuery(this).attr('id', newId);
-			}
-			
-			var name = jQuery(this).attr('name');
-			if (name) {
-				var newName = name.replace('preamp_new_','').replace('%%', nextKey);
-				jQuery(this).attr('name', newName);
-			}
+		newButton.attr('data-next-key', parseInt(nextKey) + 1);
 
-			var data = jQuery(this).attr('data-id');
-			if (data) {
-				var newData = data.replace('preamp_new_','').replace('%%', nextKey);
-				jQuery(this).attr('data-id', newData);
-			}
+		if ( newItem.find('.preamp_editor').length ) {
+			var editor_id = newItem.find('.preamp_editor').attr('data-id');
+			tinymce.execCommand( 'mceAddEditor', true, editor_id );
+		}
 
-			var oldFor = jQuery(this).attr('for');
-			if (oldFor) {
-				var newFor = oldFor.replace('preamp_new_','').replace('%%', nextKey);
-				jQuery(this).attr('for', newFor);
-			}
-		});
 		preampConditionBind();
 		preampInitGroups();
 		preampTabsInit();
 	});
 }
 
-function preampInitUploadButton(id, name, attributes, label_button, label_title) {
+function preampInitUploadButton( id, name, attributes, label_button, label_title ) {
 	jQuery('#button-'+id).click(function(event) {
 		event.preventDefault('clicked');
 		preampInitUpload(id, name, attributes, label_button, label_title);
 	});
 }
 
-function preampInitUpload(id, name, attributes, label_button, label_title) {
+function preampInitUpload( id, name, attributes, label_button, label_title ) {
 	if (attributes.filetype == 'file') {
 		attributes.filetype = '';
 	}
@@ -274,7 +259,7 @@ function preampInitUpload(id, name, attributes, label_button, label_title) {
 		tgm_media_frame.open();
 }
 
-function preampNewFileTemplate(name, id, title, caption, alt, photo, attributes) {
+function preampNewFileTemplate( name, id, title, caption, alt, photo, attributes ) {
 	var template = 
 	'<li>' +
 	' 	<div class="preamp-thumbnail">' +
@@ -309,11 +294,11 @@ function preampNewFileTemplate(name, id, title, caption, alt, photo, attributes)
 	return template;
 }
 
-function preampInitSortable($) {
+function preampInitSortable( $ ) {
 	$('.preamp-upload-container').sortable();
 }
 
-function preampInitRemoveButton($) {
+function preampInitRemoveButton( $ ) {
 	$('.preamp-remove-file').unbind('click');
 	$('.preamp-remove-file').click(function(event) {
 		event.preventDefault();
@@ -378,7 +363,7 @@ function preampConditionCheckSelectboxes( field ) {
 	var ok = false;
 	jQuery('.preamp-select').each(function(index, el) {
 		var id = jQuery(this).attr('id');
-		if ( id.indexOf('%%') === -1 ) {
+		if ( id.indexOf('#_#') === -1 ) {
 
 			// if select box is part of a group
 			var parent_li = jQuery(this).parents('li');
@@ -417,7 +402,7 @@ function preampConditionCheckCheckboxes( field ) {
 	jQuery('.preamp-checkbox').each(function(index, el) {
 		var id = jQuery(this).attr('id');
 
-		if ( id.indexOf('%%') === -1 && jQuery(this).is(':checked')) {
+		if ( id.indexOf('#_#') === -1 && jQuery(this).is(':checked')) {
 			if (preamConditionFieldHasClass(field, 'preamp-condition-' + id )) {
 				ok = true;
 			}
@@ -478,7 +463,6 @@ function preampSettingsFormInit() {
 	jQuery('.preamp-button').each(function(index, el) {
 		
 		var text = jQuery(this).text();
-		console.log(text);
 		jQuery(this).html('<span>' + text + '</span><div class="lds-spin" style="100%;height:100%"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>');
 	});
 	jQuery('.preamp-button').click(function(event) {
@@ -498,18 +482,15 @@ function preampSettingsFormInit() {
             data: formValues,
 
             success: function(response) {
-				console.log(response);
 				button.removeClass('loading');
 				jQuery('.preamp-form-message').text(response.message).fadeTo(400, 1);
 				window.setTimeout(function(){
-					console.log('go');
 					jQuery('.preamp-form-message').fadeTo(400, 0, function(){
 						jQuery('.preamp-form-message').text('');
 					});
 				}, 3000);
             },
             error: function() {
-            	console.log('error');
             }
         });
 	});

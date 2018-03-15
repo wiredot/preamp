@@ -42,9 +42,9 @@ class Group {
 
 		foreach ( $this->fields as $name => $field ) {
 			if ( Languages::has_languages() && isset( $field['translate'] ) && $field['translate'] ) {
-				$row = new Row_Multilingual( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, array(), 1 );
+				$row = new Row_Multilingual( $this->name . '_#_#_' . $name, 'preamp_new_' . $this->name . '[#_#][' . $name . ']', $field, array(), 1 );
 			} else {
-				$row = new Row( $this->name . '_%%_' . $name, 'preamp_new_' . $this->name . '[%%][' . $name . ']', $field, '' );
+				$row = new Row( $this->name . '_#_#_' . $name, 'preamp_new_' . $this->name . '[#_#][' . $name . ']', $field, '' );
 			}
 			$new_group_item .= $row->get_row();
 		}
@@ -85,7 +85,7 @@ class Group {
 					}
 					$row = new Row_Multilingual( $group_name . '_' . $key . '_' . $name, $group_name . '[' . $key . '][' . $name . ']', $field, $mvalues, 1 );
 				} else {
-					if (isset($value[ $name ])) {
+					if ( isset( $value[ $name ] ) ) {
 						$item_value = $value[ $name ];
 					} else {
 						$item_value = '';
