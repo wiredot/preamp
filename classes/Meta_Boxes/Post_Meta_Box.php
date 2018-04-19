@@ -10,7 +10,7 @@ use Wiredot\Preamp\Languages;
 
 class Post_Meta_Box extends Meta_Box {
 
-	function __construct( $meta_box_id, $meta_box ) {
+	public function __construct( $meta_box_id, $meta_box ) {
 		$this->meta_box_id = $meta_box_id;
 		$this->meta_box = $meta_box;
 

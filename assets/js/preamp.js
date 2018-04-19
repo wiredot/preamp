@@ -80,7 +80,7 @@ function preampInitGroupNewItemButton() {
 		var newItem = item.clone();
 		var nextKey = jQuery(this).attr('data-next-key');
 
-		newItemHtml = newItem.html().replace(/#_#/g, nextKey);
+		newItemHtml = newItem.html().replace(/#_#/g, nextKey).replace(/preamp_new_/g, '');
 		newItem.html(newItemHtml);
 
 		newItem.removeClass('preamp-new-group-item').insertBefore(item);
