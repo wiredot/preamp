@@ -298,13 +298,13 @@ function preampInitSortable( $ ) {
 	$('.preamp-upload-container').sortable();
 }
 
-function preampInitRemoveButton( $ ) {
-	$('.preamp-remove-file').unbind('click');
-	$('.preamp-remove-file').click(function(event) {
+function preampInitRemoveButton() {
+	jQuery('.preamp-remove-file').unbind('click');
+	jQuery('.preamp-remove-file').click(function(event) {
 		event.preventDefault();
-		$(this).parent('li').slideUp(300, function(){
+		jQuery(this).parent('li').slideUp(300, function(){
 			jQuery(this).parent('.preamp-upload-container').next('button').removeAttr("disabled");
-			$(this).remove();
+			jQuery(this).remove();
 			preampInitGroupUpDownButtons();
 		});
 	});

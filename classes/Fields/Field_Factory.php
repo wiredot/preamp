@@ -49,6 +49,7 @@ class Field_Factory {
 			case 'color':
 			case 'url':
 			case 'date':
+			case 'time':
 				$field = new Input( $this->field['type'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['size'] );
 				break;
 
@@ -87,6 +88,10 @@ class Field_Factory {
 			case 'upload':
 				$field = new Upload( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
 				break;
+
+			// case 'table':
+			// 	$field = new Upload( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
+			// 	break;
 
 			case 'group':
 				$field = new Group( $this->field['label'], $this->name, $this->id, $this->value, $this->field['fields'] );

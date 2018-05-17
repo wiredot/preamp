@@ -29,4 +29,5 @@
 	</ul>
 	<button href="#" class="button button-primary preamp_upload_button"{% if not attributes.multiple and is_array(value) %} disabled="disabled"{% endif %} id="button-{{ id }}">{{ labels.button }}</button>
 </div>
-<script>preampInitUploadButton('{{ id }}', '{{ name }}', {'multiple': '{{ attributes.multiple }}', 'alt': '{{ attributes.alt }}', 'caption': '{{ attributes.caption }}', 'title': '{{ attributes.title }}', 'filetype': '{{ attributes.filetype }}'}, '{{ labels.button }}', '{{ labels.title }}');</script>
+<script>preampInitUploadButton('{{ id }}', '{{ name }}', {'multiple': '{{ attributes.multiple }}', 'alt': '{{ attributes.alt }}', 'caption': '{{ attributes.caption }}', 'title': '{{ attributes.title }}', 'filetype': '{{ attributes.filetype }}'}, '{{ labels.button }}', '{{ labels.title }}');
+preampInitRemoveButton();</script>
