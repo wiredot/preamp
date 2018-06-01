@@ -23,15 +23,23 @@ class Config {
 	}
 
 	public function load_directories() {
-		$config = array();
+		$config = $this->load_dir( array(), get_template_directory() . '/config/', get_template_directory_uri() );
 		foreach ( self::$directories as $config_directory ) {
-			$config_part = self::load_config_directory( $config_directory['dir'] . 'config/', $config_directory['url'] );
-			if ( is_array( $config_part ) ) {
-				$config = array_replace_recursive( $config, $config_part );
-			}
+			$config = $this->load_dir( $config, $config_directory['dir'] . 'config/', $config_directory['url'] );
 		}
+// echo get_locale();
+		// print_r( $config );
 
 		return apply_filters( 'preamp_wpep_config', $config );
+	}
+
+	public function load_dir( $config, $dir, $url ) {
+		$config_part = self::load_config_directory( $dir, $url );
+		if ( is_array( $config_part ) ) {
+			$config = array_replace_recursive( $config, $config_part );
+		}
+
+		return $config;
 	}
 
 	private static function load_config_directory( $directory, $url ) {
