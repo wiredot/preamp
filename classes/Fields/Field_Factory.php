@@ -89,9 +89,9 @@ class Field_Factory {
 				$field = new Upload( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
 				break;
 
-			// case 'table':
-			// 	$field = new Upload( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['options'], $this->field['labels'] );
-			// 	break;
+			case 'table':
+				$field = new Table( $this->field['label'], $this->name, $this->id, $this->value, $this->field['table_type'], $this->field['cols'], $this->field['rows'], $this->field['table_disabled'], $this->field['options'] );
+				break;
 
 			case 'group':
 				$field = new Group( $this->field['label'], $this->name, $this->id, $this->value, $this->field['fields'] );
