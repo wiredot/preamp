@@ -126,6 +126,25 @@ class Custom_Columns {
 						return get_the_title( $value );
 						break;
 				}
+			} else if ( preg_match( '/taxonomy:(.*)/', $column, $matches ) ) {
+				$taxonomy = '';
+
+				$terms = get_the_terms( $post_id, $matches[1] );
+				if ( ! isset( $terms->errors ) && $terms ) {
+
+					$keys = array_keys( $terms );
+					$last_key = end( $keys );
+
+
+					foreach ( $terms as $key => $term ) {
+						$taxonomy .= $term->name;
+						if ( $key != $last_key ) {
+							$taxonomy .= ', ';
+						}
+					}
+				}
+
+				return $taxonomy;
 			}
 		}
 
