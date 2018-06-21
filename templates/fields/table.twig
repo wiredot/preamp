@@ -1,3 +1,4 @@
+{% set sum = [] %}
 <table class="ui compact celled definition table">
 	<thead>
 		<tr>
@@ -23,6 +24,7 @@
 						{% elseif table_type == 'text' %}
 							<input type="text" name="{{ id }}[{{ row.id }}][{{ col.id }}]"{% if value[row.id][col.id] is defined %}value="{{ value[row.id][col.id] }}"{% endif %}>
 						{% elseif table_type == 'checkbox' %}
+							{% if value[row.id][col.id] %}{% set sum = sum|merge({(col.id):sum[col.id] + 1}) %}{% endif %}
 							<div class="ui checkbox"><input type="checkbox" name="{{ id }}[{{ row.id }}][{{ col.id }}]" value="1"{% if value[row.id][col.id] %} checked="checked"{% endif %}><label></label></div>
 						{% elseif table_type == 'radio' %}
 							<div class="ui radio"><input type="radio" name="{{ id }}[{{ row.id }}]" value="{{ col.id }}"{% if value[row.id] == col.id %} checked="checked"{% endif %}><label></label></div>
@@ -38,5 +40,11 @@
 				{% endfor %}
 			</tr>
 		{% endfor %}
+		<tr>
+			<td style="border-top: 1px solid #ccc;"></td>
+			{% for col in cols %}
+				<td style="border-top: 1px solid #ccc;">{{ sum[col.id] }}</td>
+			{% endfor %}
+		</tr>
 	</tbody>
 </table>
