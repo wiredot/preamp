@@ -22,6 +22,7 @@ class Editor extends Field {
 				'label' => $this->label,
 				'editor' => $editor,
 				'id' => $this->id,
+				'name' => $this->name,
 			)
 		);
 	}

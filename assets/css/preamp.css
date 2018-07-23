@@ -1,6 +1,10 @@
 .preamp-template, .preamp-condition-active {
   display: none; }
 
+.preamp-wysiwyg {
+  float: right;
+  width: calc(100% - 170px); }
+
 .preamp-group {
   margin-top: 0; }
   .preamp-group .wpep-group-item {

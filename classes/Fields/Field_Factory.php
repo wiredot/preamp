@@ -61,6 +61,10 @@ class Field_Factory {
 				$field = new Editor( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'] );
 				break;
 
+			case 'wysiwyg':
+				$field = new Wysiwyg( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'] );
+				break;
+
 			case 'select':
 				$field = new Select( $this->field['label'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['options'] );
 				break;

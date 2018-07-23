@@ -1,6 +1,7 @@
 {
 	"name":  "preamp",
 	"devDependencies": {
-		"bourbon": "4.2.7"
+		"bourbon": "4.2.7",
+		"trumbowyg": "2.10.x"
 	}
 }
