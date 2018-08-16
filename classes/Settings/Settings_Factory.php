@@ -11,11 +11,15 @@ class Settings_Factory {
 	}
 
 	public function add_settings() {
-		// print_r($this->settings);
 		foreach ( $this->settings['page'] as $menu_slug => $settings ) {
 
-			$Settings = new Settings( $settings['parent_slug'], $settings['page_title'], $settings['menu_title'], $settings['capability'], $menu_slug, $settings['options_prefix'] );
-			$Settings->add_settings_page();
+			if ( $settings['submenu'] ) {
+				$Menu = new Submenu( $settings['parent_slug'], $settings['page_title'], $settings['menu_title'], $settings['capability'], $menu_slug, $settings['options_prefix'] );
+			} else {
+				$Menu = new Menu( $settings['page_title'], $settings['menu_title'], $settings['capability'], $menu_slug, $settings['icon_url'], $settings['position'], $settings['options_prefix'] );
+			}
+
+			$Menu->add_settings_page();
 		}
 	}
 }
