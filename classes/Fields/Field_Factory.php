@@ -37,6 +37,14 @@ class Field_Factory {
 		if ( ! isset( $this->field['fields'] ) ) {
 			$this->field['fields'] = array();
 		}
+
+		if ( ! isset( $this->field['prefix'] ) ) {
+			$this->field['prefix'] = '';
+		}
+
+		if ( ! isset( $this->field['suffix'] ) ) {
+			$this->field['suffix'] = '';
+		}
 	}
 
 	public function get_field() {
@@ -50,7 +58,7 @@ class Field_Factory {
 			case 'url':
 			case 'date':
 			case 'time':
-				$field = new Input( $this->field['type'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['size'] );
+				$field = new Input( $this->field['type'], $this->name, $this->id, $this->value, $this->field['attributes'], $this->field['size'], $this->field['prefix'], $this->field['suffix'] );
 				break;
 
 			case 'textarea':
