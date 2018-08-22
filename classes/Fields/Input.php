@@ -14,8 +14,9 @@ class Input {
 	protected $size;
 	protected $prefix;
 	protected $suffix;
+	protected $default;
 
-	public function __construct( $type, $name, $id, $value, $attributes, $size = '', $prefix = '', $suffix = '' ) {
+	public function __construct( $type, $name, $id, $value, $attributes, $size = '', $prefix = '', $suffix = '', $default = '' ) {
 		$this->type = $type;
 		$this->name = $name;
 		$this->id = $id;
@@ -24,6 +25,7 @@ class Input {
 		$this->size = $size;
 		$this->prefix = $prefix;
 		$this->suffix = $suffix;
+		$this->default = $default;
 
 		if ( $size ) {
 			if ( isset( $this->attributes['class'] ) ) {
@@ -53,6 +55,7 @@ class Input {
 				'attributes' => $this->attributes,
 				'prefix' => $this->prefix,
 				'suffix' => $this->suffix,
+				'default' => $this->default,
 			)
 		);
 	}
