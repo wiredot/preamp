@@ -11,6 +11,7 @@ use Wiredot\Preamp\Nav_Menus\Nav_Menu_Factory;
 use Wiredot\Preamp\Css\Css_Factory;
 use Wiredot\Preamp\Js\Js_Factory;
 use Wiredot\Preamp\Admin\Admin;
+use Wiredot\Preamp\Image_Sizes\Image_Size_Factory;
 
 class Core {
 
@@ -86,6 +87,11 @@ class Core {
 		if ( Config::get_config( 'js' ) ) {
 			$js = new Js_Factory( Config::get_config( 'js' ) );
 			$js->register_js_files();
+		}
+
+		if ( Config::get_config( 'image_size' ) ) {
+			$image_size = new Image_Size_Factory( Config::get_config( 'image_size' ) );
+			$image_size->add_image_sizes();
 		}
 	}
 }
