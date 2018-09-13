@@ -28,7 +28,7 @@ class Admin {
 		$preamp_css = new Css( 'preamp', PREAMP_URL . 'vendor/wiredot/preamp/assets/css/preamp.css', 'admin' );
 		$preamp_css->register_css_files();
 
-		$trumbowyg_css = new Css( 'trumbowyg', PREAMP_URL . 'vendor/wiredot/preamp/src/bower/trumbowyg/dist/ui/trumbowyg.css', 'admin' );
+		$trumbowyg_css = new Css( 'trumbowyg', PREAMP_URL . 'vendor/wiredot/preamp/assets/lib/trumbowyg/dist/ui/trumbowyg.css', 'admin' );
 		$trumbowyg_css->register_css_files();
 	}
 
@@ -36,7 +36,7 @@ class Admin {
 		$preamp_js = new Js( 'admin', 'preamp', PREAMP_URL . 'vendor/wiredot/preamp/assets/js/preamp.js', 'admin' );
 		$preamp_js->register_js_files();
 
-		$trumbowyg_js = new Js( 'admin', 'trumbowyg', PREAMP_URL . 'vendor/wiredot/preamp/src/bower/trumbowyg/dist/trumbowyg.js', 'admin' );
+		$trumbowyg_js = new Js( 'admin', 'trumbowyg', PREAMP_URL . 'vendor/wiredot/preamp/assets/lib/trumbowyg/dist/trumbowyg.js', 'admin' );
 		$trumbowyg_js->register_js_files();
 	}
 

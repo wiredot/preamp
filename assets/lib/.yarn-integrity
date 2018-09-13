@@ -1,0 +1,18 @@
+{
+  "systemParams": "darwin-x64-64",
+  "modulesFolders": [
+    "lib"
+  ],
+  "flags": [],
+  "linkedModules": [],
+  "topLevelPatterns": [
+    "bourbon@^5.1.0",
+    "trumbowyg@^2.10.x"
+  ],
+  "lockfileEntries": {
+    "bourbon@^5.1.0": "https://registry.yarnpkg.com/bourbon/-/bourbon-5.1.0.tgz#84fa10de4c4e837602d8c2ec716d74bcb8915bad",
+    "trumbowyg@^2.10.x": "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.11.0.tgz#44a07d3d43015a4cb798da6cf3596d751bb13a07"
+  },
+  "files": [],
+  "artifacts": {}
+}

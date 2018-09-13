@@ -1,0 +1,9 @@
+{
+  "name": "Preamp",
+  "version": "0.3.0",
+  "license": "MIT",
+  "dependencies": {
+    "bourbon": "^5.1.0",
+    "trumbowyg": "^2.10.x"
+  }
+}
