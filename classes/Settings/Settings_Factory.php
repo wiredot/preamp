@@ -2,6 +2,10 @@
 
 namespace Wiredot\Preamp\Settings;
 
+use Wiredot\Preamp\Menus\Menu_Factory;
+use Wiredot\Preamp\Submenus\Submenu_Factory;
+
+
 class Settings_Factory {
 
 	private $settings;
@@ -11,15 +15,14 @@ class Settings_Factory {
 	}
 
 	public function add_settings() {
-		foreach ( $this->settings['page'] as $menu_slug => $settings ) {
+		if ( isset( $this->settings['menu'] ) ) {
+			$Menu = new Menu_Factory( $this->settings['menu'] );
+			$Menu->add_menus();
+		}
 
-			if ( $settings['submenu'] ) {
-				$Menu = new Submenu( $settings['parent_slug'], $settings['page_title'], $settings['menu_title'], $settings['capability'], $menu_slug, $settings['options_prefix'] );
-			} else {
-				$Menu = new Menu( $settings['page_title'], $settings['menu_title'], $settings['capability'], $menu_slug, $settings['icon_url'], $settings['position'], $settings['options_prefix'] );
-			}
-
-			$Menu->add_settings_page();
+		if ( isset( $this->settings['submenu'] ) ) {
+			$Submenu = new Submenu_Factory( $this->settings['submenu'] );
+			$Submenu->add_submenus();
 		}
 	}
 }

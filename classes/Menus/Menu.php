@@ -1,26 +1,28 @@
 <?php
 
-namespace Wiredot\Preamp\Settings;
+namespace Wiredot\Preamp\Menus;
 
 use Wiredot\Preamp\Twig;
 use Wiredot\Preamp\Config;
 use Wiredot\Preamp\Settings\Tab_Factory;
 
-class Submenu {
+class Menu {
 
-	private $parent_slug;
 	private $page_title;
 	private $menu_title;
 	private $capability;
 	private $menu_slug;
+	private $icon_url;
+	private $position;
 	private $options_prefix;
 
-	function __construct( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $options_prefix ) {
-		$this->parent_slug = $parent_slug;
+	function __construct( $page_title, $menu_title, $capability, $menu_slug, $icon_url, $position, $options_prefix ) {
 		$this->page_title = $page_title;
 		$this->menu_title = $menu_title;
 		$this->capability = $capability;
 		$this->menu_slug = $menu_slug;
+		$this->icon_url = $icon_url;
+		$this->position = $position;
 		$this->options_prefix = $options_prefix;
 
 		add_action( 'wp_ajax_preamp_settings_save_' . $this->menu_slug, array( $this, 'save_settings' ) );
@@ -31,13 +33,14 @@ class Submenu {
 	}
 
 	public function add_submenu_page() {
-		add_submenu_page(
-			$this->parent_slug,
+		add_menu_page(
 			$this->page_title,
 			$this->menu_title,
 			$this->capability,
 			$this->menu_slug,
-			array( $this, 'settings_page' )
+			array( $this, 'settings_page' ),
+			$this->icon_url,
+			$this->position
 		);
 	}
 
